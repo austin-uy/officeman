@@ -10,6 +10,15 @@
   </head>
 
   <body>
-    <%= yield %>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0c5395;">
+        <div class="navbar-brand">
+          <%= image_tag("officeman_logo.jpg") %>
+        </div>
+      </nav>
+    </header> 
+    <main class='<%= controller.controller_name %>'>
+      <%= yield %>
+    </main>
   </body>
 </html>
