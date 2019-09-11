@@ -4,7 +4,8 @@ class QuestionsController < ApplicationController
   # GET /questions
   # GET /questions.json
   def index
-    @questions = Question.all
+    # @questions = Question.all
+    @questions = Question.order(:id).page(params[:page]).per(3)
   end
 
   # GET /questions/1

@@ -2,6 +2,20 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.container-a {
-  text-align: right;
+.questions-div {
+  display: flex;
+  flex-direction: column;
+}
+
+#question-card {
+  margin-bottom: 20px;
+}
+
+#question-image-div {
+  flex-grow: 0; 
+}
+
+#question-image {
+  margin-right: 10px;
+  float:left;
 }

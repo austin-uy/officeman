@@ -4,11 +4,8 @@
   </div>
 <% end %>
 
-<div class="container-a">
-  HEafhasfjkashfkjsah
-</div>
-<!--
-<div>
+<div class="questions-div">
   <%= render partial: 'index', locals: {questions: @questions} %>
 </div>
--->
+
+<%= paginate @questions %>
