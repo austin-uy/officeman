@@ -11,10 +11,42 @@
 
   <body>
     <header>
-      <nav class="navbar navbar-expand-lg navbar-light" style="background-color: #0c5395;">
-        <div class="navbar-brand">
-          <%= image_tag("officeman_logo.jpg") %>
-        </div>
+      <nav class="navbar navbar-expand-lg navbar-dark" id="nav-color">
+        <%= link_to(home_path,class: "navbar-brand") do%>
+          <%= inline_svg "officeman_logo.svg", height: "40" %>
+        <% end %>
+        <% if user_signed_in? %> 
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to(questions_path,class: "nav-link") do%>
+                Question
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <%= link_to(equipment_index_path,class: "nav-link") do%>
+                Equipment
+              <% end %>
+            </li>
+            <li class="nav-item">
+              <div class="dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
+                  Name
+                </a>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <a class="dropdown-item" href="#">Profile</a>
+                  <a class="dropdown-item" href="#">Settings</a>
+                  <a class="dropdown-item" href="#">Logout</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        <% else %>
+          <div class="w-75 text-right">
+            <%= button_to(new_user_session_path, class: "btn btn-outline-light", id: "login") do %>
+              Login
+            <% end %>
+          </div>
+        <% end %>
       </nav>
     </header> 
     <main class='<%= controller.controller_name %>'>

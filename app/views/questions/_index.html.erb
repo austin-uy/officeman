@@ -1,0 +1,19 @@
+
+  <% questions.each do |question| %>
+
+    <div class="card mb-3" style="max-height:200px; max-width: 70%;">
+      <div class="row">
+        <div class="col-md-4">
+          <img src="..." class="card-image">
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">Admin</h5>
+            <small class="text-muted" style><%= Date.today.to_s %></small>
+            <p class="card-text"><%= question.question %></p>
+            <button>answer</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
