@@ -1,0 +1,2 @@
+$('.questions-div').html('<%= escape_javascript render(partial: "index", locals: {questions: @questions}) %>');
+$('.paginator').html('<%= escape_javascript(paginate(@questions, :remote => true).to_s) %>');

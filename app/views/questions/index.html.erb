@@ -7,5 +7,6 @@
 <div class="questions-div">
   <%= render partial: 'index', locals: {questions: @questions} %>
 </div>
-
-<%= paginate @questions %>
+<div class="paginator">
+  <%= paginate @questions, :remote => true %>
+</div>

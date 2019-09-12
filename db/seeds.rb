@@ -13,34 +13,6 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-#Question answer_type: [:text, :numerical, :choice]
-Question.delete_all
-Question.create([
-  {
-    question: "What is your name?",
-    answer_type: 0
-  },
-  {
-    question: "How old are you?",
-    answer_type: 1
-  },
-  {
-    question: "Where do you live?",
-    answer_type: 0
-  },
-  {
-    question: "Sex?",
-    answer_type: 2,
-    show_in_list: true,
-    choices: ["Male", "Female"]
-  },
-  {
-    question: "Civil Status?",
-    answer_type: 2,
-    show_in_list: true,
-    choices: ["Single", "Married", "Divorced", "Widowed"]
-  }
-])
 #User role: [ 0:user, 1:admin]
 User.delete_all
 User.create([
@@ -64,5 +36,38 @@ User.create([
     password: 'useruser',
     password_confirmation: 'useruser',
     role: 0
+  }
+])
+#Question answer_type: [:text, :numerical, :choice]
+Question.delete_all
+Question.create([
+  {
+    user_id: 2,
+    question: "What is your name?",
+    answer_type: 0
+  },
+  {
+    user_id: 2,
+    question: "How old are you?",
+    answer_type: 1
+  },
+  {
+    user_id: 2,
+    question: "Where do you live?",
+    answer_type: 0
+  },
+  {
+    user_id: 2,
+    question: "Sex?",
+    answer_type: 2,
+    show_in_list: true,
+    choices: ["Male", "Female"]
+  },
+  {
+    user_id: 2,
+    question: "Civil Status?",
+    answer_type: 2,
+    show_in_list: true,
+    choices: ["Single", "Married", "Divorced", "Widowed"]
   }
 ])

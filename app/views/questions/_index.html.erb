@@ -1,17 +1,41 @@
 
   <% questions.each do |question| %>
     <div class="w-50 mx-auto card" id="question-card">
-      <div class="card-body">
-        <%= image_tag("lorem.jpg", class: "rounded", id:"question-image", size: "75x75")%>
-        <h5 class="card-title">Admin</h5>
-        <small class="text-muted"><%= Date.today.to_s %></small>
+      <div class="card-header">
+        <h5 class="card-title">Question</h5>
       </div>
       <div class="card-body">
         <p class="card-text"><%= question.question %></p>
-        <button>answer</button>
+        <form>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <% case question.answer_type %>
+              <% when 'text' %>
+                <input type="text" class="form-control" placeholder="Enter Answer">
+              <% when 'numerical' %>
+                <input type="number" class="form-control">
+              <% when 'choice' %>
+                <% if question.show_in_list %>
+                <select class="custom-select">
+                  <option selected>Choose...</option>
+                  <% question.choices.each do |choice| %>
+                    <option><%= choice %></option>
+                  <% end %>
+                </select>
+                <% else %>
+                <% end%>
+              <% else %>
+                <input type="text" class="form-control" placeholder="WIP" readonly>
+              <% end %>
+            </div>
+            <div class="form-group col-md-2">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </div>
+        </form>
       </div>
       <div class="card-footer text-muted" >
-        <small><%= Date.today.to_s %></small>
+        <small><%= question.created_at %></small>
       </div>
     </div>
     <% end %>
