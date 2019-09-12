@@ -13,9 +13,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-#User role: [ 0:user, 1:admin] 
 #Question answer_type: [:text, :numerical, :choice]
-
+Question.delete_all
 Question.create([
   {
     question: "What is your name?",
@@ -30,12 +29,40 @@ Question.create([
     answer_type: 0
   },
   {
-    question: "Coke or Pepsi",
+    question: "Sex?",
     answer_type: 2,
-    show_in_list: true
+    show_in_list: true,
+    choices: ["Male", "Female"]
+  },
+  {
+    question: "Civil Status?",
+    answer_type: 2,
+    show_in_list: true,
+    choices: ["Single", "Married", "Divorced", "Widowed"]
   }
 ])
-
-# User.create([
-  
-# ])
+#User role: [ 0:user, 1:admin]
+User.delete_all
+User.create([
+  {
+    name: "Administrator",
+    email: "admin@localhost",
+    password: 'password',
+    password_confirmation: 'password',
+    role: 1
+  },
+  {
+    name: "Adam",
+    email: "adam@localhost",
+    password: 'password',
+    password_confirmation: 'password',
+    role: 0
+  },
+  {
+    name: "User",
+    email: "user@localhost",
+    password: 'useruser',
+    password_confirmation: 'useruser',
+    role: 0
+  }
+])
