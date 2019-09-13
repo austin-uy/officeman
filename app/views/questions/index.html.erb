@@ -11,7 +11,7 @@
       <%= render partial: 'question', locals: {questions: questions(current_user.id, answered = false), user_id: current_user.id} %>
     </div> 
     <% if questions(current_user.id, answered = false).length > 0 %>
-      <div class="paginator">
+      <div class="paginator-unanswered">
         <%= paginate questions(current_user.id, answered = false), :remote => true %>
       </div>
     <% else %>
@@ -28,7 +28,7 @@
       <%= render partial: 'question', locals: {questions: questions(current_user.id, answered = true), user_id: current_user.id} %>
     </div> 
     <% if questions(current_user.id, answered = true).length > 0 %>
-      <div class="paginator">
+      <div class="paginator-answered">
         <%= paginate questions(current_user.id, answered = true), :remote => true %>
       </div>
     <% else %>
