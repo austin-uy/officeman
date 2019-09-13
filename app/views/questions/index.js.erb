@@ -1,2 +1,3 @@
-$('.questions-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = false), user_id: current_user.id}) %>');
+$('.questions-unanswered-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = false), user_id: current_user.id}) %>');
+$('.questions-answered-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = true), user_id: current_user.id}) %>');
 $('.paginator').html('<%= escape_javascript(paginate(questions(current_user.id, answered = false), :remote => true).to_s) %>');

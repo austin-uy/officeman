@@ -2,7 +2,7 @@
 <% questions.each do |question| %>
   <div class="w-50 mx-auto card" id="question-card">
     <div class="card-header">
-      <h5 class="card-title">Question</h5>
+      <h4 class="card-title">Question</h4>
     </div>
     <div class="card-body">
       <p class="card-text"><%= question.question %></p>
@@ -35,7 +35,25 @@
         </div>
       </form>
       <% else %>
-          <%= get_answer(question.id).answer %>
+        <div class="btn-group dropright" id="question-options">
+          <button type="button"  class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            :
+          </button>
+          <div class="dropdown-menu">
+            <a class="dropdown-item" href="#">Edit</a>
+            <%= button_to "Remove" , answer_path(get_answer(question.id).id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this answer?"}%>
+          </div>
+        </div>
+        <div>
+          <h5>
+            You : 
+            <span class="badge badge-info">
+              &nbsp;
+              <%= get_answer(question.id).answer %>
+              &nbsp;
+            </span>
+          </h5>
+        </div>
       <% end%>
     </div>
     <div class="card-footer text-muted" >

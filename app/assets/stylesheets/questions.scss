@@ -11,11 +11,8 @@
   margin: 20px 0px;
 }
 
-#question-image-div {
-  flex-grow: 0; 
-}
-
-#question-image {
-  margin-right: 10px;
-  float:left;
+#question-options{
+  float: right;  
+  flex-direction: column;
+  flex: 1;
 }
