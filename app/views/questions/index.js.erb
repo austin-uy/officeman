@@ -1,2 +1,2 @@
-$('.questions-div').html('<%= escape_javascript render(partial: "index", locals: {questions: @questions}) %>');
-$('.paginator').html('<%= escape_javascript(paginate(@questions, :remote => true).to_s) %>');
+$('.questions-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = false), user_id: current_user.id}) %>');
+$('.paginator').html('<%= escape_javascript(paginate(questions(current_user.id, answered = false), :remote => true).to_s) %>');

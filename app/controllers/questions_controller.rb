@@ -72,4 +72,5 @@ class QuestionsController < ApplicationController
     def question_params
       params.require(:question).permit(:question, :answer_type, :show_in_list)
     end
+
 end

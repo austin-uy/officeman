@@ -1,0 +1,45 @@
+
+<% questions.each do |question| %>
+  <div class="w-50 mx-auto card" id="question-card">
+    <div class="card-header">
+      <h5 class="card-title">Question</h5>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= question.question %></p>
+      <% if not get_answered(current_user.id).include? question.id%>
+      <form>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <% case question.answer_type %>
+            <% when 'text' %>
+              <input type="text" class="form-control" placeholder="Enter Answer">
+            <% when 'numerical' %>
+              <input type="number" class="form-control">
+            <% when 'choice' %>
+              <% if question.show_in_list %>
+              <select class="custom-select">
+                <option selected>Choose...</option>
+                <% question.choices.each do |choice| %>
+                  <option><%= choice %></option>
+                <% end %>
+              </select>
+              <% else %>
+              <% end%>
+            <% else %>
+              <input type="text" class="form-control" placeholder="WIP" readonly>
+            <% end %>
+          </div>
+          <div class="form-group col-md-2">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </form>
+      <% else %>
+          <%= get_answer(question.id).answer %>
+      <% end%>
+    </div>
+    <div class="card-footer text-muted" >
+      <small><%= question.created_at %></small>
+    </div>
+  </div>
+<% end %>

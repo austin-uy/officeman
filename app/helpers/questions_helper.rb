@@ -1,2 +1,21 @@
 module QuestionsHelper
+  def questions(user_id, answered)
+    return nil unless user_id
+    answered_questions = get_answered user_id
+    case answered
+      when true
+        @questions = Question.where(id: answered_questions ).order(:id).page(params[:page]).per(3)
+      when false
+        @questions = Question.where.not(id: answered_questions ).order(:id).page(params[:page]).per(3)
+      else
+      end
+  end
+
+  def get_answered(user_id)
+    Answer.where(user_id: user_id).pluck(:question_id)
+  end
+
+  def get_answer(question_id)
+    Answer.find_by(question_id: question_id)
+  end
 end

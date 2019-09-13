@@ -42,32 +42,41 @@ User.create([
 Question.delete_all
 Question.create([
   {
-    user_id: 2,
     question: "What is your name?",
     answer_type: 0
   },
   {
-    user_id: 2,
     question: "How old are you?",
     answer_type: 1
   },
   {
-    user_id: 2,
     question: "Where do you live?",
     answer_type: 0
   },
   {
-    user_id: 2,
     question: "Sex?",
     answer_type: 2,
     show_in_list: true,
     choices: ["Male", "Female"]
   },
   {
-    user_id: 2,
     question: "Civil Status?",
     answer_type: 2,
     show_in_list: true,
     choices: ["Single", "Married", "Divorced", "Widowed"]
   }
+])
+
+Answer.delete_all
+Answer.create([
+  {
+    answer: "User",
+    question_id: 1,
+    user_id: 3,
+  },
+  {
+    answer: 20,
+    question_id: 2,
+    user_id: 3,
+  },
 ])

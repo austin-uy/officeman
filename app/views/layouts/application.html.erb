@@ -30,12 +30,14 @@
             <li class="nav-item">
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
-                  Name
+                  <%= current_user.name %>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
-                  <a class="dropdown-item" href="#">Logout</a>
+                  <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
+                    Logout
+                  <% end %>
                 </div>
               </div>
             </li>
@@ -50,6 +52,11 @@
       </nav>
     </header> 
     <main class='<%= controller.controller_name %>'>
+      <% if notice %>
+        <div class="alert alert-info" role="alert">
+          <%= notice %>
+        </div>
+      <% end %>
       <%= yield %>
     </main>
   </body>

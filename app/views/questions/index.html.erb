@@ -1,12 +1,24 @@
-<% if notice %>
-  <div class="alert alert-info" role="alert">
-    <%= notice %>
+<nav>
+  <div class="nav nav-tabs" id="nav-tab" role="tablist">
+    <a class="nav-item nav-link active" id="nav-unanswered-tab" data-toggle="tab" href="#nav-unanswered" role="tab" aria-controls="nav-unanswered" aria-selected="true">Unanswered</a>
+    <a class="nav-item nav-link" id="nav-answered-tab" data-toggle="tab" href="#nav-answered" role="tab" aria-controls="nav-answered" aria-selected="false">Answered</a>
   </div>
-<% end %>
-
-<div class="questions-div">
-  <%= render partial: 'index', locals: {questions: @questions} %>
-</div>
-<div class="paginator">
-  <%= paginate @questions, :remote => true %>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+  <div class="tab-pane fade show active" id="nav-unanswered" role="tabpanel" aria-labelledby="nav-unanswered-tab">
+    <div class="questions-div">
+      <%= render partial: 'question', locals: {questions: questions(current_user.id, answered = false), user_id: current_user.id} %>
+    </div> 
+    <div class="paginator">
+      <%= paginate questions(current_user.id, answered = false), :remote => true %>
+    </div>
+  </div>
+  <div class="tab-pane fade" id="nav-answered" role="tabpanel" aria-labelledby="nav-answered-tab">
+    <div class="questions-div">
+      <%= render partial: 'question', locals: {questions: questions(current_user.id, answered = true), user_id: current_user.id} %>
+    </div> 
+    <div class="paginator">
+      <%= paginate questions(current_user.id, answered = true), :remote => true %>
+    </div>
+  </div>
 </div>
