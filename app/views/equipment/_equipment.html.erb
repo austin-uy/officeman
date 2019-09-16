@@ -1,6 +1,23 @@
 <% equipments.each do |equipment| %>
 <div class="card text-white bg-secondary m-4" id="card">
-  <div class="card-header"><%= equipment.name%></div>
+  <div class="card-header">
+    <%= equipment.name%>
+    <% if true #admin %>
+      <div class="btn-group dropright" id="options">
+        <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+          :
+        </button>
+        <div class="dropdown-menu" >
+          <button type="button" class="dropdown-item">
+              Edit
+          </button>
+          <button type="button" class="dropdown-item">
+              Delete
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </div> 
   <div class="card-body">
     <h4>
       Type : 
@@ -21,3 +38,11 @@
   </div>
 </div>
 <%end%>
+
+<% if true %>
+<a href="#" class="card text-white bg-secondary m-4" id="card">
+  <div class="card-body" id="card-add">
+    +<br>Add Equipment
+  </div>
+</a>
+<% end %>

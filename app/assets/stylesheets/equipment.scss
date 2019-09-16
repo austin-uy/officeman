@@ -4,6 +4,18 @@
 
 
 #card{
-  max-width: 18rem;
+  width: 18rem;
   float: left;
+  height: 11rem;
+}
+
+#options{
+  float: right;
+}
+
+#card-add{
+  text-align: center;
+  display: flex;
+  margin: auto;
+  flex: 0;
 }
