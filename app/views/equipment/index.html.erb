@@ -1,33 +1,7 @@
-<p id="notice"><%= notice %></p>
+<div class="equipment-cards">
+  <%= render partial: "equipment", locals: { equipments: get_equipment(current_user.id) } %>
+</div>
 
-<h1>Equipment</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Type</th>
-      <th>Status</th>
-      <th>User</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @equipment.each do |equipment| %>
-      <tr>
-        <td><%= equipment.name %></td>
-        <td><%= equipment.type %></td>
-        <td><%= equipment.status %></td>
-        <td><%= equipment.user %></td>
-        <td><%= link_to 'Show', equipment %></td>
-        <td><%= link_to 'Edit', edit_equipment_path(equipment) %></td>
-        <td><%= link_to 'Destroy', equipment, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Equipment', new_equipment_path %>
+<div class="paginator">
+  <%= paginate get_equipment(current_user.id), :remote => true %>
+</div>

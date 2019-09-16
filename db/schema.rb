@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2019_09_12_064422) do
 
   create_table "equipment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
-    t.integer "type"
+    t.integer "equipment_type"
     t.integer "status"
     t.bigint "user_id"
     t.datetime "created_at", null: false

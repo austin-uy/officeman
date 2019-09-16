@@ -80,3 +80,39 @@ Answer.create([
     user_id: 3,
   },
 ])
+
+#Equipment type: [:hardware, :software, :peripheral]
+#Equipment status: [:deployed, :stored, :defective]
+Equipment.delete_all
+Equipment.create([
+  {
+    name: "Chair",
+    equipment_type: 2,
+    status: 1,
+    user_id: 2
+  },
+  {
+    name: "Chair",
+    equipment_type: 2,
+    status: 1,
+    user_id: 3
+  },
+  {
+    name: "Desk",
+    equipment_type: 2,
+    status: 1,
+    user_id: 2
+  },
+  {
+    name: "Notepad",
+    equipment_type: 1,
+    status: 1,
+    user_id: 2
+  },
+  {
+    name: "Mouse",
+    equipment_type: 0,
+    status: 2,
+    user_id: 2
+  },
+])

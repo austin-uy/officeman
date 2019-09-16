@@ -1,0 +1,3 @@
+$('.questions-answered-div').html('<%= escape_javascript render(partial: "equipment", locals: {equipment: get_equipment(current_user.id)}) %>');
+
+$('.paginator').html('<%= escape_javascript(paginate(get_equipment(current_user.id), :remote => true).to_s) %>');

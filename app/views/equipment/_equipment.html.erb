@@ -1,0 +1,23 @@
+<% equipments.each do |equipment| %>
+<div class="card text-white bg-secondary m-4" id="card">
+  <div class="card-header"><%= equipment.name%></div>
+  <div class="card-body">
+    <h4>
+      Type : 
+      <span class="badge badge-pill badge-light">
+        &nbsp;
+        <%= equipment.equipment_type %>
+        &nbsp;
+      </span>
+    </h4>
+    <h4>
+      Status : 
+      <span class="badge badge-pill badge-dark">
+        &nbsp;
+        <%= equipment.status %>
+        &nbsp;
+      </span>
+    </h4>
+  </div>
+</div>
+<%end%>
