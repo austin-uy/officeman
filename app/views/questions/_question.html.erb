@@ -7,33 +7,30 @@
     <div class="card-body">
       <p class="card-text"><%= question.question %></p>
       <% if not get_answered(current_user.id).include? question.id%>
-      <form>
+      <%= form_with model: Answer.new do |f| %>
         <div class="form-row">
           <div class="form-group col-md-6">
             <% case question.answer_type %>
             <% when 'text' %>
-              <input type="text" class="form-control" placeholder="Enter Answer">
+              <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
             <% when 'numerical' %>
-              <input type="number" class="form-control">
+              <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
             <% when 'choice' %>
               <% if question.show_in_list %>
-              <select class="custom-select">
-                <option selected>Choose...</option>
-                <% question.choices.each do |choice| %>
-                  <option><%= choice %></option>
-                <% end %>
-              </select>
+                <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
               <% else %>
               <% end%>
             <% else %>
-              <input type="text" class="form-control" placeholder="WIP" readonly>
             <% end %>
+            
+            <%= f.text_field :question_id, type:"hidden", value: question.id %>
+            <%= f.text_field :user_id, type:"hidden", value: current_user.id %>
           </div>
           <div class="form-group col-md-2">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <%= f.submit  "Submit", class:"btn btn-primary"%>
           </div>
         </div>
-      </form>
+      <% end %>
       <% else %>
         <div class="btn-group dropright" id="question-options">
           <button type="button"  class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -16,6 +16,6 @@ module QuestionsHelper
   end
 
   def get_answer(question_id)
-    Answer.find_by(question_id: question_id)
+    Answer.find_by(question_id: question_id, user_id: current_user.id)
   end
 end

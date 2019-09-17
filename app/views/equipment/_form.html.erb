@@ -2,19 +2,19 @@
   <%= form_with model: equipment do |f| %>
     <div class="form-group">
       <%= f.label :name %>: 
-      <%= f.text_field :name %>
+      <%= f.text_field :name, type:"text", class:"form-control", id: "name", required: true %>
     </div>
     <div class="form-group">
       <%= f.label :equipment_type %>: 
-      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, class: "form-control") %>
+      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
     </div>
     <div class="form-group">
       <%= f.label :status %>: 
-      <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,key] }, class: "form-control") %>
+      <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
     </div>
     <div class="form-group">
       <label for="user">Assigned User</label>: 
-      <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, class: "form-control", id:"user") %>
+      <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, { include_blank: 'Choose...' } , { class: "form-control", id:"user", required: true } ) %>
     </div>
 </div>
 <div class="modal-footer">
