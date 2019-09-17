@@ -1,18 +1,24 @@
-<%= form_with model: equipment do |f| %>
-  <div class="form-group">
-    <%= f.label :name %>: 
-    <%= f.text_field :name %>
-  </div>
-  <div class="form-group">
-    <%= f.label :equipment_type %>: 
-    <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,value] }, class: "form-control") %>
-  </div>
-  <div class="form-group">
-    <%= f.label :status %>: 
-    <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,value] }, class: "form-control") %>
-  </div>
-  <div class="form-group">
-    <label for="user">Assigned User</label>: 
-    <%= f.select(:status, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, class: "form-control", id:"user") %>
-  </div>
+<div class="modal-body">
+  <%= form_with model: equipment do |f| %>
+    <div class="form-group">
+      <%= f.label :name %>: 
+      <%= f.text_field :name %>
+    </div>
+    <div class="form-group">
+      <%= f.label :equipment_type %>: 
+      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, class: "form-control") %>
+    </div>
+    <div class="form-group">
+      <%= f.label :status %>: 
+      <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,key] }, class: "form-control") %>
+    </div>
+    <div class="form-group">
+      <label for="user">Assigned User</label>: 
+      <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, class: "form-control", id:"user") %>
+    </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  <%= f.submit  "Submit", class:"btn btn-primary"%>
+</div>
 <% end %>

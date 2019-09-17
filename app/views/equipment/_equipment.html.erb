@@ -21,7 +21,7 @@
       Type : 
       <span class="badge badge-pill badge-light">
         &nbsp;
-        <%= equipment.equipment_type.titleize %>
+        <%= equipment.equipment_type.to_s.titleize %>
         &nbsp;
       </span>
     </h4>
@@ -29,7 +29,7 @@
       Status : 
       <span class="badge badge-pill badge-dark">
         &nbsp;
-        <%= equipment.status.titleize %>
+        <%= equipment.status.to_s.titleize %>
         &nbsp;
       </span>
     </h4>
