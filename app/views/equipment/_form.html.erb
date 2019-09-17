@@ -1,37 +1,18 @@
-<%= form_with(model: equipment, local: true) do |form| %>
-  <% if equipment.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(equipment.errors.count, "error") %> prohibited this equipment from being saved:</h2>
-
-      <ul>
-      <% equipment.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
+<%= form_with model: equipment do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>: 
+    <%= f.text_field :name %>
   </div>
-
-  <div class="field">
-    <%= form.label :type %>
-    <%= form.number_field :type %>
+  <div class="form-group">
+    <%= f.label :equipment_type %>: 
+    <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,value] }, class: "form-control") %>
   </div>
-
-  <div class="field">
-    <%= form.label :status %>
-    <%= form.number_field :status %>
+  <div class="form-group">
+    <%= f.label :status %>: 
+    <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,value] }, class: "form-control") %>
   </div>
-
-  <div class="field">
-    <%= form.label :user_id %>
-    <%= form.text_field :user_id %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <label for="user">Assigned User</label>: 
+    <%= f.select(:status, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, class: "form-control", id:"user") %>
   </div>
 <% end %>
