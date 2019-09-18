@@ -43,15 +43,18 @@ Question.delete_all
 Question.create([
   {
     question: "What is your name?",
-    answer_type: 0
+    answer_type: 0,
+    show_in_list: false
   },
   {
     question: "How old are you?",
-    answer_type: 1
+    answer_type: 1,
+    show_in_list: false
   },
   {
     question: "Where do you live?",
-    answer_type: 0
+    answer_type: 0,
+    show_in_list: true
   },
   {
     question: "Sex?",
