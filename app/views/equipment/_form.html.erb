@@ -21,7 +21,7 @@
   <% if request.env['PATH_INFO'].eql? equipment_index_path%>
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
   <% else %>
-    <%= link_to  "Back", "javascript:history.back()", class: "btn btn-secondary" %>
+    <%= link_to  "Back", :back, class: "btn btn-secondary" %>
   <% end %>
   <%= f.submit  "Submit", class:"btn btn-primary"%>
 </div>

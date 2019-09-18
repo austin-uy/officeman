@@ -1,5 +1,5 @@
 <% equipments.each do |equipment| %>
-<div class="card text-white bg-secondary m-4" id="card">
+<div class="card text-white bg-info m-4" id="card">
   <div class="card-header">
     <%= equipment.name%>
     <% if current_user.role.eql? "admin" #admin %>
@@ -46,7 +46,7 @@
 <%end%>
 
 <% if current_user.role.eql? "admin" #admin%>
-<a href="#" class="card text-white bg-secondary m-4" id="card" data-toggle="modal" data-target="#addEquipment">
+<a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addEquipment">
   <div class="card-body" id="card-add">
     +<br>Add Equipment
   </div>
