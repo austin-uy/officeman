@@ -16,10 +16,7 @@
             <% when 'numerical' %>
               <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
             <% when 'choice' %>
-              <% if question.show_in_list %>
-                <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
-              <% else %>
-              <% end%>
+              <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
             <% else %>
             <% end %>
             
@@ -37,9 +34,8 @@
             :
           </button>
           <div class="dropdown-menu">
-            <button type="button" class="dropdown-item" id="modal-button" data-toggle="modal" data-target="#edit-modal">
-              Edit
-            </button>
+            
+            <%= link_to "Edit" , edit_answer_path(get_answer(question.id).id), :class => "dropdown-item" %>
             <%= link_to "Remove" , answer_path(get_answer(question.id).id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this answer?"}, remote: true %>
           </div>
         </div>

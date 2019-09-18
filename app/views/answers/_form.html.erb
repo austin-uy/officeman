@@ -1,27 +1,21 @@
-<%= form_with(model: answer, local: true) do |form| %>
-  <% if answer.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+<div class="modal-body">
+<%= form_with(model: answer, local: true) do |f| %>
 
-      <ul>
-      <% answer.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :answer %>
-    <%= form.text_field :answer %>
-  </div>
-
-  <div class="field">
-    <%= form.label :question_id %>
-    <%= form.text_field :question_id %>
+  <%= get_question(answer.question_id).question %>
+  <div class="form-group">
+    <% case get_question(answer.question_id).answer_type %>
+    <% when 'text' %>
+      <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
+    <% when 'numerical' %>
+      <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
+    <% when 'choice' %>
+      <%= f.select(:answer, get_question(answer.question_id).choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+    <% else %>
+    <% end %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%= f.submit  "Submit", class:"btn btn-primary"%>
   </div>
+
 <% end %>
