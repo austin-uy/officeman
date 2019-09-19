@@ -6,5 +6,6 @@ Can be found [here](https://docs.google.com/spreadsheets/d/1_8G-MkBre4FP526RY__n
 ## Getting Started
 1. Clone this repository.
 2. Go to `officeman` directory.
-3. Start the server with `rails server`.
-4. Open up a browser and go to http://localhost:3000/.
+3. Install gems via `bundle install`.
+4. Start the server with `rails server`.
+5. Open up a browser and go to http://localhost:3000/.
