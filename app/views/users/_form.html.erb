@@ -1,27 +1,30 @@
-<%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-      <% user.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+<%= form_with model: user do |f| %>
+<div class="modal-body"> 
+    <div class="form-group">
+      <%= f.label :name %>: 
+      <%= f.text_field :name, type:"text", class:"form-control", required: true %>
     </div>
+    <div class="form-group">
+      <%= f.label :role %>: 
+      <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>: 
+      <%= f.text_field :email, type:"email", class:"form-control", required: true %>
+    </div>
+    <% if request.env['PATH_INFO'].eql? users_path%>
+      <div class="form-group">
+        <%= f.label :password %>: 
+        <%= f.text_field :password, type:"password", class:"form-control", required: true %>
+      </div>
+    <% end %>
+</div>
+<div class="modal-footer">
+  <% if request.env['PATH_INFO'].eql? users_path%>
+    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+  <% else %>
+    <%= link_to  "Back", :back, class: "btn btn-secondary" %>
   <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :role %>
-    <%= form.number_field :role %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= f.submit  "Submit", class:"btn btn-primary"%>
+</div>
 <% end %>

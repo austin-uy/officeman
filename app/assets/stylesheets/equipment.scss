@@ -2,11 +2,17 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.content{
+  display: flex;
+  flex-direction: column;
+}
+
 
 #card{
   width: 18rem;
   float: left;
   height: 13rem;
+  margin-bottom: 5rem;
 }
 
 #options{

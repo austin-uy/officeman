@@ -1,5 +1,5 @@
+<%= form_with model: equipment do |f| %>
 <div class="modal-body">
-  <%= form_with model: equipment do |f| %>
     <div class="form-group">
       <%= f.label :name %>: 
       <%= f.text_field :name, type:"text", class:"form-control", id: "name", required: true %>
@@ -17,7 +17,7 @@
       <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, { include_blank: 'Choose...' } , { class: "form-control", id:"user", required: true } ) %>
     </div>
 </div>
-<div class="modal-footer">
+<div class="modal-footer" data-turbolinks="false">
   <% if request.env['PATH_INFO'].eql? equipment_index_path%>
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
   <% else %>

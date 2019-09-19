@@ -1,0 +1,42 @@
+<% users.each do |user| %>
+<div class="card text-white bg-info m-4" id="card">
+  <div class="card-header">
+    <%= user.name%>
+    <% if current_user.role.eql? "admin" #admin %>
+      <div class="btn-group dropright" id="options">
+        <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+          :
+        </button>
+        <div class="dropdown-menu" >
+          <%= link_to "Edit" , edit_user_path(user.id), :class => "dropdown-item"%>
+          <%= link_to "Remove" , user_path(user.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this user?"}, remote: true %>
+        </div>
+      </div>
+    <% end %>
+  </div> 
+  <div class="card-body">
+    <h4>
+      Role : 
+      <span class="badge badge-pill badge-dark">
+        &nbsp;
+        <%= user.role.titleize%>
+        &nbsp;
+      </span>
+    </h4>
+    <h4>
+      Email : 
+      <span class="badge badge-pill badge-dark">
+        &nbsp;
+        <%= user.email %>
+        &nbsp;
+      </span>
+    </h4>
+  </div>
+</div>
+<%end%>
+
+<a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addUser">
+  <div class="card-body" id="card-add">
+    +<br>Add User
+  </div>
+</a>
