@@ -17,7 +17,7 @@
         <% end %>
         <% if user_signed_in? %> 
           <ul class="navbar-nav">
-            <% if current_user.role.eql? "admin" #admin%>
+            <% if policy(:application).show? %>
               <li class="nav-item">
                 <%= link_to(users_path,class: "nav-link") do%>
                   User
@@ -42,7 +42,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <a class="dropdown-item" href="#">Profile</a>
                   <a class="dropdown-item" href="#">Settings</a>
-                  <% if current_user.role.eql? "admin" #admin%>
+                  <% if policy(:application).show? %>
                     <a class="dropdown-item" href="#">Dashboard</a>
                   <% end %>
                   <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>

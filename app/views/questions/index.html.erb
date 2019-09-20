@@ -1,4 +1,4 @@
-<% if current_user.role.eql? "admin" #admin%>
+<% if policy(:application).show? %>
   <%= render partial: "admin", locals: { questions: @questions }%>
 <% else %>
 <nav>

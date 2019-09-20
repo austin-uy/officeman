@@ -2,12 +2,15 @@
 <div class="card text-white bg-info m-4" id="card">
   <div class="card-header">
     <%= user.name%>
-    <% if current_user.role.eql? "admin" #admin %>
+    <% if user.id != current_user.id %>
       <div class="btn-group dropright" id="options">
         <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
           :
         </button>
         <div class="dropdown-menu" >
+          <% if user.user? %>
+            <%= link_to "Show Answers" , "#", :class => "dropdown-item"%>
+          <% end %>
           <%= link_to "Edit" , edit_user_path(user.id), :class => "dropdown-item"%>
           <%= link_to "Remove" , user_path(user.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this user?"}, remote: true %>
         </div>
