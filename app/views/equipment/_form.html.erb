@@ -17,7 +17,7 @@
       <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, { include_blank: 'Choose...' } , { class: "form-control", id:"user", required: true } ) %>
     </div>
 </div>
-<div class="modal-footer" data-turbolinks="false">
+<div class="modal-footer">
   <% if request.env['PATH_INFO'].eql? equipment_index_path%>
     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
   <% else %>
