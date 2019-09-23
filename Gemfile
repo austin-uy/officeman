@@ -71,3 +71,5 @@ gem 'inline_svg'
 gem 'kaminari'
 
 gem "pundit"
+
+gem 'react-rails'
