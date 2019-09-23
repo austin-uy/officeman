@@ -7,6 +7,8 @@ module QuestionsHelper
         @questions = Question.where(id: answered_questions ).order(:id).page(params[:page]).per(3)
       when false
         @questions = Question.where.not(id: answered_questions ).order(:id).page(params[:page]).per(3)
+      when nil
+        @questions = Question.order(:id).page(params[:page]).per(3)
       else
       end
   end

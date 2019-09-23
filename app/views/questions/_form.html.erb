@@ -1,32 +1,29 @@
-<%= form_with(model: question, local: true) do |form| %>
-  <% if question.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
-
-      <ul>
-      <% question.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :question %>
-    <%= form.text_field :question %>
+<%= form_with model: question do |f| %>
+<div class="modal-body">
+  <div class="form-group">
+    <%= f.label :question %>
+    <%= f.text_field :question, type:"text", class:"form-control", required: true %>
   </div>
 
-  <div class="field">
-    <%= form.label :answer_type %>
-    <%= form.number_field :answer_type %>
+  <div class="form-group">
+    <%= f.label :answer_type %>
+    <%= f.select(:answer_type, Question.answer_types.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
   </div>
 
-  <div class="field">
-    <%= form.label :show_in_list %>
-    <%= form.check_box :show_in_list %>
+  <div class="form-group", id="checkbox-group">
+    <%= f.check_box :show_in_list, class:"form-check-input", id: "check"%>
+    <%= f.label :show_in_list, class:"form-check-label", for:"check" %>
   </div>
 
+</div>
+<div class="modal-footer">
   <div class="actions">
-    <%= form.submit %>
+    <% if request.env['PATH_INFO'].eql? questions_path%>
+      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <% else %>
+      <%= link_to  "Back", :back, class: "btn btn-secondary" %>
+    <% end %>
+    <%= f.submit  "Submit", class:"btn btn-primary"%>
   </div>
+</div>
 <% end %>

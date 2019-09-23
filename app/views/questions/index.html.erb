@@ -1,5 +1,21 @@
 <% if policy(:application).show? %>
-  <%= render partial: "admin", locals: { questions: @questions }%>
+  <div>
+    <button type="button" class="btn btn-outline-primary btn-lg" id="question-add-button" data-toggle="modal" data-target="#add-question-modal">Add Question</button> 
+  </div>
+  <div class="questions-admin-div">
+    <%= render partial: "admin", locals: { questions: questions(current_user.id, answered = nil) }%>
+  </div>
+  <% if questions(current_user.id, answered = nil).length > 0 %>
+    <div class="paginator-admin">
+      <%= paginate questions(current_user.id, answered = nil), :remote => true %>
+    </div>
+  <% else %>
+    <h3 class="text-muted"> 
+      <p class="text-center">
+        Empty.
+      </p>
+    </h3>
+  <% end %>
 <% else %>
 <nav>
   <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -46,19 +62,13 @@
 
 <%end%>
 
-<div class="modal" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="edit-modal-label" aria-hidden="true">
+<div class="modal" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add Question</h5>
       </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+        <%= render 'form', question: Question.new %>
     </div>
   </div>
 </div>

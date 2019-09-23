@@ -1,5 +1,7 @@
-$('.questions-unanswered-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = false), user_id: current_user.id}) %>');
-$('.questions-answered-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = true), user_id: current_user.id}) %>');
+$('.questions-unanswered-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = false)}) %>');
+$('.questions-answered-div').html('<%= escape_javascript render(partial: "question", locals: {questions: questions(current_user.id, answered = true)}) %>');
+$('.questions-admin-div').html('<%= escape_javascript render(partial: "admin", locals: {questions: questions(current_user.id, answered = nil)}) %>');
 
 $('.paginator-unanswered').html('<%= escape_javascript(paginate(questions(current_user.id, answered = false), :remote => true).to_s) %>');
 $('.paginator-answered').html('<%= escape_javascript(paginate(questions(current_user.id, answered = true), :remote => true).to_s) %>');
+$('.paginator-admin').html('<%= escape_javascript(paginate(questions(current_user.id, answered = nil), :remote => true).to_s) %>');
