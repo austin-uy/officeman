@@ -28,7 +28,7 @@ class EquipmentController < ApplicationController
 
     respond_to do |format|
       if @equipment.save
-        format.html { redirect_to equipment_index_url, notice: 'Equipment save successful.' }
+        format.html { redirect_to equipment_index_url, notice: 'Equipment added.' }
       else
         format.html { render :new }
         format.json { render json: @equipment.errors, status: :unprocessable_entity }
@@ -41,7 +41,7 @@ class EquipmentController < ApplicationController
   def update
     respond_to do |format|
       if @equipment.update(equipment_params)
-        format.html { redirect_to equipment_index_url, notice: 'Equipment edit successful.' }
+        format.html { redirect_to equipment_index_url, notice: 'Equipment edited.' }
       else
         format.html { render :edit }
         format.json { render json: @equipment.errors, status: :unprocessable_entity }
@@ -54,7 +54,7 @@ class EquipmentController < ApplicationController
   def destroy
     @equipment.destroy
     respond_to do |format|
-      format.html { redirect_to equipment_index_url, notice: 'Equipment was successfully destroyed.' }
+      format.html { redirect_to equipment_index_url, notice: 'Equipment deleted.' }
       format.json { head :no_content }
     end
   end

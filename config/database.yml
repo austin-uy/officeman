@@ -12,7 +12,7 @@ default: &default
 
 development:
   <<: *default
-  database: officeman_develop
+  database: officeman
   username: root
   password:
   socket: /tmp/mysql.sock
