@@ -69,7 +69,7 @@ class QuestionForm extends React.Component {
             </div>
 
             <div className="form-group" id="checkbox-group">
-              <input type="checkbox" className="form-check-input" id="show-in-list" value={this.state.show_in_list} onChange={(e)=>{this.setState({show_in_list: e.target.checked})}}/>
+              <input type="checkbox" className="form-check-input" id="show-in-list" checked={this.state.show_in_list} onChange={(e)=>{this.setState({show_in_list: e.target.checked})}}/>
               <label className="form-check-label" htmlFor="show-in-list">Show in list?</label>
             </div>
 

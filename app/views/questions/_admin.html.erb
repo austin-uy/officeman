@@ -1,20 +1,23 @@
-<% questions.each do |question| %>
-  <div class="w-50 mx-auto card" id="question-card">
-    <div class="card-header">
-      <h4 class="card-title">Question</h4>
-      <div id="answer-type">
+<% cache questions do %>
+  <% questions.each do |question| %>
+    <% cache question do %>
+    <div class="w-50 mx-auto card" id="question-card">
+      <div class="card-header">
+        <h4 class="card-title">Question</h4>
+        <div id="answer-type">
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="card-text"><%= question.question %></p>
+        <div class="btn-group" role="group" aria-label="Basic example">
+          <%= link_to  "Edit", edit_question_path(question.id), :class => "btn btn-primary" %>
+          <%= link_to "Remove" , question_path(question.id), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Remove this question?"}, remote: true %>
+        </div>
+      </div>
+      <div class="card-footer text-muted" >
+        <small><%= question.created_at %></small>
       </div>
     </div>
-    <div class="card-body">
-      <p class="card-text"><%= question.question %></p>
-      <div class="btn-group" role="group" aria-label="Basic example">
-        <%= link_to  "Edit", edit_question_path(question.id), :class => "btn btn-primary" %>
-        <%= link_to "Remove" , question_path(question.id), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Remove this question?"}, remote: true %>
-      </div>
-      
-    </div>
-    <div class="card-footer text-muted" >
-      <small><%= question.created_at %></small>
-    </div>
-  </div>
+    <% end %>
+  <% end %>
 <% end %>

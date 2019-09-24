@@ -1,51 +1,55 @@
-<% equipments.each do |equipment| %>
-<div class="card text-white bg-info m-4" id="card">
-  <div class="card-header">
-    <%= equipment.name%>
-    <% if current_user.role.eql? "admin" #admin %>
-      <div class="btn-group dropright" id="options">
-        <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
-          :
-        </button>
-        <div class="dropdown-menu" >
-          <%= link_to "Edit" , edit_equipment_path(equipment.id), :class => "dropdown-item"%>
-          <%= link_to "Remove" , equipment_path(equipment.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this equipment?"}, remote: true %>
-        </div>
+<% cache equipments do%>
+  <% equipments.each do |equipment| %>
+    <% cache equipment do%>
+    <div class="card text-white bg-info m-4" id="card">
+      <div class="card-header">
+        <%= equipment.name%>
+        <% if current_user.role.eql? "admin" #admin %>
+          <div class="btn-group dropright" id="options">
+            <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+              :
+            </button>
+            <div class="dropdown-menu" >
+              <%= link_to "Edit" , edit_equipment_path(equipment.id), :class => "dropdown-item"%>
+              <%= link_to "Remove" , equipment_path(equipment.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this equipment?"}, remote: true %>
+            </div>
+          </div>
+        <% end %>
+      </div> 
+      <div class="card-body">
+        <% if current_user.role.eql? "admin" #admin %>
+        <h4>
+          Owner : 
+          <span class="badge badge-pill badge-dark">
+            &nbsp;
+            <%= get_user(equipment.user_id).name%>
+            &nbsp;
+          </span>
+        </h4>
+        <% end %>
+        <h4>
+          Type : 
+          <span class="badge badge-pill badge-light">
+            &nbsp;
+            <%= equipment.equipment_type.titleize %>
+            &nbsp;
+          </span>
+        </h4>
+        <h4>
+          Status : 
+          <span class="badge badge-pill badge-dark">
+            &nbsp;
+            <%= equipment.status.titleize %>
+            &nbsp;
+          </span>
+        </h4>
       </div>
+    </div>
     <% end %>
-  </div> 
-  <div class="card-body">
-    <% if current_user.role.eql? "admin" #admin %>
-    <h4>
-      Owner : 
-      <span class="badge badge-pill badge-dark">
-        &nbsp;
-        <%= get_user(equipment.user_id).name%>
-        &nbsp;
-      </span>
-    </h4>
-    <% end %>
-    <h4>
-      Type : 
-      <span class="badge badge-pill badge-light">
-        &nbsp;
-        <%= equipment.equipment_type.titleize %>
-        &nbsp;
-      </span>
-    </h4>
-    <h4>
-      Status : 
-      <span class="badge badge-pill badge-dark">
-        &nbsp;
-        <%= equipment.status.titleize %>
-        &nbsp;
-      </span>
-    </h4>
-  </div>
-</div>
-<%end%>
+  <% end %>
+<% end %>
 
-<% if current_user.role.eql?("admin") && equipments.last_page? #admin%>
+<% if policy(:application).show? && equipments.last_page? #admin%>
 <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addEquipment">
   <div class="card-body" id="card-add">
     +<br>Add Equipment

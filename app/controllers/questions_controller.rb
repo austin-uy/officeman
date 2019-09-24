@@ -29,7 +29,6 @@ class QuestionsController < ApplicationController
 
     respond_to do |format|
       if @question.save
-        debugger
         format.html { redirect_to questions_url, notice: 'Question added.' }
       else
         format.html { render :new }
@@ -43,6 +42,7 @@ class QuestionsController < ApplicationController
   def update
     respond_to do |format|
       if @question.update(question_params)
+        Answer.where(question_id: @question.id).destroy_all
         format.html { redirect_to questions_url, notice: 'Question edited.' }
       else
         format.html { render :edit }
@@ -54,6 +54,7 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
+    Answer.where(question_id: @question.id).destroy_all
     @question.destroy
     respond_to do |format|
       format.html { redirect_to questions_url, notice: 'Question deleted.' }
