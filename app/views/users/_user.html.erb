@@ -3,6 +3,7 @@
   <% cache user do %>
       <div class="card text-white bg-info m-4" id="card">
         <div class="card-header">
+          <%= image_tag user.picture.url(:thumb) %>
           <%= user.name%>
           <% if user.id != current_user.id %>
             <div class="btn-group dropright" id="options">

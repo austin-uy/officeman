@@ -69,7 +69,6 @@ gem 'jquery-rails'
 gem 'devise'
 gem 'inline_svg'
 gem 'kaminari'
-
 gem "pundit"
-
 gem 'react-rails'
+gem 'paperclip', '~> 6.0.0'

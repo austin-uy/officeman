@@ -40,11 +40,16 @@
                   <%= current_user.name %>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <%= link_to  "Profile",  profile_path, class: "dropdown-item" %>
+                  <div class="dropdown-header">
+                    <%= image_tag current_user.picture.url(:thumb) %>
+                    <%= current_user.name %>
+                  </div>
+                  <%= link_to  "Edit Profile",  profile_path, class: "dropdown-item" %>
                   <a class="dropdown-item" href="#">Settings</a>
                   <% if policy(:application).show? %>
                     <a class="dropdown-item" href="#">Dashboard</a>
                   <% end %>
+                  <div class="dropdown-divider"></div>
                   <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
                     Logout
                   <% end %>

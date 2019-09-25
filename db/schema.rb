@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_12_064422) do
+ActiveRecord::Schema.define(version: 2019_09_25_002345) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "answer"
@@ -51,7 +51,10 @@ ActiveRecord::Schema.define(version: 2019_09_12_064422) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "picture"
+    t.string "picture_file_name"
+    t.string "picture_content_type"
+    t.integer "picture_file_size"
+    t.datetime "picture_updated_at"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
