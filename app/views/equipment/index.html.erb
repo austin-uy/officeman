@@ -1,13 +1,14 @@
 <div class="content">
-  <div class="equipment-cards">
+  <div class="main-container">
     <%= render partial: "equipment", locals: { equipments: get_equipment(current_user.id) } %>
   </div>
 
   <div class="paginator">
     <%= paginate get_equipment(current_user.id), :remote => true %>
   </div>
+</div>
 
-  <div class="modal fade" data-equipment-id="<%=current_user.id%>" id="addEquipment" tabindex="-1" role="dialog" aria-labelledby="addEquipmentTitle" aria-hidden="true">
+<div class="modal fade" data-equipment-id="<%=current_user.id%>" id="addEquipment" tabindex="-1" role="dialog" aria-labelledby="addEquipmentTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -17,4 +18,3 @@
       </div>
     </div>
   </div>
-</div>

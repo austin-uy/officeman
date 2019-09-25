@@ -1,24 +1,12 @@
-<nav>
-  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-    <a class="nav-item nav-link active" data-toggle="tab" href="#nav-answer" role="tab" aria-controls="nav-answer" aria-selected="true">Answer List</a>
-    <a class="nav-item nav-link"  data-toggle="tab" href="#nav-user" role="tab" aria-controls="nav-user" aria-selected="false">User List</a>
-  </div>
-</nav>
-
-<div class="tab-content" id="nav-tabContent">
-  <div class="tab-pane fade show active" id="nav-answer" role="tabpanel" aria-labelledby="nav-answer-tab">
-    Hello World
-  </div>
-  <div class="tab-pane fade" id="nav-user" role="tabpanel" aria-labelledby="nav-user-tab">
-    <%= render 'user', users: @users %>
-  </div>
+<div class="main-container">
+  <%= render 'user', users: @users %>
 </div>
 
 <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserTitle" aria-hidden="true">
   <div class="modal-dialog modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Add Equipment</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Add User</h5>
       </div>
         <%= render 'form', user: User.new %>
     </div>

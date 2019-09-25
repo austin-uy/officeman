@@ -1,3 +1,14 @@
+let initialState = {
+  id: Number,
+  question: "",
+  show_in_list: false,
+  types: [],
+  selected: "",
+  choices: [],
+  editMode: false,
+  auth_token: ""
+}
+
 class QuestionForm extends React.Component {
   constructor(props){
     super(props)
@@ -42,6 +53,10 @@ class QuestionForm extends React.Component {
         }.bind(this)
       });
     }
+  }
+
+  clear(){
+    this.setState(initialState);
   }
 
   componentWillMount(){
@@ -107,7 +122,7 @@ class QuestionForm extends React.Component {
                   this.state.editMode ?
                   <button type="button" className="btn btn-secondary" onClick={()=>{ history.back()}}>Back</button>
                   :
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={()=>{this.clear()}}>Close</button>
                 }
                 <button type="submit" className="btn btn-primary">Submit</button>
             </div>

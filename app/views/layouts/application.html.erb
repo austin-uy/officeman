@@ -17,6 +17,11 @@
         <% end %>
         <% if user_signed_in? %> 
           <ul class="navbar-nav">
+            <li class="nav-item">
+              <%= link_to(home_path,class: "nav-link") do%>
+                Home
+              <% end %>
+            </li>
             <% if policy(:application).show? %>
               <li class="nav-item">
                 <%= link_to(users_path,class: "nav-link") do%>

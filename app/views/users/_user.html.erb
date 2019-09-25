@@ -1,6 +1,6 @@
 <% cache users do %>
-<% users.each do |user| %>
-  <% cache user do %>
+  <% users.each do |user| %>
+    <% cache user do %>
       <div class="card text-white bg-info m-4" id="card">
         <div class="card-header">
           <%= image_tag user.picture.url(:thumb) %>

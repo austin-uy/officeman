@@ -1,18 +1,26 @@
-<div class="index-div">
-  <div class="jumbotron" style="float:left;width:50%;">
-      <h1 class="display-4">Welcome to Officeman!</h1>
-      <p class="lead">A simple system to track your employees and equipment.</p>
-      <a class="btn btn-primary btn-lg" href="https://github.com/austin-uy/officeman" role="button">Learn more</a>
+<% if user_signed_in?%>
+  <% if policy(:application).show?%>
+    Hello <%= current_user.name %>. It's <%= DateTime.now.rfc2822 %>
+  <% else %>
+    Hello World
+  <% end %>
+<% else %>
+  <div class="index-div">
+    <div class="jumbotron" style="float:left;width:50%;">
+        <h1 class="display-4">Welcome to Officeman!</h1>
+        <p class="lead">A simple system to track your employees and equipment.</p>
+        <a class="btn btn-primary btn-lg" href="https://github.com/austin-uy/officeman" role="button">Learn more</a>
+    </div>
+    <div class="teamwork">
+      <%= inline_svg "teamwork.svg", height: "300" %> 
+    </div>
   </div>
-  <div class="teamwork">
-    <%= inline_svg "teamwork.svg", height: "300" %> 
-  </div>
-</div>
 
-<div class="bottom-div">
-  <hr>
-  <small>English</small>
-  <small class="text-muted">Español</small>
-  <small></small>
-  <small></small>
-</div>
+  <div class="bottom-div">
+    <hr>
+    <small>English</small>
+    <small class="text-muted">Español</small>
+    <small></small>
+    <small></small>
+  </div>
+<% end %>

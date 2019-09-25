@@ -27,3 +27,9 @@
   font-family: 'IcoMoon';
   src: url('./fonts/icomoon.ttf')
 }
+
+.main-container{
+  display: flex;
+  flex-flow: wrap;
+  justify-content: center;
+}

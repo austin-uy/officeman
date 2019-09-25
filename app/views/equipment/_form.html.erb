@@ -1,4 +1,4 @@
-<%= form_with model: equipment do |f| %>
+<%= form_with model: equipment, id: "test" do |f| %>
 <div class="modal-body">
     <div class="form-group">
       <%= f.label :name %>: 
@@ -19,9 +19,9 @@
 </div>
 <div class="modal-footer">
   <% if request.env['PATH_INFO'].eql? equipment_index_path%>
-    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+    <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal">Close</button>
   <% else %>
-    <%= link_to  "Back", :back, class: "btn btn-secondary" %>
+    <%= link_to  "Back", :back,class: "btn btn-secondary", id: "close" %>
   <% end %>
   <%= f.submit  "Submit", class:"btn btn-primary"%>
 </div>
