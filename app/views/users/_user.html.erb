@@ -1,9 +1,9 @@
-<% cache users do %>
+
   <% users.each do |user| %>
-    <% cache user do %>
+    
       <div class="card text-white bg-info m-4" id="card">
         <div class="card-header">
-          <%= image_tag user.picture.url(:thumb) %>
+          <%= image_tag user.picture.url(:thumb), class: "card-image" %>
           <%= user.name%>
           <% if user.id != current_user.id %>
             <div class="btn-group dropright" id="options">
@@ -39,12 +39,13 @@
           </h4>
         </div>
       </div>
-    <% end %>
-  <% end %>
+    
 <% end %>
 
+<% if users.last_page? %>
 <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addUser">
   <div class="card-body" id="card-add">
     +<br>Add User
   </div>
 </a>
+<% end %>

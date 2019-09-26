@@ -1,8 +1,13 @@
 <% if user_signed_in?%>
   <% if policy(:application).show?%>
-    Hello <%= current_user.name %>. It's <%= DateTime.now.rfc2822 %>
+    <div class="container">
+      <%= render partial: "show-in-list" , locals: { questions: get_show_in_list_questions()}%>
+    </div>
+    <div class="index-paginator">
+      <%= paginate get_show_in_list_questions(), :remote => true %>
+    </div>
   <% else %>
-    Hello World
+    Hello <%= %>
   <% end %>
 <% else %>
   <div class="index-div">
