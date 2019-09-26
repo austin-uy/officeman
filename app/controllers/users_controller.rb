@@ -59,8 +59,8 @@ class UsersController < ApplicationController
     end
   end
 
-  def profile
-    
+  #GET /profile
+  def profile   
   end
 
   private

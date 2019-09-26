@@ -47,7 +47,10 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-header">
                     <%= image_tag current_user.picture.url(:thumb) %>
-                    <%= current_user.name %>
+                    <div>
+                      <%= current_user.name %>
+                      <small class="text-muted"><%= current_user.role %></small>
+                    </div>
                   </div>
                   <%= link_to  "Edit Profile",  profile_path, class: "dropdown-item" %>
                   <a class="dropdown-item" href="#">Settings</a>
