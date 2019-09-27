@@ -46,7 +46,7 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-header" style="display:flex;">
-                    <%= image_tag current_user.picture.url(:thumb) %>
+                    <%= image_tag current_user.picture.url(:small) %>
                     <div id="dropdown-header-name">
                       <h6><%= current_user.name %></h6>
                       <small class="text-muted"><%= current_user.role %></small>
