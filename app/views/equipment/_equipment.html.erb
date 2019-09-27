@@ -3,7 +3,7 @@
     <% cache equipment do%>
     <div class="card text-white bg-info m-4" id="card">
       <div class="card-header">
-        <%= equipment.name%>
+        <%= equipment.name.length > 27 ? equipment.name[0,25]+"..." : equipment.name %>
         <% if current_user.role.eql? "admin" #admin %>
           <div class="btn-group dropright" id="options">
             <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">

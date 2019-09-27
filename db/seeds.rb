@@ -119,3 +119,18 @@ Equipment.create([
     user_id: 2
   },
 ])
+
+1000.times do 
+  User.create(
+    name: Faker::Name.name,
+    email: Faker::Internet.email,
+    password: 'password',
+    password_confirmation: 'password',
+    role: 0
+  )
+  Question.create(
+    question: Faker::Lorem.sentence(word_count: 3)+"?",
+    answer_type: rand(0..1),
+    show_in_list: true
+    )
+end

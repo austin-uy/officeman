@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  namespace :admin do
+      resources :users
+      resources :answers
+      resources :equipment
+      resources :questions
+
+      root to: "users#index"
+    end
   devise_for :users, controllers: { registrations: "users/registrations" }
   resources :answers
   resources :equipment
