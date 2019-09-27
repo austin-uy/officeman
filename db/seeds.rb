@@ -54,20 +54,20 @@ Question.create([
   {
     question: "Where do you live?",
     answer_type: 0,
-    show_in_list: true
-  },
-  {
-    question: "Sex?",
-    answer_type: 2,
-    show_in_list: true,
-    choices: ["Male", "Female"]
-  },
-  {
-    question: "Civil Status?",
-    answer_type: 2,
-    show_in_list: true,
-    choices: ["Single", "Married", "Divorced", "Widowed"]
-  }
+    show_in_list: true}
+  # },
+  # {
+  #   question: "Sex?",
+  #   answer_type: 2,
+  #   show_in_list: true,
+  #   choices: ["Male", "Female"]
+  # },
+  # {
+  #   question: "Civil Status?",
+  #   answer_type: 2,
+  #   show_in_list: true,
+  #   choices: ["Single", "Married", "Divorced", "Widowed"]
+  # }
 ])
 
 Answer.delete_all
@@ -120,17 +120,36 @@ Equipment.create([
   },
 ])
 
-1000.times do 
+7.times do 
   User.create(
-    name: Faker::Name.name,
+    name: Faker::FunnyName.name,
     email: Faker::Internet.email,
     password: 'password',
     password_confirmation: 'password',
     role: 0
   )
   Question.create(
-    question: Faker::Lorem.sentence(word_count: 3)+"?",
+    question: Faker::Lorem.question(word_count: 3),
     answer_type: rand(0..1),
-    show_in_list: true
+    show_in_list: Faker::Boolean.boolean(true_ratio: 0.7)
+  )
+end
+
+100.times do 
+  Equipment.create(
+    name: Faker::Appliance.equipment,
+    equipment_type: rand(0..2),
+    status: rand(0..2),
+    user_id: rand(1..9)
+  )
+end
+
+(2..10).each do |user|
+  (1..10).each do |question|
+    Answer.create(
+      answer: Faker::Lorem.word,
+      question_id: question,
+      user_id: user,
     )
+  end
 end
