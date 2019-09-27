@@ -22,7 +22,7 @@
           Owner : 
           <span class="badge badge-pill badge-dark">
             &nbsp;
-            <%= get_user(equipment.user_id).name%>
+            <%= get_user(equipment.user_id).name.length > 10 ? get_user(equipment.user_id).name[0,8]+"..." : get_user(equipment.user_id).name %>
             &nbsp;
           </span>
         </h4>
