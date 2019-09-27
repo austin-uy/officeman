@@ -14,7 +14,7 @@
       </thead>
       <% question.answers.each do |answer| %>
         <tr>
-          <th scope="row"><%= get_user(answer.user_id).name%></th>
+          <th scope="row"><%= image_tag get_user(answer.user_id).picture.url(:thumb) %> <%= get_user(answer.user_id).name %></th>
           <td><%= answer.answer %></td>
           <td><%= answer.updated_at %></td>
         </tr>
