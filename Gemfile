@@ -75,3 +75,4 @@ gem 'paperclip', '~> 6.0.0'
 gem 'faker', :git => 'https://github.com/faker-ruby/faker.git', :branch => 'master'
 gem "administrate"
 gem 'administrate-field-paperclip'
+gem 'chartkick'

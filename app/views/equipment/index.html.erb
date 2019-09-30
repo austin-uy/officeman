@@ -1,12 +1,34 @@
-<div class="content">
-  <div class="main-container">
-    <%= render partial: "equipment", locals: { equipments: get_equipment(current_user.id) } %>
-  </div>
+<% if policy(:application).show? %>
+  <nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+      <a class="nav-item nav-link active" id="nav-equipments-tab" data-toggle="tab" href="#nav-equipments" role="tab" aria-controls="nav-equipments" aria-selected="true">All</a>
+      <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#nav-report" role="tab" aria-controls="nav-report" aria-selected="false" onclick="return drawChart()">Reports</a>
+    </div>
+  </nav>  
+  <div class="tab-content" id="nav-tabContent">
+<% end %>
+<% if policy(:application).show? %>
+    <div class="tab-pane fade show active" id="nav-equipments" role="tabpanel" aria-labelledby="nav-equipments-tab">
+<% else %>
+    <div class="content">
+<% end %>
+      <div class="main-container">
+        <%= render partial: "equipment", locals: { equipments: get_equipment(current_user.id) } %>
+      </div>
 
-  <div class="paginator">
-    <%= paginate get_equipment(current_user.id), :remote => true %>
+      <div class="paginator">
+        <%= paginate get_equipment(current_user.id), :remote => true %>
+      </div>
+    </div>
+
+<% if policy(:application).show? %>
+    <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
+      <div class="report-container">
+        <%= render  "report" %>
+      </div>
+    </div>
   </div>
-</div>
+<% end %>
 
 <div class="modal fade" data-equipment-id="<%=current_user.id%>" id="addEquipment" tabindex="-1" role="dialog" aria-labelledby="addEquipmentTitle" aria-hidden="true">
     <div class="modal-dialog modal-dialog" role="document">

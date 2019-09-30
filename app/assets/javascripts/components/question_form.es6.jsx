@@ -47,6 +47,7 @@ class QuestionForm extends React.Component {
         },
         success: function(data) {
           console.log("Success")
+          //redirect with url params on json, return with notice param
         }.bind(this),
         error: function(xhr, status, err) {
          console.error(this.props.url, status, err.toString());
