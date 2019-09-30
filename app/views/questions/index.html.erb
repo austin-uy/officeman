@@ -31,7 +31,7 @@
     </div> 
     <% if questions(current_user.id, answered = false).length > 0 %>
       <div class="paginator-unanswered">
-        <%= paginate questions(current_user.id, answered = false), :remote => true %>
+        <%= paginate questions(current_user.id, answered = false), :remote => true, :param_name => 'page_u' %>
       </div>
     <% else %>
       <h3 class="text-muted"> 
@@ -48,7 +48,7 @@
     </div> 
     <% if questions(current_user.id, answered = true).length > 0 %>
       <div class="paginator-answered">
-        <%= paginate questions(current_user.id, answered = true), :remote => true %>
+        <%= paginate questions(current_user.id, answered = true), :remote => true, :param_name => 'page_a' %>
       </div>
     <% else %>
       <h3 class="text-muted"> 

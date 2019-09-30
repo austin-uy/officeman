@@ -1,14 +1,14 @@
 <div class="login-box">
-  <h2>Login to Officeman</h2>
+  <h2 id="login-h2">Login to Officeman</h2>
   <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-    <div class="field">
+    <div class="form-group w-25 mx-auto">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control" %>
     </div>
 
-    <div class="field">
+    <div class="form-group w-25 mx-auto">
       <%= f.label :password %><br />
-      <%= f.password_field :password, autocomplete: "current-password" %>
+      <%= f.password_field :password, autocomplete: "current-password", class:"form-control" %>
     </div>
 
     <% if devise_mapping.rememberable? %>
@@ -19,7 +19,7 @@
     <% end %>
 
     <div class="actions">
-      <%= f.submit "Login" %>
+      <%= f.submit "Login", class:"btn btn-primary w-25" %>
     </div>
   <% end %>
 

@@ -4,9 +4,9 @@ module QuestionsHelper
     answered_questions = get_answered user_id
     case answered
       when true
-        @questions = Question.where(id: answered_questions ).order(:id).page(params[:page]).per(3)
+        @questions = Question.where(id: answered_questions ).order(:id).page(params[:page_a]).per(3)
       when false
-        @questions = Question.where.not(id: answered_questions ).order(:id).page(params[:page]).per(3)
+        @questions = Question.where.not(id: answered_questions ).order(:id).page(params[:page_u]).per(3)
       when nil
         @questions = Question.order(:id).page(params[:page]).per(3)
       else
