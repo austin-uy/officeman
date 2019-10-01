@@ -1,22 +1,23 @@
 <div class="modal-body">
-<%= form_with(model: answer, local: true) do |f| %>
+  <%= form_with(model: answer, local: true) do |f| %>
 
-  <%= get_question(answer.question_id).question %>
-  <div class="form-group">
-    <% case get_question(answer.question_id).answer_type %>
-    <% when 'text' %>
-      <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
-    <% when 'numerical' %>
-      <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
-    <% when 'choice' %>
-      <%= f.select(:answer, get_question(answer.question_id).choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
-    <% else %>
-    <% end %>
-  </div>
+    <%= get_question(answer.question_id).question %>
+    <div class="form-group">
+      <% case get_question(answer.question_id).answer_type %>
+      <% when 'text' %>
+        <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
+      <% when 'numerical' %>
+        <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
+      <% when 'choice' %>
+        <%= f.select(:answer, get_question(answer.question_id).choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+      <% else %>
+      <% end %>
+    </div>
 
-  <div class="modal-footer">
-    <%= link_to  "Back", :back, class: "btn btn-secondary" %>
-    <%= f.submit  "Submit", class:"btn btn-primary"%>
-  </div>
+    <div class="modal-footer">
+      <%= link_to  "Back", :back, class: "btn btn-secondary" %>
+      <%= f.submit  "Submit", class:"btn btn-primary"%>
+    </div>
 
-<% end %>
+  <% end %>
+</div>

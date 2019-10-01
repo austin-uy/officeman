@@ -7,7 +7,15 @@
       <%= paginate get_show_in_list_questions(), :remote => true %>
     </div>
   <% else %>
-    Hello <%= %>
+    <div id="user-index">
+      <%= image_tag current_user.picture.url(:medium) %>
+      <h2> 
+        Hello <%= current_user.name%>! The date today is
+      </h2>
+      <h3 class="text-muted">
+        <%= react_component "Clock" %>
+      </h3>
+    </div>
   <% end %>
 <% else %>
   <div class="index-div">

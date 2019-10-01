@@ -19,13 +19,17 @@
   background-color: #0c5395;
 }
 
-.login-box{
+.center-box{
   text-align: center;
   margin-top: 4rem;
 }
 
-#login-h2{
+#center-h2{
   margin-bottom: 2rem;
+}
+
+.login-items{
+  margin-top: 2rem;
 }
 
 @font-face {
@@ -43,4 +47,10 @@
   display: flex;
   flex-direction: column;
   margin-left: 5%;
+}
+
+#user-index{
+  text-align: center;
+  padding-top: 10rem;
+  padding-bottom: 10rem;
 }
