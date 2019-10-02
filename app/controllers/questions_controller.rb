@@ -25,6 +25,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
+    debugger
     @question = Question.new(question_params)
 
     respond_to do |format|
@@ -71,7 +72,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.permit(:question, :answer_type, :show_in_list)
+      params.permit(:question, :answer_type, :show_in_list, :choices => [])
     end
 
 end
