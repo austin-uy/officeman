@@ -28,6 +28,7 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'factory_bot_rails'
   gem 'rspec-rails'
+  gem "nyan-cat-formatter"
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
 end
