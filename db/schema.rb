@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(version: 2019_09_25_002345) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "answer"
+    t.string "answer", default: "", null: false
     t.bigint "question_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,9 +23,9 @@ ActiveRecord::Schema.define(version: 2019_09_25_002345) do
   end
 
   create_table "equipment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.integer "equipment_type"
-    t.integer "status"
+    t.string "name", default: "", null: false
+    t.integer "equipment_type", null: false
+    t.integer "status", null: false
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2019_09_25_002345) do
   end
 
   create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "question"
+    t.string "question", default: "", null: false
     t.integer "answer_type"
     t.boolean "show_in_list"
     t.datetime "created_at", null: false
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2019_09_25_002345) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name"
-    t.integer "role"
+    t.string "name", default: "", null: false
+    t.integer "role", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
