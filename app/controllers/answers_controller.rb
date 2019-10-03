@@ -21,7 +21,9 @@ class AnswersController < ApplicationController
   # GET /answers/1/edit
   def edit
     if(current_user.id.eql? @answer.user_id)
-      
+      respond_to do |format|
+        format.html
+      end
     else
       respond_to do |format|
         format.html { redirect_to questions_url, notice: 'Access denied' }

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   
   let(:roles){User.roles.keys.map &:to_sym}
+  
   it "has valid attributes" do
     user = build(roles.sample)
     expect(user).to  be_valid

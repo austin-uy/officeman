@@ -110,6 +110,7 @@ GEM
     concurrent-ruby (1.1.5)
     connection_pool (2.2.2)
     crass (1.0.4)
+    database_cleaner (1.7.0)
     datetime_picker_rails (0.0.7)
       momentjs-rails (>= 2.8.1)
     devise (4.7.1)
@@ -330,6 +331,7 @@ DEPENDENCIES
   chartkick
   chromedriver-helper
   coffee-rails (~> 4.2)
+  database_cleaner
   devise
   factory_bot_rails
   faker!

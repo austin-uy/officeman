@@ -31,6 +31,7 @@ group :test do
   gem "nyan-cat-formatter"
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
+  gem 'database_cleaner'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

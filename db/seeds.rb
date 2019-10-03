@@ -140,7 +140,7 @@ end
     name: Faker::Appliance.equipment,
     equipment_type: rand(0..2),
     status: rand(0..2),
-    user_id: rand(1..9)
+    user_id: rand(2..10)
   )
 end
 
