@@ -3,4 +3,6 @@ class Equipment < ApplicationRecord
   enum equipment_type: [:hardware, :software, :peripheral]
   belongs_to :user
   validates :name, presence: true
+  validates :equipment_type, presence: true
+  validates :status, presence: true
 end

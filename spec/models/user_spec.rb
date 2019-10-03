@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   
+  let(:roles){User.roles.keys.map &:to_sym}
   it "has valid attributes" do
-    user = build(:user)
+    user = build(roles.sample)
     expect(user).to  be_valid
   end
 
@@ -20,22 +21,18 @@ RSpec.describe User, type: :model do
   end
   
   it "is not valid without a name" do
-    user = build(:user, name: nil)
+    user = build(roles.sample, name: nil)
     expect(user).to_not be_valid  
   end
 
   it "is not valid without a password" do
-    user = build(:user, password: nil)
+    user = build(roles.sample, password: nil)
     expect(user).to_not be_valid  
   end
 
   it "is not valid without an email" do
-    user = build(:user, email: nil)
+    user = build(roles.sample, email: nil)
     expect(user).to_not be_valid  
   end
 
-  it "when admin has valid attributes" do
-    admin = build(:admin)
-    expect(admin).to  be_valid
-  end
 end

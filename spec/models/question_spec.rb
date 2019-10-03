@@ -2,7 +2,8 @@ require 'rails_helper'
 
 RSpec.describe Question, type: :model do
   
-  let(:answer_types){[:text, :numerical, :choice]}
+  let(:answer_types){Question.answer_types.keys.map &:to_sym}
+  
   it "has valid attributes" do
     question = build(answer_types.sample)
     expect(question).to be_valid
