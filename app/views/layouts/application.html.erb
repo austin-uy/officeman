@@ -63,7 +63,7 @@
               </div>
             </li>
           </ul>
-        <% else %>
+        <% elsif request.env['PATH_INFO'].eql? home_path %>
           <div class="w-75 text-right">
             <%= button_to(new_user_session_path, class: "btn btn-outline-light", id: "login") do %>
               Login
