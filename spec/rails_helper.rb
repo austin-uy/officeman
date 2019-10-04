@@ -69,4 +69,31 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   config.include FactoryBot::Syntax::Methods
   config.include Devise::Test::ControllerHelpers, :type => :controller
+  # Capybara.register_driver :selenium_chrome do |app|
+  #   Capybara::Selenium::Driver.new(app, :browser => :chrome)
+  # end
+  Capybara.javascript_driver = :selenium_chrome
+end
+
+def create_user_and_login
+  user = create :user
+  visit new_user_session_path
+  fill_in "Email",	with: "user@localhost" 
+  fill_in "Password",	with: "password"
+  click_button 'Login'
+  user
+end
+
+def create_admin_and_login
+  create :admin
+  visit new_user_session_path
+  fill_in "Email",	with: "admin@localhost"     
+  fill_in "Password",	with: "password"
+  click_button 'Login'
+end
+
+def user_answer_question
+  visit questions_path
+  fill_in "answer_answer",	with: "some answer" 
+  click_button "Submit"
 end
