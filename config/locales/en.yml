@@ -30,4 +30,38 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  layouts:
+    application:
+      welcome: "Welcome to Officeman!"
+      description: "A simple system to track your employees and equipment."
+      learn: "Learn more"
+      home: "Home"
+      user: "User"
+      question: "Question" 
+      equipment: "Equipment"
+      edit: "Edit Profile"
+      dashboard: "Dashboard"
+      logout: "Logout"
+      login: "Login"
+  users:
+    index:
+      role: "Role"
+      email: "Email"
+      show_answers: "Show Answers"
+      add_user: "Add User"
+  questions:
+    index:
+      answered: "Answered"
+      unanswered: "Unanswered"
+  equipments:
+    index:
+      all: "All"
+      reports: "Reports"
+      owner: "Owner"
+      type: "Type"
+      status: "status"
+  edit: "Edit"
+  remove: "Remove"
+  back: "Back"
+  submit: "Submit"
+  back_to_home: "Back to Home"

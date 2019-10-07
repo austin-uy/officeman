@@ -17,26 +17,18 @@
         <% if user_signed_in? %> 
           <ul class="navbar-nav">
             <li class="nav-item">
-              <%= link_to(home_path,class: "nav-link") do%>
-                Home
-              <% end %>
+              <%= link_to t('.home'), home_path, class: "nav-link" %>
             </li>
             <% if policy(:application).show? %>
               <li class="nav-item">
-                <%= link_to(users_path,class: "nav-link") do%>
-                  User
-                <% end %>
+                <%= link_to t('.user'), users_path, class: "nav-link" %>
             </li>
             <% end %>
             <li class="nav-item">
-              <%= link_to(questions_path,class: "nav-link") do%>
-                Question
-              <% end %>
+              <%= link_to t('.question'), questions_path,class: "nav-link" %>
             </li>
             <li class="nav-item">
-              <%= link_to(equipment_index_path,class: "nav-link") do%>
-                Equipment
-              <% end %>
+              <%= link_to t('.equipment'), equipment_index_path,class: "nav-link" %>
             </li>
             <li class="nav-item">
               <div class="dropdown">
@@ -53,21 +45,17 @@
                   </div>
                   <%= link_to  "Edit Profile",  profile_path, class: "dropdown-item" %>
                   <% if policy(:application).show? %>
-                    <%= link_to "Dashboard", admin_root_path, class: "dropdown-item" %>
+                    <%= link_to t('.dashboard'), admin_root_path, class: "dropdown-item" %>
                   <% end %>
                   <div class="dropdown-divider"></div>
-                  <%= link_to(destroy_user_session_path, method: :delete, class: "dropdown-item") do %>
-                    Logout
-                  <% end %>
+                  <%= link_to t('.logout'), destroy_user_session_path, method: :delete, class: "dropdown-item" %>
                 </div>
               </div>
             </li>
           </ul>
         <% elsif request.env['PATH_INFO'].eql? home_path %>
           <div class="w-75 text-right">
-            <%= button_to(new_user_session_path, class: "btn btn-outline-light", id: "login") do %>
-              Login
-            <% end %>
+            <%= button_to t('.login'), new_user_session_path, class: "btn btn-outline-light", id: "login" %>
           </div>
         <% end %>
       </nav>
