@@ -85,11 +85,12 @@ def create_user_and_login
 end
 
 def create_admin_and_login
-  create :admin
+  admin = create :admin
   visit new_user_session_path
   fill_in "Email",	with: "admin@localhost"     
   fill_in "Password",	with: "password"
   click_button 'Login'
+  admin
 end
 
 def user_answer_question

@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :authenticate_admin, only: [:index, :create, :show, :destroy]
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
@@ -29,7 +30,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: 'User save successful.' }
+        format.html { redirect_to users_url, notice: 'User added.' }
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -42,7 +43,11 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to users_url, notice: 'User edit successful.' }
+        if current_user.admin?
+          format.html { redirect_to users_url, notice: 'User edited.' }
+        else
+          format.html { redirect_to home_url, notice: 'User edited.' }
+        end
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -55,7 +60,7 @@ class UsersController < ApplicationController
   def destroy
     @user.destroy
     respond_to do |format|
-      format.html { redirect_to users_url, notice: 'User delete successful.' }
+      format.html { redirect_to users_url, notice: 'User deleted.' }
       format.json { head :no_content }
     end
   end
@@ -73,5 +78,12 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
       params.require(:user).permit(:name, :role, :picture)
+    end
+
+    def authenticate_admin
+      # TODO Add authentication logic here.
+      if !current_user.admin?
+        redirect_to home_path, notice: "Access denied."
+      end
     end
 end

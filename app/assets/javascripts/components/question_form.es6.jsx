@@ -34,25 +34,7 @@ class QuestionForm extends React.Component {
       e.preventDefault()
       alert("Please add choices for the question.");
     }else{
-      $.ajax({
-        url: this.state.editMode ? '/questions/'+this.state.id : '/questions',
-        dataType: 'json',
-        type: this.state.editMode ? 'PATCH' :'POST',
-        data: {
-          question: this.state.question, 
-          show_in_list: this.state.show_in_list,
-          answer_type: this.state.selected,
-          choices: this.state.choices,
-          authenticity_token: this.state.auth_token
-        },
-        success: function(data) {
-          console.log("Success")
-          //redirect with url params on json, return with notice param
-        }.bind(this),
-        error: function(xhr, status, err) {
-         console.error(this.props.url, status, err.toString());
-        }.bind(this)
-      });
+      
     }
   }
 
@@ -77,21 +59,21 @@ class QuestionForm extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <form className="needs-validation" onSubmit={(e)=>{this.handleSubmit(e)}}>
+        <form className="needs-validation" action={this.state.editMode ? '/questions/'+this.state.id : '/questions'} method={this.state.editMode ? 'get' :'post'} onSubmit={(e)=>{this.handleSubmit(e)}} >
           <div className="modal-body">
             <div className="form-group">
               <label htmlFor="question">Question</label>
-              <input id="question" type="text" className="form-control" value={this.state.question} onChange={(e)=>{this.setState({question: e.target.value})}} required/>
+              <input name="question" id="question" type="text" className="form-control" value={this.state.question} onChange={(e)=>{this.setState({question: e.target.value})}} required/>
             </div>
 
             <div className="form-group" id="checkbox-group">
-              <input type="checkbox" className="form-check-input" id="show-in-list" checked={this.state.show_in_list} onChange={(e)=>{this.setState({show_in_list: e.target.checked})}}/>
+              <input name="show-in-list" type="checkbox" className="form-check-input" id="show-in-list" checked={this.state.show_in_list} onChange={(e)=>{this.setState({show_in_list: e.target.checked})}}/>
               <label className="form-check-label" htmlFor="show-in-list">Show in list?</label>
             </div>
 
             <div className="form-group">
               <label htmlFor="answer-type">Answer Type</label>
-              <select className="form-control" id="answer-type" onChange={(e)=>{ this.setState({selected: e.target.value}) }}>
+              <select name="answer_type" className="form-control" id="answer-type" onChange={(e)=>{ this.setState({selected: e.target.value}) }}>
                 {
                 this.state.selected === "" ?
                 <option selected> Choose... </option> :
@@ -115,7 +97,7 @@ class QuestionForm extends React.Component {
             </div>
           </div> 
 
-
+          <input type="hidden" value={this.state.auth_token} name="authenticity_token"/>
 
           <div className="modal-footer">
             <div className="actions">

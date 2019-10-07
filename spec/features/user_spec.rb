@@ -53,6 +53,21 @@ RSpec.feature "Users", type: :feature do
 
     fill_in "Name",	with: "New User" 
     click_button "Submit"
-    expect(page).to have_content "User edit successful."
+    expect(page).to have_content "User edited."
+  end
+  
+
+  scenario "visits users list" do
+    create_user_and_login
+    
+    visit users_path
+    expect(page).to have_content "Access denied."
+  end
+
+  scenario "visits admin dashboard" do
+    create_user_and_login
+    
+    visit admin_root_path
+    expect(page).to have_content "Access denied."
   end
 end

@@ -12,7 +12,7 @@ module Admin
     def authenticate_admin
       # TODO Add authentication logic here.
       if !current_user.admin?
-        redirect_to home_path, notice: "Access denied"
+        redirect_to home_path, notice: "Access denied."
       end
     end
 

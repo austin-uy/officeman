@@ -11,6 +11,13 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
+    if question_params.keys.length > 1
+      update
+    else
+      respond_to do |format|
+        format.html { redirect_to questions_url }
+      end
+    end
   end
 
   # GET /questions/new
@@ -30,7 +37,6 @@ class QuestionsController < ApplicationController
     respond_to do |format|
       if @question.save
         format.html { redirect_to questions_url, notice: 'Question added.' }
-        #json to component
       else
         format.html { render :new }
         format.json { render json: @question.errors, status: :unprocessable_entity }
@@ -71,7 +77,7 @@ class QuestionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def question_params
-      params.permit(:question, :answer_type, :show_in_list, :choices => [])
+      params.permit(:id, :question, :answer_type, :show_in_list, :choices => [])
     end
 
 end

@@ -26,7 +26,7 @@ RSpec.describe QuestionsController, type: :controller do
   
   it "should show question" do
     get :show, :params => { id: question.id }
-    expect(response).to be_successful
+    expect(response).to redirect_to questions_url
   end
   
   it "should get edit" do
