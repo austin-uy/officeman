@@ -8,6 +8,8 @@ as defined by the routes in the `admin/` namespace
 %>
 
 <nav class="navigation" role="navigation">
+    <%= inline_svg "officeman_logo.svg", height: "40" %>
+    <h2 style="text-align:center;">Dashboard</h2>
   <% Administrate::Namespace.new(namespace).resources.each do |resource| %>
     <%= link_to(
       display_resource_name(resource),
