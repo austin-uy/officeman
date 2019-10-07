@@ -49,10 +49,10 @@
   <% end %>
 <% end %>
 
-<% if policy(:application).show? && equipments.last_page? #admin%>
-<a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addEquipment">
-  <div class="card-body" id="card-add">
-    +<br>Add Equipment
-  </div>
-</a>
+<% if policy(:application).show? && ( equipments.length == 0 || equipments.last_page? ) #admin%>
+  <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addEquipment">
+    <div class="card-body" id="card-add">
+      +<br>Add Equipment
+    </div>
+  </a>
 <% end %>
