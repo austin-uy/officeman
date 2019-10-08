@@ -1,8 +1,8 @@
 <% if policy(:application).show? %>
   <nav>
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
-      <a class="nav-item nav-link active" id="nav-equipments-tab" data-toggle="tab" href="#nav-equipments" role="tab" aria-controls="nav-equipments" aria-selected="true">All</a>
-      <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#nav-report" role="tab" aria-controls="nav-report" aria-selected="false" onclick="return drawChart()">Reports</a>
+      <a class="nav-item nav-link active" id="nav-equipments-tab" data-toggle="tab" href="#nav-equipments" role="tab" aria-controls="nav-equipments" aria-selected="true"><%= t('.all') %></a>
+      <a class="nav-item nav-link" id="nav-report-tab" data-toggle="tab" href="#nav-report" role="tab" aria-controls="nav-report" aria-selected="false" onclick="return drawChart()"><%= t('.reports') %></a>
     </div>
   </nav>  
   <div class="tab-content" id="nav-tabContent">
@@ -34,7 +34,7 @@
     <div class="modal-dialog modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Add Equipment</h5>
+          <h5 class="modal-title" id="exampleModalLongTitle"><%= t('.add_equipment') %></h5>
         </div>
           <%= render 'form', equipment: Equipment.new %>
       </div>

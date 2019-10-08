@@ -10,7 +10,7 @@
     <div id="user-index">
       <%= image_tag current_user.picture.url(:medium) %>
       <h2> 
-        Hello <%= current_user.name%>! The date today is
+        <%= t('.hello') %> <%= current_user.name%>! <%= t('.the_date_today') %>
       </h2>
       <h3 class="text-muted">
         <%= react_component "Clock" %>
@@ -20,9 +20,9 @@
 <% else %>
   <div class="index-div">
     <div class="jumbotron" style="float:left;width:50%;">
-        <h1 class="display-4">Welcome to Officeman!</h1>
-        <p class="lead">A simple system to track your employees and equipment.</p>
-        <a class="btn btn-primary btn-lg" href="https://github.com/austin-uy/officeman" role="button">Learn more</a>
+        <h1 class="display-4"><%= t('.welcome') %></h1>
+        <p class="lead"><%= t('.a_simple_system') %></p>
+        <a class="btn btn-primary btn-lg" href="https://github.com/austin-uy/officeman" role="button"><%= t('.learn_more') %></a>
     </div>
     <div class="teamwork">
       <%= inline_svg "teamwork.svg", height: "300" %> 

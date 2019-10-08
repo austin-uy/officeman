@@ -10,8 +10,8 @@
               :
             </button>
             <div class="dropdown-menu" >
-              <%= link_to "Edit" , edit_equipment_path(equipment.id), :class => "dropdown-item"%>
-              <%= link_to "Remove" , equipment_path(equipment.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this equipment?"}, remote: true %>
+              <%= link_to t('edit') , edit_equipment_path(equipment.id), :class => "dropdown-item"%>
+              <%= link_to t('edit') , equipment_path(equipment.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this equipment?"}, remote: true %>
             </div>
           </div>
         <% end %>
@@ -19,7 +19,7 @@
       <div class="card-body">
         <% if current_user.role.eql? "admin" #admin %>
         <h4>
-          Owner : 
+          <%= t('.owner') %> : 
           <span class="badge badge-pill badge-dark">
             &nbsp;
             <%= get_user(equipment.user_id).name.length > 10 ? get_user(equipment.user_id).name[0,8]+"..." : get_user(equipment.user_id).name %>
@@ -28,7 +28,7 @@
         </h4>
         <% end %>
         <h4>
-          Type : 
+          <%= t('.type') %> : 
           <span class="badge badge-pill badge-light">
             &nbsp;
             <%= equipment.equipment_type.titleize %>
@@ -36,7 +36,7 @@
           </span>
         </h4>
         <h4>
-          Status : 
+          <%= t('.status') %> : 
           <span class="badge badge-pill badge-dark">
             &nbsp;
             <%= equipment.status.titleize %>
@@ -52,7 +52,10 @@
 <% if policy(:application).show? && ( equipments.length == 0 || equipments.last_page? ) #admin%>
   <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addEquipment">
     <div class="card-body" id="card-add">
-      +<br>Add Equipment
+      <p>
+        +<br>
+        <%= t('.add_equipment') %>
+      </p>
     </div>
   </a>
 <% end %>

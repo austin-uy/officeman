@@ -32,27 +32,38 @@
 en:
   layouts:
     application:
-      welcome: "Welcome to Officeman!"
-      description: "A simple system to track your employees and equipment."
-      learn: "Learn more"
       home: "Home"
       user: "User"
       question: "Question" 
       equipment: "Equipment"
-      edit: "Edit Profile"
+      edit_profile: "Edit Profile"
       dashboard: "Dashboard"
       logout: "Logout"
       login: "Login"
+  home:
+    index:
+      welcome: "Welcome to Officeman!"
+      a_simple_system: "A simple system to track your employees and equipment."
+      learn_more: "Learn more"
+      hello: "Hello"
+      the_date_today: "The date today is"
   users:
     index:
       role: "Role"
-      email: "Email"
       show_answers: "Show Answers"
       add_user: "Add User"
+      edit_user: "Edit User"
   questions:
     index:
       answered: "Answered"
       unanswered: "Unanswered"
+      question: "Question"
+      answer_type: "Answer Type"
+      shown_in_list: "Shown in List"
+      choices: "Choices"
+      add_question: "Add Question"
+      edit_question: "Edit Question"
+      empty: "Empty"
   equipments:
     index:
       all: "All"
@@ -60,6 +71,8 @@ en:
       owner: "Owner"
       type: "Type"
       status: "status"
+      add_equipment: "Add Equipment"
+      edit_equipment: "Edit Equipment"
   edit: "Edit"
   remove: "Remove"
   back: "Back"

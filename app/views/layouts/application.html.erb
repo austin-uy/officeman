@@ -43,7 +43,7 @@
                       <small class="text-muted"><%= current_user.role %></small>
                     </div>
                   </div>
-                  <%= link_to  "Edit Profile",  profile_path, class: "dropdown-item" %>
+                  <%= link_to  t('.edit_profile'),  profile_path, class: "dropdown-item" %>
                   <% if policy(:application).show? %>
                     <%= link_to t('.dashboard'), admin_root_path, class: "dropdown-item" %>
                   <% end %>

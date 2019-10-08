@@ -8,7 +8,7 @@
       <div class="card-body">
         <div>
           <h5>
-            Answer Type : 
+            <%= t('.answer_type') %> : 
             <span class="badge badge-pill badge-info">
               &nbsp;
               <%= question.answer_type %>
@@ -16,7 +16,7 @@
             </span>
           </h5>
           <h5>
-            Shown in List : 
+            <%= t('.shown_in_list') %> : 
             <span class="badge badge-pill badge-info">
               &nbsp;
               <%= question.show_in_list ? "Yes" : "No" %>
@@ -25,7 +25,7 @@
           </h5>
           <% if question.choice? %>
             <h5>
-              Choices : 
+              <%= t('.choices') %> : 
               <% question.choices.each do |choice| %>
                 <span class="badge badge-pill badge-secondary">
                   &nbsp;
@@ -37,8 +37,8 @@
           <% end %>
         </div>
         <div class="btn-group" role="group" aria-label="Basic example">
-          <%= link_to  "Edit", edit_question_path(question.id), :class => "btn btn-primary" %>
-          <%= link_to "Remove" , question_path(question.id), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Remove this question?"}, remote: true %>
+          <%= link_to  t('edit'), edit_question_path(question.id), :class => "btn btn-primary" %>
+          <%= link_to t('remove') , question_path(question.id), :method => :delete, :class => "btn btn-danger", :data => {:confirm => "Remove this question?"}, remote: true %>
         </div>
       </div>
       <div class="card-footer text-muted" >

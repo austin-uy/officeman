@@ -12,17 +12,17 @@
               </button>
               <div class="dropdown-menu" >
                 <% if user.user? %>
-                  <%= link_to "Show Answers" , summary_path(user_id: user.id), :class => "dropdown-item"%>
+                  <%= link_to t('.show_answers') , summary_path(user_id: user.id), :class => "dropdown-item"%>
                 <% end %>
-                <%= link_to "Edit" , edit_user_path(user.id), :class => "dropdown-item"%>
-                <%= link_to "Remove" , user_path(user.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this user?"}, remote: true %>
+                <%= link_to t('edit') , edit_user_path(user.id), :class => "dropdown-item"%>
+                <%= link_to t('remove') , user_path(user.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this user?"}, remote: true %>
               </div>
             </div>
           <% end %>
         </div> 
         <div class="card-body">
           <h4>
-            Role : 
+            <%= t('.role') %> : 
             <span class="badge badge-pill badge-dark">
               &nbsp;
               <%= user.role.titleize%>
@@ -45,7 +45,10 @@
 <% if users.last_page? %>
 <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addUser">
   <div class="card-body" id="card-add">
-    +<br>Add User
+    <p>
+      +<br>
+      <%= t('.add_user') %>
+    </p>
   </div>
 </a>
 <% end %>
