@@ -14,13 +14,13 @@ class QuestionsController < ApplicationController
     if question_params.keys.length > 1
       update
     else
-      redirect_to questions_url, "Access denied."
+      redirect_to questions_url, notice: "Access denied."
     end
   end
 
   # GET /questions/new
   def new
-    redirect_to questions_url, "Access denied."
+    redirect_to questions_url
   end
 
   # GET /questions/1/edit

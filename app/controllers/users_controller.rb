@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    redirect_to users_url
+    redirect_to users_url, notice: "Access denied."
   end
 
   # GET /users/new

@@ -11,7 +11,7 @@ class EquipmentController < ApplicationController
   # GET /equipment/1
   # GET /equipment/1.json
   def show
-    redirect_to equipment_index_url
+    redirect_to equipment_index_url, notice: "Access denied."
   end
 
   # GET /equipment/new
