@@ -10,7 +10,9 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: "users/registrations" }
   resources :answers
   resources :equipment
-  resources :questions
+  resources :questions do
+    get 'summary', as: "summary"
+  end
   resources :users
   root to: 'home#index', as: "home" 
   

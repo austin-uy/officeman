@@ -67,6 +67,11 @@ class QuestionsController < ApplicationController
     end
   end
 
+  #GET /questions/summary
+  def summary
+    @question = Question.find(params[:question_id])
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question

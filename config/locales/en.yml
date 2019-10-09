@@ -58,6 +58,8 @@ en:
       answered: "Answered"
       unanswered: "Unanswered"
       question: "Question"
+      answers: "Answers"
+      show_answers: "Show Answers"
       answer_type: "Answer Type"
       shown_in_list: "Shown in List"
       choices: "Choices"
