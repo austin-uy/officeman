@@ -16,6 +16,7 @@ class ChoiceComponent extends React.Component {
   }
 
   handleEdit(index){
+    console.log(index)
     let a = this.props.state.choices.splice(index,1);
     this.setState({choice: a[0]})
   }
@@ -38,8 +39,8 @@ class ChoiceComponent extends React.Component {
                   <div className="d-flex justify-content-between">
                     <p>{val}</p>
                     <div className="btn-group" role="group" aria-label="Basic example">
-                      <button className="btn btn-outline-primary" type="button" onClick={(index)=>{this.handleEdit(index)}}>Edit</button>
-                      <button className="btn btn-outline-danger" type="button" onClick={(index)=>{this.handleDelete(index)}}>Remove</button>
+                      <button className="btn btn-outline-primary" type="button" onClick={()=>{this.handleEdit(index)}}>Edit</button>
+                      <button className="btn btn-outline-danger" type="button" onClick={()=>{this.handleDelete(index)}}>Remove</button>
                     </div>
                   </div>
                 </li>

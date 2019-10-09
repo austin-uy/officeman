@@ -1,6 +1,6 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_question, only: [:show, :edit, :update, :destroy]
+  before_action :set_question, only: [:show, :edit, :create, :update, :destroy]
 
   # GET /questions
   # GET /questions.json
@@ -30,14 +30,18 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    @question = Question.new(question_params)
+    if params["method"].eql? 'put'
+      update
+    else
+      @question = Question.new(question_params)
 
-    respond_to do |format|
-      if @question.save
-        format.html { redirect_to questions_url, notice: 'Question added.' }
-      else
-        format.html { render :new }
-        format.json { render json: @question.errors, status: :unprocessable_entity }
+      respond_to do |format|
+        if @question.save
+          format.html { redirect_to questions_url, notice: 'Question added.' }
+        else
+          format.html { render :new }
+          format.json { render json: @question.errors, status: :unprocessable_entity }
+        end
       end
     end
   end
@@ -70,7 +74,9 @@ class QuestionsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_question
-      @question = Question.find(params[:id])
+      if params[:id]
+        @question = Question.find(params[:id])
+      end
       rescue ActiveRecord::RecordNotFound => e
         redirect_to questions_url, notice: "Access denied."
     end

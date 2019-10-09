@@ -34,7 +34,21 @@ class QuestionForm extends React.Component {
       e.preventDefault()
       alert("Please add choices for the question.");
     }else{
-      
+      if(this.state.selected === "choice")
+        this.state.choices.forEach((val)=>{
+          $('<input>').attr({
+            type: 'hidden',
+            name: 'choices[]',
+            value: val
+          }).appendTo('form');
+        })
+        
+      if(this.state.editMode)
+        $('<input>').attr({
+          type: 'hidden',
+          name: 'id',
+          value: this.state.id
+        }).appendTo('form');
     }
   }
 
@@ -59,7 +73,12 @@ class QuestionForm extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <form className="needs-validation" action={this.state.editMode ? '/questions/'+this.state.id : '/questions'} method={this.state.editMode ? 'get' :'post'} onSubmit={(e)=>{this.handleSubmit(e)}} >
+        <form className="needs-validation" action='/questions' method='post' onSubmit={(e)=>{this.handleSubmit(e)}} >
+          {
+            this.state.editMode ? 
+            <input type="hidden" value="put" name="method"/>:
+            <input type="hidden" value="post" name="method"/>
+          }
           <div className="modal-body">
             <div className="form-group">
               <label htmlFor="question">Question</label>
@@ -91,12 +110,14 @@ class QuestionForm extends React.Component {
               </select>
               {
                 this.state.selected === "choice" ?
-                <ChoiceComponent state={this.state}/> :
+                <ChoiceComponent state={this.state}/>
+                
+                :
                 null
               }
             </div>
           </div> 
-
+          
           <input type="hidden" value={this.state.auth_token} name="authenticity_token"/>
 
           <div className="modal-footer">
