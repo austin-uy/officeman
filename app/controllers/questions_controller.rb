@@ -11,11 +11,7 @@ class QuestionsController < ApplicationController
   # GET /questions/1
   # GET /questions/1.json
   def show
-    if question_params.keys.length > 1
-      update
-    else
-      redirect_to questions_url, notice: "Access denied."
-    end
+    redirect_to questions_url, notice: "Access denied."
   end
 
   # GET /questions/new
@@ -30,7 +26,7 @@ class QuestionsController < ApplicationController
   # POST /questions
   # POST /questions.json
   def create
-    if params["method"].eql? 'put'
+    if params[:method].eql? 'put'
       update
     else
       @question = Question.new(question_params)
