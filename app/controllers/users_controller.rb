@@ -12,11 +12,12 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to users_url
   end
 
   # GET /users/new
   def new
-    @user = User.new
+    redirect_to users_url
   end
 
   # GET /users/1/edit
@@ -73,6 +74,8 @@ class UsersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_user
       @user = User.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        redirect_to users_url, notice: "Access denied."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

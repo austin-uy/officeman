@@ -14,15 +14,13 @@ class QuestionsController < ApplicationController
     if question_params.keys.length > 1
       update
     else
-      respond_to do |format|
-        format.html { redirect_to questions_url }
-      end
+      redirect_to questions_url, "Access denied."
     end
   end
 
   # GET /questions/new
   def new
-    @question = Question.new
+    redirect_to questions_url, "Access denied."
   end
 
   # GET /questions/1/edit
@@ -73,6 +71,8 @@ class QuestionsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_question
       @question = Question.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        redirect_to questions_url, notice: "Access denied."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

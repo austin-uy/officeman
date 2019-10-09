@@ -5,17 +5,18 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
   def index
-    @answers = Answer.all
+    redirect_to questions_url, notice: 'Access denied'
   end
 
   # GET /answers/1
   # GET /answers/1.json
   def show
+    redirect_to questions_url, notice: 'Access denied'
   end
 
   # GET /answers/new
   def new
-    @answer = Answer.new
+    redirect_to questions_url, notice: 'Access denied'
   end
 
   # GET /answers/1/edit
@@ -78,6 +79,8 @@ class AnswersController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_answer
       @answer = Answer.find(params[:id])
+      rescue ActiveRecord::RecordNotFound => e
+        redirect_to questions_url, notice: "Access denied."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
