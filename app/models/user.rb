@@ -8,4 +8,5 @@ class User < ApplicationRecord
   validates_attachment_content_type :picture, content_type: /\Aimage\/.*\z/
   validates :name, uniqueness: true, presence: true
   validates :email, uniqueness: true
+  has_many :equipment
 end

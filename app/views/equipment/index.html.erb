@@ -13,11 +13,11 @@
     <div class="content">
 <% end %>
       <div class="main-container">
-        <%= render partial: "equipment", locals: { equipments: get_equipment(current_user.id) } %>
+        <%= render partial: "equipment", locals: { equipments: get_equipment() } %>
       </div>
 
       <div class="paginator">
-        <%= paginate get_equipment(current_user.id), :remote => true %>
+        <%= paginate get_equipment(), :remote => true %>
       </div>
     </div>
 
