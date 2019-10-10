@@ -65,7 +65,6 @@ en:
       choices: "Choices"
       add_question: "Add Question"
       edit_question: "Edit Question"
-      empty: "Empty"
   equipments:
     index:
       all: "All"
@@ -77,6 +76,7 @@ en:
       edit_equipment: "Edit Equipment"
   edit: "Edit"
   remove: "Remove"
+  empty: "Empty"
   back: "Back"
   submit: "Submit"
   back_to_home: "Back to Home"
