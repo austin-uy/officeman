@@ -78,6 +78,28 @@ RSpec.feature "Admins", type: :feature do
     visit questions_path
     expect(page).to have_content question.question
   end
+  
+
+  scenario "views all answers to question in /questions" do
+    user = create :user
+    question = create :text
+    answer = create :answer, question_id: question.id, user_id: user.id
+    create_admin_and_login
+
+    visit questions_path
+    click_link "Show Answers"
+    expect(page).to have_content answer.answer
+  end
+
+  scenario "views all answers to question with show_in_list enabled" do
+    user = create :user
+    question = create :text, show_in_list: true
+    answer = create :answer, question_id: question.id, user_id: user.id
+    create_admin_and_login
+
+    visit home_path
+    expect(page).to have_content answer.answer
+  end
 
   scenario "adds a question (text)", js: true do
     create_admin_and_login
@@ -165,5 +187,35 @@ RSpec.feature "Admins", type: :feature do
     create_admin_and_login
     visit admin_root_path
     expect(page).to have_content "Dashboard"
+  end
+
+  scenario "/questions/new redirects to open modal" do
+    create_admin_and_login
+    visit new_question_path
+    expect(page).to have_content "Add Question"
+  end
+
+  scenario "/equipment/new redirects to open form modal" do
+    create_admin_and_login
+    visit new_equipment_path
+    expect(page).to have_content "Add Equipment"
+  end
+
+  scenario "/users/new redirects to open form modal" do
+    create_admin_and_login
+    visit new_user_path
+    expect(page).to have_content "Add User"
+  end
+
+  scenario "/users/new redirects to open form modal" do
+    create_admin_and_login
+    visit new_user_path
+    expect(page).to have_content "Add User"
+  end
+
+  scenario "/answers/new shows access denied" do
+    create_admin_and_login
+    visit new_answer_path
+    expect(page).to have_content "Access denied."
   end
 end

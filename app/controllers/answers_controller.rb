@@ -5,18 +5,18 @@ class AnswersController < ApplicationController
   # GET /answers
   # GET /answers.json
   def index
-    redirect_to questions_url, notice: 'Access denied'
+    redirect_to questions_url, notice: 'Access denied.'
   end
 
   # GET /answers/1
   # GET /answers/1.json
   def show
-    redirect_to questions_url, notice: 'Access denied'
+    redirect_to questions_url, notice: 'Access denied.'
   end
 
   # GET /answers/new
   def new
-    redirect_to questions_url, notice: 'Access denied'
+    redirect_to questions_url, notice: 'Access denied.'
   end
 
   # GET /answers/1/edit
@@ -27,7 +27,7 @@ class AnswersController < ApplicationController
       end
     else
       respond_to do |format|
-        format.html { redirect_to questions_url, notice: 'Access denied' }
+        format.html { redirect_to questions_url, notice: 'Access denied.' }
       end
     end
   end
