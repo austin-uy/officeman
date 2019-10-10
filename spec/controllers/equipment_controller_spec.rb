@@ -14,9 +14,9 @@ RSpec.describe EquipmentController, type: :controller do
     expect(response).to be_successful
   end
 
-  it "should get new" do
+  it "should not get new" do
     get :new
-    expect(response).to be_successful
+    expect(response).to_not be_successful
   end
 
   it "should create equipment" do
@@ -24,9 +24,9 @@ RSpec.describe EquipmentController, type: :controller do
     expect(response.content_type).to eq "text/html"
   end
   
-  it "should show equipment" do
+  it "should not show equipment" do
     get :show, :params => { id: equipment.id }
-    expect(response).to be_successful
+    expect(response).to_not be_successful
   end
   
   it "should get edit" do

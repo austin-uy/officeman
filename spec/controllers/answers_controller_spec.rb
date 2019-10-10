@@ -9,14 +9,14 @@ RSpec.describe AnswersController, type: :controller do
     sign_in user
   end
 
-  it "should get index" do
+  it "should not get index" do
       get :index
-      expect(response).to be_successful
+      expect(response).to_not be_successful
   end
 
-  it "should get new" do
+  it "should not get new" do
     get :new
-    expect(response).to be_successful
+    expect(response).to_not be_successful
   end
 
   it "should create answer" do
@@ -24,9 +24,9 @@ RSpec.describe AnswersController, type: :controller do
     expect(response.content_type).to eq "text/html"
   end
   
-  it "should show answer" do
+  it "should not show answer" do
     get :show, :params => { id: answer.id }
-    expect(response).to be_successful
+    expect(response).to_not be_successful
   end
   
   it "should get edit" do

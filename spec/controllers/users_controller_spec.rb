@@ -15,9 +15,9 @@ RSpec.describe UsersController, type: :controller do
     expect(response).to be_successful
   end
 
-  it "should get new" do
+  it "should not get new" do
     get :new
-    expect(response).to be_successful
+    expect(response).to_not be_successful
   end
 
   it "should create user" do
@@ -25,9 +25,9 @@ RSpec.describe UsersController, type: :controller do
     expect(response.content_type).to eq "text/html"
   end
   
-  it "should show user" do
+  it "should not show user" do
     get :show, :params => { id: user.id }
-    expect(response).to be_successful
+    expect(response).to_not be_successful
   end
   
   it "should get edit" do
