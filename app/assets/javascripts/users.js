@@ -6,4 +6,11 @@ $(function(){
     event.preventDefault()
     $("#test").trigger("reset")
   });
+
+  $(document).ready(function(){
+    let search = new URLSearchParams(document.location.search)
+    if(search.get("open") !== null && search.get("open") === "true"){
+      $('#addUser').modal('show');
+    }
+  })
 })

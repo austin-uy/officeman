@@ -16,7 +16,11 @@ class QuestionsController < ApplicationController
 
   # GET /questions/new
   def new
-    redirect_to questions_url
+    if policy(:application).show?
+      redirect_to questions_url(open: true)
+    else
+      redirect_to questions_url, notice: "Access denied."
+    end
   end
 
   # GET /questions/1/edit
@@ -70,6 +74,8 @@ class QuestionsController < ApplicationController
   #GET /questions/summary
   def summary
     @question = Question.find(params[:question_id])
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to questions_url, notice: "Record not found."
   end
 
   private
@@ -79,7 +85,7 @@ class QuestionsController < ApplicationController
         @question = Question.find(params[:id])
       end
       rescue ActiveRecord::RecordNotFound => e
-        redirect_to questions_url, notice: "Access denied."
+        redirect_to questions_url, notice: "Record not found."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

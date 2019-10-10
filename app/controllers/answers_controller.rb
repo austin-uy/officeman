@@ -80,7 +80,7 @@ class AnswersController < ApplicationController
     def set_answer
       @answer = Answer.find(params[:id])
       rescue ActiveRecord::RecordNotFound => e
-        redirect_to questions_url, notice: "Access denied."
+        redirect_to questions_url, notice: "Record not found."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

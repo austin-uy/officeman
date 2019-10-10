@@ -16,7 +16,11 @@ class EquipmentController < ApplicationController
 
   # GET /equipment/new
   def new
-    redirect_to equipment_index_url
+    if policy(:application).show?
+      redirect_to equipment_index_url(open: true, page: helpers.get_equipment(current_user.id).total_pages)
+    else
+      redirect_to equipment_index_url, notice: "Access denied."
+    end
   end
 
   # GET /equipment/1/edit
@@ -66,7 +70,7 @@ class EquipmentController < ApplicationController
     def set_equipment
       @equipment = Equipment.find(params[:id])
       rescue ActiveRecord::RecordNotFound => e
-        redirect_to equipment_index_url, notice: "Access denied."
+        redirect_to equipment_index_url, notice: "Record not found."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

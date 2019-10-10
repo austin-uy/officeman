@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    redirect_to users_url
+    redirect_to users_url(open: true)
   end
 
   # GET /users/1/edit
@@ -75,7 +75,7 @@ class UsersController < ApplicationController
     def set_user
       @user = User.find(params[:id])
       rescue ActiveRecord::RecordNotFound => e
-        redirect_to users_url, notice: "Access denied."
+        redirect_to users_url, notice: "Record not found."
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -1,6 +1,6 @@
 <% if policy(:application).show? %>
   <div>
-    <button type="button" class="btn btn-outline-primary btn-lg" id="question-add-button" data-toggle="modal" data-target="#add-question-modal"><%= t('.add_question')%></button> 
+    <button type="button" class="btn btn-outline-primary btn-lg" id="question-add-button" data-toggle="modal" data-target="#addQuestion"><%= t('.add_question')%></button> 
   </div>
   <div class="questions-admin-div">
     <%= render partial: "admin", locals: { questions: questions(current_user.id, answered = nil) }%>
@@ -62,7 +62,7 @@
 
 <%end%>
 
-<div class="modal" id="add-question-modal" tabindex="-1" role="dialog" aria-labelledby="add-question-modal-label" aria-hidden="true">
+<div class="modal" id="addQuestion" tabindex="-1" role="dialog" aria-labelledby="add-question-modal-label" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
