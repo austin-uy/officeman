@@ -17,7 +17,7 @@ class EquipmentController < ApplicationController
   # GET /equipment/new
   def new
     if policy(:application).show?
-      redirect_to equipment_index_url(open: true, page: helpers.get_equipment(current_user.id).total_pages)
+      redirect_to equipment_index_url(open: true, page: helpers.get_equipment().total_pages)
     else
       redirect_to equipment_index_url, notice: "Access denied."
     end
