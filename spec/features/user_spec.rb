@@ -70,4 +70,11 @@ RSpec.feature "Users", type: :feature do
     visit admin_root_path
     expect(page).to have_content "Access denied."
   end
+
+  scenario "attempts to sign up" do
+    visit new_user_session_path
+
+    click_link "Sign up"
+    expect(page).to have_content "Please consult your respective admin for account creation."
+  end
 end
