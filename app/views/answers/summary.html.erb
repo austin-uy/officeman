@@ -22,7 +22,7 @@
       <tr>
           <th scope="row"><%= get_question(answer.question_id).question%></th>
           <td><%= answer.answer %></td>
-          <td><%= answer.updated_at %></td>
+          <td><%= answer.updated_at.localtime %></td>
       </tr>
       <% end %>
     </table>
