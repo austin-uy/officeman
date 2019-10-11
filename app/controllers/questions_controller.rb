@@ -63,7 +63,6 @@ class QuestionsController < ApplicationController
   # DELETE /questions/1
   # DELETE /questions/1.json
   def destroy
-    Answer.where(question_id: @question.id).destroy_all
     @question.destroy
     respond_to do |format|
       format.html { redirect_to questions_url, notice: 'Question deleted.' }
