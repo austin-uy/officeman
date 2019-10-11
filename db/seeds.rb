@@ -55,34 +55,9 @@ Question.create([
     question: "Where do you live?",
     answer_type: 0,
     show_in_list: true}
-  # },
-  # {
-  #   question: "Sex?",
-  #   answer_type: 2,
-  #   show_in_list: true,
-  #   choices: ["Male", "Female"]
-  # },
-  # {
-  #   question: "Civil Status?",
-  #   answer_type: 2,
-  #   show_in_list: true,
-  #   choices: ["Single", "Married", "Divorced", "Widowed"]
-  # }
 ])
 
 Answer.delete_all
-Answer.create([
-  {
-    answer: "User",
-    question_id: 1,
-    user_id: 3,
-  },
-  {
-    answer: 20,
-    question_id: 2,
-    user_id: 3,
-  },
-])
 
 #Equipment type: [:hardware, :software, :peripheral]
 #Equipment status: [:deployed, :stored, :defective]
@@ -128,11 +103,21 @@ Equipment.create([
     password_confirmation: 'password',
     role: 0
   )
-  Question.create(
-    question: Faker::Lorem.question(word_count: 3),
-    answer_type: rand(0..1),
-    show_in_list: Faker::Boolean.boolean(true_ratio: 0.7)
-  )
+  answer_type = rand(0..2)
+  if answer_type == 2
+    Question.create(
+      question: Faker::Lorem.question(word_count: 3),
+      answer_type: answer_type,
+      show_in_list: Faker::Boolean.boolean(true_ratio: 0.7),
+      choices: Faker::Lorem.words(number: 3)
+    )
+  else
+    Question.create(
+      question: Faker::Lorem.question(word_count: 3),
+      answer_type: answer_type,
+      show_in_list: Faker::Boolean.boolean(true_ratio: 0.7),
+    )
+  end
 end
 
 100.times do 
@@ -146,10 +131,27 @@ end
 
 (2..10).each do |user|
   (1..10).each do |question|
-    Answer.create(
-      answer: Faker::Lorem.word,
-      question_id: question,
-      user_id: user,
-    )
+    found = Question.find(question)
+    case found.answer_type 
+    when "text"
+      Answer.create(
+        answer: Faker::Lorem.word,
+        question_id: question,
+        user_id: user,
+      )
+    when "numerical"
+      Answer.create(
+        answer: Faker::Number.within(range: 1..50),
+        question_id: question,
+        user_id: user,
+      )
+    when "choice"
+      Answer.create(
+        answer: found.choices.sample,
+        question_id: question,
+        user_id: user,
+      )
+    else
+    end
   end
 end
