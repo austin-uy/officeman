@@ -47,6 +47,7 @@ en:
       learn_more: "Learn more"
       hello: "Hello"
       the_date_today: "The date today is"
+      shown_in_list_questions: "Shown in List Questions"
   users:
     index:
       role: "Role"

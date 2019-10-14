@@ -120,7 +120,7 @@ Equipment.create([
   end
 end
 
-100.times do 
+150.times do 
   Equipment.create(
     name: Faker::Appliance.equipment,
     equipment_type: rand(0..2),
