@@ -55,15 +55,23 @@
           </ul>
         <% elsif request.env['PATH_INFO'].eql? home_path %>
           <div class="w-75 text-right">
-            <%= button_to t('.login'), new_user_session_path, class: "btn btn-outline-light", id: "login" %>
+            <%= button_to t('.login'), new_user_session_path, method: :get, class: "btn btn-outline-light", id: "login" %>
           </div>
         <% end %>
       </nav>
     </header> 
     <main class='<%= controller.controller_name %>'>
       <% if notice %>
-        <div class="alert alert-info" role="alert">
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
           <%= notice %>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="alert alert-danger" role="alert">
+          <%= alert %>
         </div>
       <% end %>
       <%= yield %>

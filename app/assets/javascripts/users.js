@@ -13,4 +13,6 @@ $(function(){
       $('#addUser').modal('show');
     }
   })
+  
+  $(".alert").fadeOut(3000);
 })
