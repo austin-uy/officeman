@@ -1,6 +1,6 @@
 <% if user_signed_in?%>
   <% if policy(:application).show?%>
-    <h1><%= t('.shown_in_list_questions' )%></h1>
+    <h2><%= t('.shown_in_list_questions' )%></h2>
     <div class="container">
       <%= render partial: "show-in-list" , locals: { questions: get_show_in_list_questions()}%>
     </div>
