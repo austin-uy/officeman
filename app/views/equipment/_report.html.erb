@@ -1,22 +1,22 @@
 <h1 class="text-center">Distribution</h1>
 <div class="report-container" >
   <div>
-    <h2>Equipment Status</h2>
+    <h2 class="report-title">Equipment Status</h2>
     <%= pie_chart get_equipment_status_report(), donut: true, suffix: "%", colors: ["#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f", "#0275d8", "#292b2c"].shuffle %>
   </div>
   <div>
-    <h2>Equipment Type</h2>
+    <h2 class="report-title">Equipment Type</h2>
     <%= pie_chart get_equipment_type_report(), donut: true, suffix: "%", colors: ["#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f", "#0275d8", "#292b2c"].shuffle %>
   </div>
 </div>
 <h1 class="text-center">Totals</h1>
 <div class="report-container" >
   <div>
-    <h2>Equipment Status</h2>
+    <h2 class="report-title">Equipment Status</h2>
     <%= column_chart get_equipment_status_report(), height: "20rem", colors: ["#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f", "#0275d8", "#292b2c"].shuffle%>
   </div>
   <div>
-    <h2>Equipment Type</h2>
+    <h2 class="report-title">Equipment Type</h2>
     <%= column_chart get_equipment_type_report(), height: "20rem", colors: ["#5bc0de", "#5cb85c", "#f0ad4e", "#d9534f", "#0275d8", "#292b2c"].shuffle%>
   </div>
 </div>
