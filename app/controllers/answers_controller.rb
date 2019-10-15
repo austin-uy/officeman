@@ -23,7 +23,7 @@ class AnswersController < ApplicationController
   def edit
     if(current_user.id.eql? @answer.user_id)
       respond_to do |format|
-        format.html
+        format.js { render action: '../questions/edit_answer'}
       end
     else
       respond_to do |format|

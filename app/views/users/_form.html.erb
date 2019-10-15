@@ -25,11 +25,7 @@
     <% end %>
 </div>
 <div class="modal-footer">
-  <% if request.env['PATH_INFO'].eql? users_path%>
-    <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal"><%= t('close') %></button>
-  <% else %>
-    <%= link_to t('back'), :back, class: "btn btn-secondary", id: "close"  %>
-  <% end %>
+  <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal"><%= t('close') %></button>
   <%= f.submit t('submit'), class:"btn btn-primary"%>
 </div>
 <% end %>

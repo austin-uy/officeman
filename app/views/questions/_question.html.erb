@@ -35,7 +35,7 @@
                 :
               </button>
               <div class="dropdown-menu">
-                <%= link_to t('edit') , edit_answer_path(get_answer(question.id).id), :class => "dropdown-item" %>
+                <%= link_to t('edit') , edit_answer_path(get_answer(question.id).id), :class => "dropdown-item", remote: true%>
                 <%= link_to t('remove') , answer_path(get_answer(question.id).id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this answer?"}, remote: true %>
               </div>
             </div>

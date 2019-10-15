@@ -122,13 +122,8 @@ class QuestionForm extends React.Component {
 
           <div className="modal-footer">
             <div className="actions">
-                {
-                  this.state.editMode ?
-                  <button type="button" className="btn btn-secondary" onClick={()=>{ history.back()}}>Back</button>
-                  :
-                  <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={()=>{this.clear()}}>Close</button>
-                }
-                <button type="submit" className="btn btn-primary">Submit</button>
+              <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={()=>{this.clear()}}>Close</button>
+              <button type="submit" className="btn btn-primary">Submit</button>
             </div>
           </div> 
         </form>

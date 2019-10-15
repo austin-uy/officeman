@@ -16,7 +16,6 @@ Rails.application.routes.draw do
   resources :users
   root to: 'home#index', as: "home" 
   
-  get 'profile', as: "profile", controller: :users
   get 'summary', as: "summary", controller: :answers
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

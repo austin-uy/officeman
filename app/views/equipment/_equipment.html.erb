@@ -10,7 +10,7 @@
               :
             </button>
             <div class="dropdown-menu" >
-              <%= link_to t('edit') , edit_equipment_path(equipment.id), :class => "dropdown-item"%>
+              <%= link_to t('edit') , edit_equipment_path(equipment.id), :class => "dropdown-item", remote: true%>
               <%= link_to t('remove') , equipment_path(equipment.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this equipment?"}, remote: true %>
             </div>
           </div>

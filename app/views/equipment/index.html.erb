@@ -29,12 +29,24 @@
 <% end %>
 
 <div class="modal fade" data-equipment-id="<%=current_user.id%>" id="addEquipment" tabindex="-1" role="dialog" aria-labelledby="addEquipmentTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle"><%= t('.add_equipment') %></h5>
-        </div>
-          <%= render 'form', equipment: Equipment.new %>
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle"><%= t('.add_equipment') %></h5>
+      </div>
+        <%= render 'form', equipment: Equipment.new %>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="editEquipment" tabindex="-1" role="dialog" aria-labelledby="editEquipmentTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog" role="document">
+    <div class="modal-content" id="edit-modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">
+          <%= t('.edit_equipment')%>
+        </h5>
       </div>
     </div>
   </div>
+</div>
