@@ -18,10 +18,17 @@ RSpec.feature "Sessions", type: :feature do
   end
 
   scenario "require admin for administrate access" do
-    visit new_user_session_path
     create_admin_and_login
     find('.dropdown').click
     find('.dropdown-item', :text => 'Dashboard').click
-    expect(page).to have_content "Back to Home"
+    expect(page).to have_content "Dashboard"
+  end
+
+  scenario "shows alert on incorrect login credentials" do
+    visit new_user_session_path
+    fill_in "Email",	with: "user@localhost" 
+    fill_in "Password",	with: "wrong_password"
+    click_button 'Login'
+    expect(page).to have_content "Invalid Email or password."
   end
 end
