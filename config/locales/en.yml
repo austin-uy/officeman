@@ -66,6 +66,7 @@ en:
       choices: "Choices"
       add_question: "Add Question"
       edit_question: "Edit Question"
+      edit_answer: "Edit Answer"
   equipments:
     index:
       all: "All"
