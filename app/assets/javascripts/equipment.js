@@ -5,4 +5,5 @@ $(function(){
       $('#addEquipment').modal('show');
     }
   })
+  $('[data-toggle="tooltip"]').tooltip()
 })

@@ -1,3 +1,5 @@
 $('.main-container').html('<%= escape_javascript render(partial: "user", locals: {users: get_users()}) %>');
 
 $('.paginator').html('<%= escape_javascript(paginate(get_users(), :remote => true).to_s) %>');
+
+$('[data-toggle="tooltip"]').tooltip()

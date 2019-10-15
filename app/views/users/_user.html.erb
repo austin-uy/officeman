@@ -4,7 +4,13 @@
       <div class="card text-white bg-info m-4" id="card">
         <div class="card-header">
           <%= image_tag user.picture.url(:small), class: "card-image" %>
-          <%= user.name.length > 19 ? user.name[0,17]+"..." : user.name %>
+          <% if user.name.length > 18 %>
+            <a data-toggle="tooltip" data-placement="top" title='<%= user.name %>' >
+              <%= user.name[0,16]+"..." %>
+            </a>
+          <% else %>
+            <%= user.name %>
+          <% end %>
           <% if user.id != current_user.id %>
             <div class="btn-group dropright" id="options">
               <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
@@ -34,7 +40,13 @@
             Email : 
             <span class="badge badge-pill badge-dark">
               &nbsp;
-              <%= user.email.length > 20 ? user.email[0,18]+"..." : user.email %>
+              <% if user.email.length > 20 %>
+                <a data-toggle="tooltip" data-placement="top" title='<%= user.email %>' >
+                  <%= user.email[0,18]+"..." %>
+                </a>
+              <% else %>
+                <%= user.email %>
+              <% end %>
               &nbsp;
             </span>
           </h4>

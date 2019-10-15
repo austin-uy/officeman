@@ -3,7 +3,13 @@
     <% cache equipment do%>
     <div class="card text-white bg-info m-4" id="card">
       <div class="card-header">
-        <%= equipment.name.length > 27 ? equipment.name[0,25]+"..." : equipment.name %>
+        <% if equipment.name.length > 26 %>
+          <a data-toggle="tooltip" data-placement="top" title='<%= equipment.name %>' >
+            <%= equipment.name[0,24]+"..." %>
+          </a>
+        <% else %>
+          <%= equipment.name %>
+        <% end%>
         <% if current_user.role.eql? "admin" #admin %>
           <div class="btn-group dropright" id="options">
             <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
@@ -22,7 +28,13 @@
           <%= t('.owner') %> : 
           <span class="badge badge-pill badge-dark">
             &nbsp;
-            <%= get_user(equipment.user_id).name.length > 10 ? get_user(equipment.user_id).name[0,8]+"..." : get_user(equipment.user_id).name %>
+            <% if get_user(equipment.user_id).name.length > 10 %>
+              <a data-toggle="tooltip" data-placement="top" title='<%= get_user(equipment.user_id).name %>' >
+                <%= get_user(equipment.user_id).name[0,8]+"..." %>
+              </a>
+            <% else %>
+              <%= get_user(equipment.user_id).name %>
+            <% end %>
             &nbsp;
           </span>
         </h4>

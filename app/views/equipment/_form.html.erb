@@ -18,7 +18,7 @@
     </div>
 </div>
 <div class="modal-footer">
-  <%= link_to t('back'), :back, class: "btn btn-secondary", id: "close"  %>
+  <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal"><%= t('close') %></button>
   <%= f.submit t('submit'), class:"btn btn-primary"%>
 </div>
 <% end %>

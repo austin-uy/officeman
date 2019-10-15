@@ -15,4 +15,6 @@ $(function(){
   })
   
   $(".alert").fadeOut(3000);
+
+  $('[data-toggle="tooltip"]').tooltip()
 })
