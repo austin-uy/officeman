@@ -29,7 +29,7 @@ RSpec.describe QuestionsController, type: :controller do
     expect(response).to redirect_to questions_url
   end
   
-  it "should get edit" do
+  it "should not get edit" do
     get :edit, :params => { id: question.id }
     expect(response).to be_successful
   end

@@ -29,10 +29,10 @@ RSpec.describe AnswersController, type: :controller do
     expect(response).to_not be_successful
   end
   
-  it "should get edit" do
-    get :edit, :params => { id: answer.id }
-    expect(response).to be_successful
-  end
+  # it "should not get edit" do
+  #   get :edit, :params => { id: answer.id }
+  #   expect(response).to_not be_successful
+  # end
   
   it "should update answer" do
     put :update, :params => { id: answer.id, answer: { answer: "Updated answer"} }

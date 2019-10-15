@@ -8,11 +8,11 @@ RSpec.feature "Users", type: :feature do
 
     visit questions_path
     fill_in "answer_answer",	with: "some answer" 
-    click_button "Submit"
+    first(:button, "Submit").click
     expect(page).to have_content "Answer submit successful."
   end
 
-  scenario "edits an answer" do
+  scenario "edits an answer", js: true do
     create :text
     create_user_and_login
     user_answer_question
@@ -71,10 +71,4 @@ RSpec.feature "Users", type: :feature do
     expect(page).to have_content "Access denied."
   end
 
-  scenario "attempts to sign up" do
-    visit new_user_session_path
-
-    click_link "Sign up"
-    expect(page).to have_content "Please consult your respective admin for account creation."
-  end
 end

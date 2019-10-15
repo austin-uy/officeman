@@ -47,7 +47,7 @@ RSpec.feature "Admins", type: :feature do
     expect(page).to have_content answer.answer
   end
 
-  scenario "edits a user" do
+  scenario "edits a user", js: true do
     user = create :user
     create_admin_and_login
 

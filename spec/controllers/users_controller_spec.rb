@@ -45,8 +45,4 @@ RSpec.describe UsersController, type: :controller do
     expect(response.content_type).to eq "text/html"
   end
 
-  it "should get profile" do
-    get :profile
-    expect(response).to be_successful
-  end
 end
