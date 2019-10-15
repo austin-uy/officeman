@@ -1,2 +1,2 @@
-$("#edit-answer-content").append("<%= j render 'answers/form', answer: @answer %>");
+$("#edit-answer-content").html("<%= j render 'answers/form', answer: @answer %>");
 $('#editAnswer').modal('show');
