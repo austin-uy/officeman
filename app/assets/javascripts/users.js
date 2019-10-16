@@ -14,7 +14,10 @@ $(function(){
     }
   })
   
+  $(document).on("turbolinks:load",function(){
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+  
   $(".alert").fadeOut(3000);
 
-  $('[data-toggle="tooltip"]').tooltip()
 })
