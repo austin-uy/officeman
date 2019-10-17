@@ -49,7 +49,7 @@ class ChoiceComponent extends React.Component {
           }
           </ul>
           <div className="input-group">
-            <input type="text" className="form-control" id="choice" value={this.state.choice} onChange={(e)=>{this.setState({choice: e.target.value})}}/>
+            <input type="text" className="form-control" id="choice" value={this.state.choice} onChange={(e)=>{this.setState({choice: e.target.value})}} maxLength={40}/>
             <div className="input-group-append">
               <button className="btn btn-outline-secondary" type="button" onClick={()=>{this.addChoice()}}>Add</button>
             </div>
