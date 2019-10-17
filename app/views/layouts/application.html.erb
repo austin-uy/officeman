@@ -85,7 +85,7 @@
                 <%= t('.edit_profile')%>
               </h5>
             </div>
-            <%= render 'users/form', user: current_user %>
+            <%= render partial: 'users/form', locals: { user: current_user, edit_profile_flag: true} %>
           </div>
         </div>
       </div>
