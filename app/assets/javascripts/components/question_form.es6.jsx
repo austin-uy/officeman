@@ -82,7 +82,7 @@ class QuestionForm extends React.Component {
           <div className="modal-body">
             <div className="form-group">
               <label htmlFor="question">Question</label>
-              <input name="question" id="question" type="text" className="form-control" value={this.state.question} onChange={(e)=>{this.setState({question: e.target.value})}} required/>
+              <input name="question" id="question" type="text" aria-describedby="questionHelp" className="form-control" value={this.state.question} onChange={(e)=>{this.setState({question: e.target.value})}} maxLength={155} required/>
             </div>
 
             <div className="form-group" id="checkbox-group">

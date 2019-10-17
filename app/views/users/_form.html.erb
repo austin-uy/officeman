@@ -3,15 +3,18 @@
 <div class="modal-body"> 
     <div class="form-group">
       <%= f.label :name %>: 
-      <%= f.text_field :name, type:"text", class:"form-control", required: true %>
+      <%= f.text_field :name, type:"text", class:"form-control", required: true, maxlength: 40 %>
     </div>
     <div class="form-group">
-      <%= f.label :picture %>:
-      <%= f.file_field :picture %>
+      <label for="picture-uploader">Picture:</label>
+      <div class="custom-file" id="picture-uploader">
+        <%= f.file_field :picture, class: "custom-file-input", accept: 'image/png,image/jpeg' %>
+        <label for="custom-file" class="custom-file-label">Choose Image (jpeg/png format only)</label>
+      </div>
     </div>
     <div class="form-group">
       <%= f.label :email %>: 
-      <%= f.text_field :email, type:"email", class:"form-control", required: true %>
+      <%= f.text_field :email, type:"email", class:"form-control", required: true, maxlength: 40 %>
     </div>
     <% if request.env['PATH_INFO'].eql? users_path%>
       <div class="form-group">
@@ -20,7 +23,7 @@
       </div>
       <div class="form-group">
         <%= f.label :password %>: 
-        <%= f.text_field :password, type:"password", class:"form-control", required: true %>
+        <%= f.text_field :password, type:"password", class:"form-control", required: true, maxlength: 40 %>
       </div>
     <% end %>
 </div>
