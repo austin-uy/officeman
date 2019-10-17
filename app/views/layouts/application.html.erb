@@ -33,13 +33,25 @@
             <li class="nav-item">
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
-                  <%= current_user.name %>
+                  <% if current_user.name.length > 17 %>
+                    <%= current_user.name[0,15]+"..." %>
+                  <% else %>
+                    <%= current_user.name %>
+                  <% end%>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-header" style="display:flex;">
                     <%= image_tag current_user.picture.url(:small) %>
                     <div id="dropdown-header-name">
-                      <h6><%= current_user.name %></h6>
+                      <h6>
+                        <% if current_user.name.length > 17 %>
+                          <a data-toggle="tooltip" data-placement="right" title='<%= current_user.name %>' >
+                            <%= current_user.name[0,15]+"..." %>
+                          </a>
+                        <% else %>
+                          <%= current_user.name %>
+                        <% end%>
+                      </h6>
                       <small class="text-muted"><%= current_user.role %></small>
                     </div>
                   </div>
