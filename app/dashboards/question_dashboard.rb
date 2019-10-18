@@ -68,7 +68,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how questions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(question)
-  #   "Question ##{question.id}"
-  # end
+  def display_resource(question)
+    question.question
+  end
 end

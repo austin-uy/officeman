@@ -8,7 +8,7 @@ class AnswerDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
+    user: Field::BelongsTo.with_options(scope: -> { User.where(role: "user") }),
     id: Field::Number,
     answer: Field::String,
     question: Field::BelongsTo,
@@ -63,7 +63,7 @@ class AnswerDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how answers are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(answer)
-  #   "Answer ##{answer.id}"
-  # end
+  def display_resource(answer)
+    answer.answer
+  end
 end
