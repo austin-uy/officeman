@@ -2,7 +2,7 @@
 <div class="modal-body">
     <div class="form-group">
       <%= f.label :name %>: 
-      <%= f.text_field :name, type:"text", class:"form-control", id: "name", required: true %>
+      <%= f.text_field :name, type:"text", class:"form-control", id: "name", required: true, maxlength: 40 %>
     </div>
     <div class="form-group">
       <%= f.label :equipment_type %>: 
