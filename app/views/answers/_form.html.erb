@@ -5,9 +5,9 @@
     <div class="form-group">
       <% case get_question(answer.question_id).answer_type %>
       <% when 'text' %>
-        <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
+        <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true, maxlength: 40 %>
       <% when 'numerical' %>
-        <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
+        <%= f.number_field :answer, type:"number", class:"form-control", required: true%>
       <% when 'choice' %>
         <%= f.select(:answer, get_question(answer.question_id).choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
       <% else %>
