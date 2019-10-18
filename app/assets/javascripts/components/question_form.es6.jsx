@@ -2,11 +2,9 @@ let initialState = {
   id: Number,
   question: "",
   show_in_list: false,
-  types: [],
   selected: "",
   choices: [],
   editMode: false,
-  auth_token: ""
 }
 
 class QuestionForm extends React.Component {
