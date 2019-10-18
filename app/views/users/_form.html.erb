@@ -5,10 +5,6 @@
         <%= f.text_field :name, type:"text", class:"form-control", required: true %>
       </div>
       <div class="form-group">
-        <%= f.label :picture %>:
-        <%= f.file_field :picture %>
-      </div>
-      <div class="form-group">
         <%= f.label :email %>: 
         <%= f.text_field :email, type:"email", class:"form-control", required: true %>
       </div>
@@ -18,14 +14,18 @@
           <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
         </div>
         <div class="form-group">
-        <%= f.label :password %>: 
-        <%= f.text_field :password, type:"password", class:"form-control", required: user.id.nil? %>
-      </div>
-      <div class="form-group">
-        <%= f.label :password_confirmation %>: 
-        <%= f.text_field :password_confirmation, type:"password", class:"form-control", required: user.id.nil? %>
-      </div>
+          <%= f.label :password %>: 
+          <%= f.text_field :password, type:"password", class:"form-control", required: user.id.nil? %>
+        </div>
+        <div class="form-group">
+          <%= f.label :password_confirmation %>: 
+          <%= f.text_field :password_confirmation, type:"password", class:"form-control", required: user.id.nil? %>
+        </div>
     <% end %>
+    <div class="form-group">
+      <%= f.label :picture %>:
+      <%= f.file_field :picture %>
+    </div>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-secondary" id="close" data-dismiss="modal"><%= t('close') %></button>
