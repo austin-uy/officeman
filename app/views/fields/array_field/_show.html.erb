@@ -1,7 +1,7 @@
 <% if field.to_s.empty? %>
   None
 <% else %>
-  <ol type="a">
+  <ol type="a" class="choices">
     <% field.to_s.each do |choice| %>
       <li><%= choice %></li>
     <% end %>

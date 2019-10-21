@@ -79,6 +79,6 @@ class UserDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(user)
-    "#{user.name} (##{user.id})"
+    "#{user.name.truncate(28)} (##{user.id})"
   end
 end

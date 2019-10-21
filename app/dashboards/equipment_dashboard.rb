@@ -69,6 +69,6 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(equipment)
-    "#{equipment.name} (##{equipment.id})"
+    "#{equipment.name.truncate(28)} (##{equipment.id})"
   end
 end

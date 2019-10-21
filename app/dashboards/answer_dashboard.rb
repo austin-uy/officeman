@@ -64,6 +64,6 @@ class AnswerDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(answer)
-    answer.answer
+    answer.answer.truncate(30)
   end
 end

@@ -33,7 +33,6 @@ class QuestionDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-  answers
   id
   question
   answer_type
@@ -41,6 +40,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   created_at
   updated_at
   choices
+  answers
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -69,6 +69,6 @@ class QuestionDashboard < Administrate::BaseDashboard
   # across all pages of the admin dashboard.
   #
   def display_resource(question)
-    question.question
+    question.question.truncate(30)
   end
 end
