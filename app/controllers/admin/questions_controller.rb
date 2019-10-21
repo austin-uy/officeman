@@ -2,11 +2,13 @@ module Admin
   class QuestionsController < Admin::ApplicationController
     # Overwrite any of the RESTful controller actions to implement custom behavior
     # For example, you may want to send an email after a foo is updated.
-    #
+
+    def resource_params
+      params[:question][:choices] = params[:question][:choices].split(',')
+      params.require(resource_name).permit(*dashboard.permitted_attributes, choices: [])
+    end
+
     # def update
-    #   foo = Foo.find(params[:id])
-    #   foo.update(params[:foo])
-    #   send_foo_updated_email
     # end
 
     # Override this method to specify custom lookup behavior.

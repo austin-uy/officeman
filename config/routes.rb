@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   resources :questions do
     get 'summary', as: "summary"
   end
+  
   resources :users
+
   root to: 'home#index', as: "home" 
   
   get 'summary', as: "summary", controller: :answers
+  patch 'update_password', as: "update_password", controller: :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

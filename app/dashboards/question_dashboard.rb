@@ -15,7 +15,7 @@ class QuestionDashboard < Administrate::BaseDashboard
     show_in_list: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    choices: Field::Text,
+    choices: ArrayField,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
@@ -33,7 +33,6 @@ class QuestionDashboard < Administrate::BaseDashboard
   # SHOW_PAGE_ATTRIBUTES
   # an array of attributes that will be displayed on the model's show page.
   SHOW_PAGE_ATTRIBUTES = %i[
-  answers
   id
   question
   answer_type
@@ -41,6 +40,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   created_at
   updated_at
   choices
+  answers
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -68,7 +68,7 @@ class QuestionDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how questions are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(question)
-  #   "Question ##{question.id}"
-  # end
+  def display_resource(question)
+    question.question.truncate(30)
+  end
 end
