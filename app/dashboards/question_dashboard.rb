@@ -15,7 +15,7 @@ class QuestionDashboard < Administrate::BaseDashboard
     show_in_list: Field::Boolean,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
-    choices: Field::Text,
+    choices: ArrayField,
   }.freeze
 
   # COLLECTION_ATTRIBUTES
