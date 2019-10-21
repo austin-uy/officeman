@@ -6,7 +6,7 @@
 
     <div class="form-group w-25 mx-auto">
       <%= f.label :name %><br />
-      <%= f.text_field :name, autofocus: true, class:"form-control", required: true %>
+      <%= f.text_field :name, autofocus: true, class:"form-control", required: true, maxlength: 40 %>
     </div>
     
     <div class="form-group w-25 mx-auto">
@@ -16,7 +16,7 @@
 
     <div class="form-group w-25 mx-auto">
       <%= f.label :email %><br />
-      <%= f.email_field :email, autofocus: true, class:"form-control", required: true %>
+      <%= f.email_field :email, autofocus: true, class:"form-control", required: true, maxlength: 40 %>
     </div>
 
     <div class="form-group w-25 mx-auto">
@@ -24,12 +24,12 @@
       <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
       <% end %><br />
-      <%= f.password_field :password, class:"form-control", required: true %>
+      <%= f.password_field :password, class:"form-control", required: true, maxlength: 40 %>
     </div>
 
     <div class="form-group w-25 mx-auto">
       <%= f.label :password_confirmation %><br />
-      <%= f.password_field :password_confirmation, class:"form-control", required: true %>
+      <%= f.password_field :password_confirmation, class:"form-control", required: true, maxlength: 40 %>
     </div>
 
     <input type="hidden" name="user[role]" value="user"/>

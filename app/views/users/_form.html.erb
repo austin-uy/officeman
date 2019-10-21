@@ -1,26 +1,33 @@
 <%= form_with model: user, html: { multipart: true }, id: "test" do |f| %>
-  <div class="modal-body"> 
+<div class="modal-body"> 
+    <div class="form-group">
+      <%= f.label :name %>: 
+      <%= f.text_field :name, type:"text", class:"form-control", required: true, maxlength: 40 %>
+    </div>
+    <div class="form-group">
+      <label for="picture-uploader">Picture:</label>
+      <div class="custom-file" id="picture-uploader">
+        <%= f.file_field :picture, class: "custom-file-input", accept: 'image/png,image/jpeg' %>
+        <label for="custom-file" class="custom-file-label">Choose Image (jpeg/png format only)</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <%= f.label :email %>: 
+      <%= f.text_field :email, type:"email", class:"form-control", required: true, maxlength: 40 %>
+    </div>
+    <% if policy(:application).show? && !edit_profile_flag %>
       <div class="form-group">
-        <%= f.label :name %>: 
-        <%= f.text_field :name, type:"text", class:"form-control", required: true %>
+        <%= f.label :role %>: 
+        <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
       </div>
       <div class="form-group">
-        <%= f.label :email %>: 
-        <%= f.text_field :email, type:"email", class:"form-control", required: true %>
+        <%= f.label :password %>: 
+        <%= f.text_field :password, type:"password", class:"form-control", required: user.id.nil? %>
       </div>
-      <% if policy(:application).show? && !edit_profile_flag %>
-        <div class="form-group">
-          <%= f.label :role %>: 
-          <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password %>: 
-          <%= f.text_field :password, type:"password", class:"form-control", required: user.id.nil? %>
-        </div>
-        <div class="form-group">
-          <%= f.label :password_confirmation %>: 
-          <%= f.text_field :password_confirmation, type:"password", class:"form-control", required: user.id.nil? %>
-        </div>
+      <div class="form-group">
+        <%= f.label :password_confirmation %>: 
+        <%= f.text_field :password_confirmation, type:"password", class:"form-control", required: user.id.nil? %>
+      </div>
     <% end %>
     <div class="form-group">
       <%= f.label :picture %>:
