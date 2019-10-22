@@ -72,6 +72,7 @@ class UsersController < ApplicationController
     end
   end
 
+<<<<<<< HEAD
   # PUT /users/update_password
   def update_password
     @user = User.find(params[:user][:id])
@@ -99,6 +100,19 @@ class UsersController < ApplicationController
   end
 
 
+=======
+  # PATCH /users/update_password
+  def update_password
+    @user = current_user
+    if @user.update_with_password(user_params)
+      bypass_sign_in(@user)
+      redirect_to home_path, notice: "Password updated."
+    else
+      redirect_to home_path, notice: "Current password doesn't match our records."
+    end
+  end
+
+>>>>>>> master
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -109,7 +123,11 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
+<<<<<<< HEAD
       params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation)
+=======
+      params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation, :current_password)
+>>>>>>> master
     end
 
     def authenticate_admin

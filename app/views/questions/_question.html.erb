@@ -1,60 +1,55 @@
-
-<% cache questions do %>
-  <% questions.each do |question| %>
-    <% cache question do %>
-      <div class="w-50 mx-auto card" id="question-card">
-        <div class="card-header">
-          <h4 class="card-title"><%= t('.question') %></h4>
-        </div>
-        <div class="card-body">
-          <p class="card-text"><%= question.question %></p>
-          <% if not get_answered(current_user.id).include? question.id%>
-            <%= form_with model: Answer.new do |f| %>
-              <div class="form-row">
-                <div class="form-group col-md-6">
-                  <% case question.answer_type %>
-                  <% when 'text' %>
-                    <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true, maxlength: 40 %>
-                  <% when 'numerical' %>
-                    <%= f.number_field :answer, type:"number", class:"form-control", required: true %>
-                  <% when 'choice' %>
-                    <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
-                  <% end %>
-                  
-                  <%= f.text_field :question_id, type:"hidden", value: question.id %>
-                  <%= f.text_field :user_id, type:"hidden", value: current_user.id %>
-                </div>
-                <div class="form-group col-md-2">
-                  <%= f.submit t('submit'), class:"btn btn-primary"%>
-                </div>
-              </div>
-            <% end %>
-          <% else %>
-            <div class="btn-group dropright" id="question-options">
-              <button type="button"  class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                :
-              </button>
-              <div class="dropdown-menu">
-                <%= link_to t('edit') , edit_answer_path(get_answer(question.id).id), :class => "dropdown-item", remote: true%>
-                <%= link_to t('remove') , answer_path(get_answer(question.id).id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this answer?"}, remote: true %>
-              </div>
+<% questions.each do |question| %>
+  <div class="w-50 mx-auto card" id="question-card">
+    <div class="card-header">
+      <h4 class="card-title"><%= t('.question') %></h4>
+    </div>
+    <div class="card-body">
+      <p class="card-text"><%= question.question %></p>
+      <% if not get_answered(current_user.id).include? question.id%>
+        <%= form_with model: Answer.new do |f| %>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <% case question.answer_type %>
+              <% when 'text' %>
+                <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
+              <% when 'numerical' %>
+                <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
+              <% when 'choice' %>
+                <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+              <% end %>
+              
+              <%= f.text_field :question_id, type:"hidden", value: question.id %>
+              <%= f.text_field :user_id, type:"hidden", value: current_user.id %>
             </div>
-            <div>
-              <h5>
-                You : 
-                <span class="badge badge-info">
-                  &nbsp;
-                  <%= get_answer(question.id).answer %>
-                  &nbsp;
-                </span>
-              </h5>
+            <div class="form-group col-md-2">
+              <%= f.submit t('submit'), class:"btn btn-primary"%>
             </div>
-          <% end%>
+          </div>
+        <% end %>
+      <% else %>
+        <div class="btn-group dropright" id="question-options">
+          <button type="button"  class="btn btn-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            :
+          </button>
+          <div class="dropdown-menu">
+            <%= link_to t('edit') , edit_answer_path(get_answer(question.id).id), :class => "dropdown-item", remote: true%>
+            <%= link_to t('remove') , answer_path(get_answer(question.id).id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this answer?"}, remote: true %>
+          </div>
         </div>
-        <div class="card-footer text-muted" >
-          <small><%= question.updated_at.localtime %></small>
+        <div>
+          <h5>
+            You : 
+            <span class="badge badge-info">
+              &nbsp;
+              <%= get_answer(question.id).answer %>
+              &nbsp;
+            </span>
+          </h5>
         </div>
-      </div>
-    <% end %>
-  <% end %>
+      <% end %>
+    </div>
+    <div class="card-footer text-muted" >
+      <small><%= question.updated_at.localtime %></small>
+    </div>
+  </div>
 <% end %>

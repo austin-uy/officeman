@@ -8,7 +8,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # which determines how the attribute is displayed
   # on pages throughout the dashboard.
   ATTRIBUTE_TYPES = {
-    user: Field::BelongsTo,
+    user: Field::BelongsTo.with_options(scope: -> { User.where(role: "user") }),
     id: Field::Number,
     name: Field::String,
     equipment_type: Field::Select.with_options(collection: Equipment.equipment_types.keys),
@@ -68,7 +68,7 @@ class EquipmentDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how equipment are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(equipment)
-  #   "Equipment ##{equipment.id}"
-  # end
+  def display_resource(equipment)
+    "#{equipment.name.truncate(28)} (##{equipment.id})"
+  end
 end

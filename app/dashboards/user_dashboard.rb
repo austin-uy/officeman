@@ -14,8 +14,8 @@ class UserDashboard < Administrate::BaseDashboard
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
     email: Field::String,
-    password: Field::String.with_options(searchable: false),
-    password_confirmation: Field::String.with_options(searchable: false),
+    password: Field::Password.with_options(searchable: false),
+    password_confirmation: Field::Password.with_options(searchable: false),
     encrypted_password: Field::String.with_options(searchable: false),
     reset_password_token: Field::String.with_options(searchable: false),
     reset_password_sent_at: Field::DateTime,
@@ -46,7 +46,6 @@ class UserDashboard < Administrate::BaseDashboard
   name
   role
   email
-  encrypted_password
   picture_file_name
   created_at
   updated_at
@@ -79,7 +78,7 @@ class UserDashboard < Administrate::BaseDashboard
   # Overwrite this method to customize how users are displayed
   # across all pages of the admin dashboard.
   #
-  # def display_resource(user)
-  #   "User ##{user.id}"
-  # end
+  def display_resource(user)
+    "#{user.name.truncate(28)} (##{user.id})"
+  end
 end

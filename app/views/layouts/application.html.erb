@@ -33,17 +33,30 @@
             <li class="nav-item">
               <div class="dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" id="dropdownMenuLink" aria-haspopup="true" aria-expanded="false">
-                  <%= current_user.name %>
+                  <% if current_user.name.length > 17 %>
+                    <%= current_user.name[0,15]+"..." %>
+                  <% else %>
+                    <%= current_user.name %>
+                  <% end%>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <div class="dropdown-header" style="display:flex;">
                     <%= image_tag current_user.picture.url(:small) %>
                     <div id="dropdown-header-name">
-                      <h6><%= current_user.name %></h6>
+                      <h6>
+                        <% if current_user.name.length > 17 %>
+                          <a data-toggle="tooltip" data-placement="right" title='<%= current_user.name %>' >
+                            <%= current_user.name[0,15]+"..." %>
+                          </a>
+                        <% else %>
+                          <%= current_user.name %>
+                        <% end%>
+                      </h6>
                       <small class="text-muted"><%= current_user.role %></small>
                     </div>
                   </div>
                   <%= link_to  t('.edit_profile'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editProfile" }%>
+                  <%= link_to  t('.change_password'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editPassword" }%>
                   <% if policy(:application).show? %>
                     <%= link_to t('.dashboard'), admin_root_path, class: "dropdown-item" %>
                   <% end %>
@@ -85,7 +98,19 @@
                 <%= t('.edit_profile')%>
               </h5>
             </div>
-            <%= render 'users/form', user: current_user %>
+            <%= render partial: 'users/form', locals: { user: current_user, edit_profile_flag: true} %>
+          </div>
+        </div>
+      </div>
+      <div class="modal fade" id="editPassword" tabindex="-1" role="dialog" aria-labelledby="editPasswordTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog" role="document">
+          <div class="modal-content" id="edit-modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLongTitle">
+                <%= t('.change_password')%>
+              </h5>
+            </div>
+            <%= render partial: 'users/edit-password', locals: { user: current_user} %>
           </div>
         </div>
       </div>
