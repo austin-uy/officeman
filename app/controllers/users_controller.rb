@@ -44,12 +44,6 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        
-        bypass_sign_in(@user) if @user == current_user
-        if params[:noredirect]
-          format.json  { render json: { message: "Password updated"}, status: 200 }
-        end
-
         if current_user.admin?
           format.html { redirect_to users_url, notice: 'User edited.' }
         else
@@ -86,7 +80,10 @@ class UsersController < ApplicationController
       end
       
       if messages.empty? 
-        if @user.update_with_password(user_params)
+        params[:user].delete :id
+        params[:user].delete :current_password
+        if @user.update(user_params)
+          bypass_sign_in(@user)
           format.json  { render json: { message: "Password updated" }, status: 200 }
         else
           format.json  { render json: { message: "Password update error" }, status: 500 }

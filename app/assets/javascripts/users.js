@@ -25,6 +25,7 @@ $(function(){
     $(".form-control.current").val("");
     $(".form-control.new").val("");
     $(".form-control.confirm").val("");
+    $('input[type="submit"]').removeAttr('disabled');
   })
 
   $(".edit_user").submit(function(e){
@@ -51,7 +52,11 @@ $(function(){
         },
         200: function(response){
           $("#edit-password-alert").html("<div class='alert alert-info fade show' role='alert'>Password Updated</div>");
-        }
+        },
+        500: function(response) {
+          $("#edit-password-alert").html("<div class='alert alert-danger fade show' role='alert'>"+response.responseJSON.message+"</div>");
+          $('input[type="submit"]').removeAttr('disabled');
+        },
       }
     })
   })
