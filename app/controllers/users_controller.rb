@@ -44,6 +44,12 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
+        
+        bypass_sign_in(@user) if @user == current_user
+        if params[:noredirect]
+          format.json  { render json: { message: "Password updated"}, status: 200 }
+        end
+
         if current_user.admin?
           format.html { redirect_to users_url, notice: 'User edited.' }
         else
@@ -66,6 +72,33 @@ class UsersController < ApplicationController
     end
   end
 
+  # PUT /users/update_password
+  def update_password
+    @user = User.find(params[:user][:id])
+    messages = []
+    respond_to do |format|
+      if !@user.valid_password?(params[:user][:current_password])
+        messages.push("Current password incorrect.")
+      end
+
+      if !params[:user][:password].eql? params[:user][:password_confirmation]
+        messages.push("Password and Password Confirmation doesn't match.")
+      end
+      
+      if messages.empty? 
+        if @user.update_with_password(user_params)
+          format.json  { render json: { message: "Password updated" }, status: 200 }
+        else
+          format.json  { render json: { message: "Password update error" }, status: 500 }
+        end
+      else
+        format.json  { render json: { messages: messages }, status: :unprocessable_entity }
+      end
+      
+    end
+  end
+
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
@@ -76,7 +109,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :role, :picture)
+      params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation)
     end
 
     def authenticate_admin
