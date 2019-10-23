@@ -56,7 +56,6 @@
                     </div>
                   </div>
                   <%= link_to  t('.edit_profile'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editProfile" }%>
-                  <%= link_to  t('.change_password'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editPassword" }%>
                   <% if policy(:application).show? %>
                     <%= link_to t('.dashboard'), admin_root_path, class: "dropdown-item" %>
                   <% end %>
