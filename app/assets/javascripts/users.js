@@ -1,9 +1,9 @@
 //# Place all the behaviors and hooks related to the matching controller here.
 //# All this logic will automatically be available in application.js.
 //# You can use CoffeeScript in this file: http://coffeescript.org/
-let email_ok = true
-let password_ok = true
-let password_confirm_ok = true
+var email_ok = true
+var password_ok = true
+var password_confirm_ok = true
 
 $(function(){
   $('#close').click(function (event) {
@@ -24,33 +24,95 @@ $(function(){
   
   $(".alert").fadeOut(3000);
 
-  $('#editPassword').on('show.bs.modal', function (e) {
-    $("#edit-password-alert").html("");
-    $(".form-control.current").val("");
-    $(".form-control.new").val("");
-    $(".form-control.confirm").val("");
-    $('input[type="submit"]').removeAttr('disabled');
+  $('.custom-file-input').on('change',function(){
+    var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
+    if(fileName === "") fileName = "Choose Image (jpeg/png format only)"
+    $(this).next('.custom-file-label').html(fileName);
+})
+
+  $(".new_user #user_email").on('input',function() {
+    $(".new_user #emailHelp").html("");
   })
 
-  $("#user_email").on('input',function() {
-    $("#emailHelp").html("");
-  })
-
-  $('#user_email').blur(function(){
+  $('.new_user #user_email').blur(async function(){
     if(this.value !== ""){
-      $.ajax({
+      await $.ajax({
         url: '/validate_email',
         type: 'PUT',
         data: { 
           email: this.value,
-          id: $("#user_id").val(),
-          authenticity_token: $('input[name="authenticity_token"]').val()
+          id: $(".new_user #user_id").val(),
+          authenticity_token: $('.new_user input[name="authenticity_token"]').val()
         },
         dataType: 'json'
       }).always(function(response){
         if(response.exists){
-          $("#emailHelp").html("Email is already taken.");
-          $('input[type="submit"]').prop('disabled', true);
+          $(".new_user #emailHelp").html("Email is already taken.");
+          $('.new_user input[type="submit"]').prop('disabled', true);
+        }else{
+          window.email_ok = true;
+        }
+      })
+    }else{
+      window.email_ok = true;
+    }
+
+    if(window.email_ok && window.password_ok){
+      $('.new_user input[type="submit"]').prop('disabled', false);
+    }
+  })
+
+  $(".new_user #user_password_confirmation").on('input',function() {
+    $(".new_user #confirmPasswordHelp").html("");
+  })
+
+  $('.new_user #user_password_confirmation').blur(function(){
+    if($(".new_user #user_password").val() !== ""){
+      if($(".new_user #user_password").val() === this.value){
+        window.password_confirm_ok = true;
+      }else{
+        $(".new_user #confirmPasswordHelp").html("Password and Password confirmation doesn't match.");
+        $('.new_user input[type="submit"]').prop('disabled', true);
+        window.password_confirm_ok = false;
+      }
+    }else{
+      window.password_confirm_ok = true;
+    }
+
+    if(window.email_ok && window.password_ok && window.password_confirm_ok){
+      $('.new_user input[type="submit"]').prop('disabled', false);
+    }
+  })
+
+
+  $(".new_user").bind('ajax:complete', function(response) {
+    if(response.originalEvent.detail[0].status === 200){
+      $('.new_user').find("input[type=text], input[type=password]").val("");
+      $(".new_user #profile_form_alert").html("<div class='alert alert-info fade show' role='alert'>Add successful.</div>")
+    }else{
+      $(".new_user #profile_form_alert").html("<div class='alert alert-danger fade show' role='alert'>Add error.</div>")
+    }
+  });
+
+  $(".edit_user #user_email").on('input',function() {
+    $(".edit_user #emailHelp").html("");
+  })
+
+  $('.edit_user #user_email').blur(async function(){
+    if(this.value !== ""){
+      await $.ajax({
+        url: '/validate_email',
+        type: 'PUT',
+        data: { 
+          email: this.value,
+          id: $(".edit_user #user_id").val(),
+          authenticity_token: $('.edit_user input[name="authenticity_token"]').val()
+        },
+        dataType: 'json'
+      }).always(function(response){
+        if(response.exists){
+          $(".edit_user #emailHelp").html("Email is already taken.");
+          $('.edit_user input[type="submit"]').prop('disabled', true);
         }else{
           window.email_ok = true;
         }
@@ -64,25 +126,25 @@ $(function(){
     }
   })
 
-  $("#user_current_password").on('input',function() {
-    $("#currentPasswordHelp").html("");
+  $(".edit_user #user_current_password").on('input',function() {
+    $(".edit_user #currentPasswordHelp").html("");
   })
 
-  $('#user_current_password').blur(function(){
+  $('.edit_user #user_current_password').blur(async function(){
     if(this.value !== ""){
-      $.ajax({
+      await $.ajax({
         url: '/validate_password',
         type: 'PUT',
         data: { 
           password: this.value,
-          id: $("#user_id").val(),
-          authenticity_token: $('input[name="authenticity_token"]').val()
+          id: $(".edit_user #user_id").val(),
+          authenticity_token: $('.edit_user input[name="authenticity_token"]').val()
         },
         dataType: 'json'
       }).always(function(response){
         if(!response.validate){
-          $("#currentPasswordHelp").html("Current Password incorrect.");
-          $('input[type="submit"]').prop('disabled', true);
+          $(".edit_user #currentPasswordHelp").html("Current Password incorrect.");
+          $('.edit_user input[type="submit"]').prop('disabled', true);
           window.password_ok = false;
         }else{
           window.password_ok = true;
@@ -91,31 +153,30 @@ $(function(){
     }else{
       window.password_ok = true;
     }
-
     if(window.email_ok && window.password_ok && window.password_confirm_ok){
-      $('input[type="submit"]').prop('disabled', false);
+      $('.edit_user  input[type="submit"]').prop('disabled', false);
     }
   })
 
-  $("#user_email").on('input',function() {
-    $("#emailHelp").html("");
+  $(".edit_user  #user_email").on('input',function() {
+    $(".edit_user  #emailHelp").html("");
   })
 
-  $('#user_email').blur(function(){
+  $('.edit_user  #user_email').blur(async function(){
     if(this.value !== ""){
-      $.ajax({
+      await $.ajax({
         url: '/validate_email',
         type: 'PUT',
         data: { 
           email: this.value,
-          id: $("#user_id").val(),
-          authenticity_token: $('input[name="authenticity_token"]').val()
+          id: $(".edit_user  #user_id").val(),
+          authenticity_token: $('.edit_user  input[name="authenticity_token"]').val()
         },
         dataType: 'json'
       }).always(function(response){
         if(response.exists){
-          $("#emailHelp").html("Email is already taken.");
-          $('input[type="submit"]').prop('disabled', true);
+          $(".edit_user  #emailHelp").html("Email is already taken.");
+          $('.edit_user  input[type="submit"]').prop('disabled', true);
           window.email_ok = false;
         }else{
           window.email_ok = true;
@@ -124,23 +185,22 @@ $(function(){
     }else{
       window.email_ok = true;
     }
-
     if(window.email_ok && window.password_ok && window.password_confirm_ok){
-      $('input[type="submit"]').prop('disabled', false);
+      $('.edit_user input[type="submit"]').prop('disabled', false);
     }
   })
 
-  $("#user_password_confirmation").on('input',function() {
-    $("#confirmPasswordHelp").html("");
+  $(".edit_user #user_password_confirmation").on('input',function() {
+    $(".edit_user #confirmPasswordHelp").html("");
   })
 
-  $('#user_password_confirmation').blur(function(){
-    if($("#user_password").val() !== ""){
-      if($("#user_password").val() === this.value){
+  $('.edit_user #user_password_confirmation').blur(function(){
+    if($(".edit_user #user_password").val() !== ""){
+      if($(".edit_user #user_password").val() === this.value){
         window.password_confirm_ok = true;
       }else{
-        $("#confirmPasswordHelp").html("Password and Password confirmation doesn't match.");
-        $('input[type="submit"]').prop('disabled', true);
+        $(".edit_user #confirmPasswordHelp").html("Password and Password confirmation doesn't match.");
+        $('.edit_user input[type="submit"]').prop('disabled', true);
         window.password_confirm_ok = false;
       }
     }else{
@@ -148,17 +208,18 @@ $(function(){
     }
 
     if(window.email_ok && window.password_ok && window.password_confirm_ok){
-      $('input[type="submit"]').prop('disabled', false);
+      $('.edit_user input[type="submit"]').prop('disabled', false);
     }
   })
 
-  // $(".edit_user").submit(function(e){
-  //   $("#profile_form_alert").html("");
-  //   debugger
-  // })
 
-  $(".edit_user").bind('ajax:complete', function() {
-    console.log("HAHAHAHAAHHAHA")
+  $(".edit_user").bind('ajax:complete', function(response) {
+    if(response.originalEvent.detail[0].status === 200){
+      $(".edit_user").find("input[type=text], input[type=password]").val("");
+      $(".edit_user #profile_form_alert").html("<div class='alert alert-info fade show' role='alert'>Update successful.</div>")
+    }else{
+      $(".edit_user #profile_form_alert").html("<div class='alert alert-danger fade show' role='alert'>Update error.</div>")
+    }
   });
 
 })
