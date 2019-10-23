@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   root to: 'home#index', as: "home" 
   
   get 'summary', as: "summary", controller: :answers
-  put 'update_password', as: "update_password", controller: :users
+  put 'validate_email', as: "validate_email", controller: :users
+  put 'validate_password', as: "validate_password", controller: :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

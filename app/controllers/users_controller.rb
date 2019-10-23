@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin, only: [:index, :create, :show, :destroy]
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :validate_password]
 
   # GET /users
   # GET /users.json
@@ -42,15 +42,18 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    if params[:user][:password].blank?
+      params[:user].delete :password
+      params[:user].delete :password_confirmation
+    end
+
     respond_to do |format|
+      # debugger
       if @user.update(user_params)
-        if current_user.admin?
-          format.html { redirect_to users_url, notice: 'User edited.' }
-        else
-          format.html { redirect_to home_url, notice: 'User edited.' }
-        end
+        bypass_sign_in(@user) if params[:user][:password].present?
+        format.json { render json: { message: "OK" } , status: :ok }
       else
-        format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -66,32 +69,17 @@ class UsersController < ApplicationController
     end
   end
 
-  # PUT /users/update_password
-  def update_password
-    @user = User.find(params[:user][:id])
-    messages = []
+  #PUT /validate_email
+  def validate_email
     respond_to do |format|
-      if !@user.valid_password?(params[:user][:current_password])
-        messages.push("Current password incorrect.")
-      end
+      format.json { render json: { exists: User.where(email: params[:email]).where.not(id: params[:id]).exists? }, status: 200 }
+    end
+  end
 
-      if !params[:user][:password].eql? params[:user][:password_confirmation]
-        messages.push("Password and Password Confirmation doesn't match.")
-      end
-      
-      if messages.empty? 
-        params[:user].delete :id
-        params[:user].delete :current_password
-        if @user.update(user_params)
-          bypass_sign_in(@user)
-          format.json  { render json: { message: "Password updated" }, status: 200 }
-        else
-          format.json  { render json: { message: "Password update error" }, status: 500 }
-        end
-      else
-        format.json  { render json: { messages: messages }, status: :unprocessable_entity }
-      end
-      
+  #PUT /validate_password
+  def validate_password
+    respond_to do |format|
+      format.json { render json: { validate: @user.valid_password?(params[:password]) }, status: 200 }
     end
   end
 
