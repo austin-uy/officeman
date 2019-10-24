@@ -109,18 +109,21 @@ $(document).on("turbolinks:load ready",function(){
     //EMAIL
     let emailHelp = $(this).find("#emailHelp");
 
+    //NEW PASSWORD
+    let newPasswordField = $(this).find("#user_password");
+
     //CONFIRM PASSWORD
     let confirmPasswordHelp = $(this).find("#confirmPasswordHelp");
+    let passwordConfirmField = $(this).find("#user_password_confirmation");
 
     //CURRENT PASSWORD
-    let currentPasswordFind = $(this).find("#user_current_password");
+    let currentPasswordField = $(this).find("#user_current_password");
     let currentPasswordHelp = $(this).find("#currentPasswordHelp");
 
     $(this).find("#user_email").on('input',function() {
       emailHelp.html("");
     })
  
-
     $(this).find("#user_email").blur(async function(){
       if(this.value !== ""){
         await $.ajax({
@@ -135,7 +138,7 @@ $(document).on("turbolinks:load ready",function(){
         }).always(function(response){
           if(response.exists){
             emailHelp.html("Email is already taken.");
-            submit.prop('disabled', true);
+            window.email_ok = false;
           }else{
             window.email_ok = true;
           }
@@ -146,36 +149,24 @@ $(document).on("turbolinks:load ready",function(){
   
       if(window.email_ok && window.password_ok){
         submit.prop('disabled', false);
+      }else{
+        submit.prop('disabled', true);
       }
     })
 
-    $(this).find("#user_password_confirmation").on('input',function() {
-      confirmPasswordHelp.html("");
-    })
-
-    $(this).find("#user_password_confirmation").blur(function(){
-      if($(this.parentElement.parentElement).find('#user_password').val() !== ""){
-        if($(this.parentElement.parentElement).find('#user_password').val() === this.value){
-          window.password_confirm_ok = true;
-        }
-        else{
-          confirmPasswordHelp.html("Password and Password confirmation doesn't match.");
-          submit.prop('disabled', true);
-          window.password_confirm_ok = false;
-        }
-      }
-      else{
-        window.password_confirm_ok = true;
-      }
-  
-      if(window.email_ok && window.password_ok && window.password_confirm_ok){
-        submit.prop('disabled', false);
-      }
-    })
-
-    if(currentPasswordFind.length > 0){
+    if(currentPasswordField.length > 0){
       $(this).find("#user_current_password").on('input',function() {
         currentPasswordHelp.html("");
+        if(this.value===""){
+          newPasswordField.prop('disabled', true);
+          passwordConfirmField.prop('disabled', true);
+          newPasswordField.val("");
+          passwordConfirmField.val("");
+          confirmPasswordHelp.html("");
+          window.password_confirm_ok = true;
+        }else{
+          newPasswordField.prop('disabled', false);
+        }
       })
   
       $(this).find("#user_current_password").blur(function(){
@@ -192,25 +183,68 @@ $(document).on("turbolinks:load ready",function(){
           }).always(function(response){
             if(!response.validate){
               currentPasswordHelp.html("Current Password incorrect.");
-              submit.prop('disabled', true);
+              newPasswordField.prop('disabled', true);
+              passwordConfirmField.prop('disabled', true);
+              newPasswordField.val("");
+              passwordConfirmField.val("");
+              confirmPasswordHelp.html("");
+              window.password_confirm_ok = false;
               window.password_ok = false;
             }else{
               window.password_ok = true;
+              window.password_confirm_ok = false;
             }
 
-            if(window.email_ok && window.password_ok && window.password_confirm_ok){
-              submit.prop('disabled', false);
-            }
           })
         }else{
           window.password_ok = true;
-          if(window.email_ok && window.password_ok && window.password_confirm_ok){
-            submit.prop('disabled', false);
-          }
         }
 
+        if(window.email_ok && window.password_ok && window.password_confirm_ok){
+          submit.prop('disabled', false);
+        }else{
+          submit.prop('disabled', true);
+        }
       })
     }
+
+    $(this).find("#user_password").on('input',function() {
+      if(this.value===""){
+        passwordConfirmField.prop('disabled', true);
+        passwordConfirmField.val("");
+        confirmPasswordHelp.html("");
+      }else{
+        passwordConfirmField.prop('disabled', false);
+      }
+    })
+
+    $(this).find("#user_password_confirmation").on('input',function() {
+      confirmPasswordHelp.html("");
+    })
+
+    $(this).find("#user_password_confirmation").blur(function(){
+      
+      if(this.value === ""){
+        confirmPasswordHelp.html("");
+        window.password_confirm_ok = false;
+      }else if($(this.parentElement.parentElement).find('#user_password').val() !== ""){
+        if($(this.parentElement.parentElement).find('#user_password').val() === this.value){
+          window.password_confirm_ok = true;
+        }
+        else{
+          confirmPasswordHelp.html("Password and Password confirmation doesn't match.");
+          window.password_confirm_ok = false;
+        }
+      }else{
+        window.password_confirm_ok = true;
+      }
+  
+      if(window.email_ok && window.password_ok && window.password_confirm_ok){
+        submit.prop('disabled', false);
+      }else{
+        submit.prop('disabled', true);
+      }
+    })
 
     $(this).find(".edit_user").bind('ajax:complete', function(response) {
       if(response.originalEvent.detail[0].status === 200){
