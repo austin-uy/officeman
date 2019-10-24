@@ -49,7 +49,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.update(user_params)
-        bypass_sign_in(@user) if params[:user][:password].present?
+        bypass_sign_in(@user) if  params[:user][:edit_profile].present? && params[:user][:password].present?
         format.json { render json: { message: "OK" } , status: :ok }
       else
         format.json { render json: @user.errors, status: :unprocessable_entity }
