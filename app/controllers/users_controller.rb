@@ -31,9 +31,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: 'User added.' }
+        format.json { render json: { message: "OK" } , status: :ok }
       else
-        format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -49,7 +48,6 @@ class UsersController < ApplicationController
     end
 
     respond_to do |format|
-      # debugger
       if @user.update(user_params)
         bypass_sign_in(@user) if params[:user][:password].present?
         format.json { render json: { message: "OK" } , status: :ok }
