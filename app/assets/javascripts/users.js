@@ -4,6 +4,7 @@
 var email_ok = true
 var password_ok = true
 var password_confirm_ok = true
+var submit_success = false
 
 $(function(){
   $('#close').click(function (event) {
@@ -18,15 +19,13 @@ $(function(){
     }
   })
   
-  $(document).on("turbolinks:load",function(){
-    $('[data-toggle="tooltip"]').tooltip()
-  })
-  
-  $(".alert").fadeOut(3000);
+  $(".alert").fadeOut(5000);
 
 })
 
 $(document).on("turbolinks:load ready",function(){
+  $('[data-toggle="tooltip"]').tooltip()
+
   $('.custom-file-input').on('change',function(){
     var fileName = $(this).val().split('\\')[$(this).val().split('\\').length - 1];
     if(fileName === "") fileName = "Choose Image (jpeg/png format only)"
@@ -103,7 +102,7 @@ $(document).on("turbolinks:load ready",function(){
     let submit = $(this).find("input[type='submit']");
     let id = $(this).find("#user_id").val();
     let authenticity_token = $(this).find("#user_authenticity_token").val();
-    let fields = $(this).find(".edit_user").find("input[type=text], input[type=password]");
+    let fields = $(this).find(".edit_user").find("input[type=text], input[type=password], input[type=email], input[type=file]");
     let profileFormAlert = $(this).find("#profile_form_alert");
 
     //EMAIL
@@ -164,8 +163,6 @@ $(document).on("turbolinks:load ready",function(){
           passwordConfirmField.val("");
           confirmPasswordHelp.html("");
           window.password_confirm_ok = true;
-        }else{
-          newPasswordField.prop('disabled', false);
         }
       })
   
@@ -191,6 +188,7 @@ $(document).on("turbolinks:load ready",function(){
               window.password_confirm_ok = false;
               window.password_ok = false;
             }else{
+              newPasswordField.prop('disabled', false);
               window.password_ok = true;
               window.password_confirm_ok = false;
             }
@@ -213,8 +211,33 @@ $(document).on("turbolinks:load ready",function(){
         passwordConfirmField.prop('disabled', true);
         passwordConfirmField.val("");
         confirmPasswordHelp.html("");
+      }
+    })
+
+    $(this).find("#user_password").blur(function(){
+      
+      if(this.value === ""){
+        passwordConfirmField.prop('disabled', true);
+        passwordConfirmField.val("");
+        confirmPasswordHelp.html("");
+      }else if($(this.parentElement.parentElement).find('#user_password_confirmation').val() !== ""){
+        if($(this.parentElement.parentElement).find('#user_password_confirmation').val() === this.value){
+          window.password_confirm_ok = true;
+          confirmPasswordHelp.html("");
+        }
+        else{
+          confirmPasswordHelp.html("Password and Password confirmation doesn't match.");
+          window.password_confirm_ok = false;
+        }
       }else{
         passwordConfirmField.prop('disabled', false);
+        window.password_confirm_ok = true;
+      }
+  
+      if(window.email_ok && window.password_ok && window.password_confirm_ok){
+        submit.prop('disabled', false);
+      }else{
+        submit.prop('disabled', true);
       }
     })
 
@@ -248,13 +271,24 @@ $(document).on("turbolinks:load ready",function(){
 
     $(this).find(".edit_user").bind('ajax:complete', function(response) {
       if(response.originalEvent.detail[0].status === 200){
-        fields.val("");
+        fields.prop('disabled',true);
+        window.submit_success = true;
         profileFormAlert.html("<div class='alert alert-info fade show' role='alert'>Update successful.</div>")
+        submit.prop('disabled', true);
       }else{
         profileFormAlert.html("<div class='alert alert-danger fade show' role='alert'>Update error.</div>")
       }
     });
+  });
 
+  $("#editUser,#editProfile").on('hide.bs.modal',function(){
+    let fields = $(this).find(".edit_user").find("input")
+    fields.prop('disabled',false);
+    $(this).find("#profile_form_alert").val("");
+    if(window.submit_success){
+      window.submit_success = false;
+      location.reload();
+    }
   });
   
 })

@@ -3,7 +3,7 @@
 <div class="modal-body"> 
     <%= f.hidden_field :id, value: user.id.nil? ? 0 : user.id %>
     <%= f.hidden_field :authenticity_token, value: form_authenticity_token, id: "user_authenticity_token" %>
-    <% if edit_profile_flag %>
+    <% if user.id == current_user.id %>
       <%= f.hidden_field :edit_profile, value: true %>
     <% end %>
     <div class="form-group">
@@ -22,7 +22,7 @@
       <%= f.text_field :email, type:"email", class:"form-control", required: true, maxlength: 40, aria: { "describedby" => "emailHelp"} %>
       <small id="emailHelp" class="form-text text-danger"></small>
     </div>
-    <% if policy(:application).show? && !edit_profile_flag %>
+    <% if policy(:application).show? && !edit_flag %>
       <div class="form-group">
         <%= f.label :role %>: 
         <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
@@ -32,19 +32,21 @@
         <%= f.text_field :password, type:"password", class:"form-control", required: true %>
       </div>
     <% else %>
-      <div class="form-group">
-        <%= f.label :current_password, "Current Password" %>: 
-        <%= f.text_field :current_password, type:"password", class:"form-control", required: !edit_profile_flag, aria: { "describedby" => "currentPasswordHelp"}%>
-        <small id="currentPasswordHelp" class="form-text text-danger"></small>
-      </div>
+      <% if user.id == current_user.id %>
+        <div class="form-group">
+          <%= f.label :current_password, "Current Password" %>: 
+          <%= f.text_field :current_password, type:"password", class:"form-control", required: !edit_flag, aria: { "describedby" => "currentPasswordHelp"}%>
+          <small id="currentPasswordHelp" class="form-text text-danger"></small>
+        </div>
+      <% end %>
       <div class="form-group">
         <%= f.label :password, "New Password" %>: 
-        <%= f.text_field :password, type:"password", class:"form-control", required: !edit_profile_flag, disabled: edit_profile_flag, minlength: 6 %>
+        <%= f.text_field :password, type:"password", class:"form-control", required: !edit_flag, disabled: user.id.eql?(current_user.id), minlength: 6 %>
       </div>
     <% end %>
     <div class="form-group">
       <%= f.label :password_confirmation %>: 
-      <%= f.text_field :password_confirmation, type:"password", class:"form-control", required: !edit_profile_flag, aria: { "describedby" => "confirmPasswordHelp"}, disabled: edit_profile_flag, minlength: 6 %>
+      <%= f.text_field :password_confirmation, type:"password", class:"form-control", required: !edit_flag, aria: { "describedby" => "confirmPasswordHelp"}, disabled: user.id.eql?(current_user.id), minlength: 6 %>
       <small id="confirmPasswordHelp" class="form-text text-danger"></small>
     </div>
   </div>
