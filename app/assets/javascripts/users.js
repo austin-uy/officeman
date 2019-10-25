@@ -210,7 +210,9 @@ $(document).on("turbolinks:load ready",function(){
 
       if(response.originalEvent.detail[0].status === 200){ 
         fields.prop('disabled',true);
-        submit.remove();
+        setTimeout(() => {
+          submit.prop('disabled',true);
+        }, 0);
         window.submit_success = true;
         profileFormAlert.html("<div class='alert alert-info fade show' role='alert'>"+formType+" successful.</div>")
       }else{
