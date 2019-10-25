@@ -6,24 +6,19 @@ var password_ok = true
 var password_confirm_ok = true
 var submit_success = false
 
-$(function(){
-  $('#close').click(function (event) {
-    event.preventDefault()
-    $("#test").trigger("reset")
-  });
-
-  $(document).ready(function(){
-    let search = new URLSearchParams(document.location.search)
-    if(search.get("open") !== null && search.get("open") === "true"){
-      $('#addUser').modal('show');
-    }
-  })
-  
-  $(".alert").fadeOut(5000);
+$(document).ready(function(){
+  let search = new URLSearchParams(document.location.search)
+  if(search.get("open") !== null && search.get("open") === "true"){
+    $('#addUser').modal('show');
+    $('#addQuestion').modal('show');
+    $('#addEquipment').modal('show');
+  }
 
 })
 
 $(document).on("turbolinks:load ready",function(){
+  $(".alert").fadeOut(4000);
+
   $('[data-toggle="tooltip"]').tooltip()
 
   $('.custom-file-input').on('change',function(){
@@ -31,80 +26,16 @@ $(document).on("turbolinks:load ready",function(){
     if(fileName === "") fileName = "Choose Image (jpeg/png format only)"
     $(this).next('.custom-file-label').html(fileName);
   })
-  
 
-  $('form[action="/users"] #user_email').on('input',function() {
-    $(".new_user #emailHelp").html("");
-  })
-
-  $('form[action="/users"] #user_email').blur(async function(){
-    if(this.value !== ""){
-      await $.ajax({
-        url: '/validate_email',
-        type: 'PUT',
-        data: { 
-          email: this.value,
-          id: $(".new_user #user_id").val(),
-          authenticity_token: $('.new_user input[name="user[authenticity_token]"]').val()
-        },
-        dataType: 'json'
-      }).always(function(response){
-        if(response.exists){
-          $(".new_user #emailHelp").html("Email is already taken.");
-          $('.new_user input[type="submit"]').prop('disabled', true);
-        }else{
-          window.email_ok = true;
-        }
-      })
-    }else{
-      window.email_ok = true;
-    }
-
-    if(window.email_ok && window.password_ok){
-      $('.new_user input[type="submit"]').prop('disabled', false);
-    }
-  })
-
-  $('form[action="/users"] #user_password_confirmation').on('input',function() {
-    $(".new_user #confirmPasswordHelp").html("");
-  })
-
-  $('form[action="/users"] #user_password_confirmation').blur(function(){
-    if($(".new_user #user_password").val() !== ""){
-      if($(".new_user #user_password").val() === this.value){
-        window.password_confirm_ok = true;
-      }else{
-        $(".new_user #confirmPasswordHelp").html("Password and Password confirmation doesn't match.");
-        $('.new_user input[type="submit"]').prop('disabled', true);
-        window.password_confirm_ok = false;
-      }
-    }else{
-      window.password_confirm_ok = true;
-    }
-
-    if(window.email_ok && window.password_ok && window.password_confirm_ok){
-      $('.new_user input[type="submit"]').prop('disabled', false);
-    }
-  })
-
-  $('form[action="/users"]').bind('ajax:complete', function(response) {
-    if(response.originalEvent.detail[0].status === 200){
-      $(".new_user").find("input[type=text], input[type=password]").val("");
-      $(".new_user #profile_form_alert").html("<div class='alert alert-info fade show' role='alert'>Create successful.</div>")
-    }else{
-      $(".new_user #profile_form_alert").html("<div class='alert alert-danger fade show' role='alert'>Create error.</div>")
-    }
-  });
-
-  $("#editUser,#editProfile").on('show.bs.modal',function(){
+  $("#editUser,#editProfile,#addUser").on('show.bs.modal',function(){
 
     //ALL
     let submit = $(this).find("input[type='submit']");
     let id = $(this).find("#user_id").val();
     let authenticity_token = $(this).find("#user_authenticity_token").val();
-    let fields = $(this).find(".edit_user").find("input[type=text], input[type=password], input[type=email], input[type=file]");
+    let fields = $(this).find("form").find("input[type=text], input[type=password], input[type=email], input[type=file], select");
     let profileFormAlert = $(this).find("#profile_form_alert");
-
+    profileFormAlert.val("")
     //EMAIL
     let emailHelp = $(this).find("#emailHelp");
 
@@ -126,12 +57,13 @@ $(document).on("turbolinks:load ready",function(){
     $(this).find("#user_email").blur(async function(){
       if(this.value !== ""){
         await $.ajax({
-          url: '/validate_email',
+          url: '/validate',
           type: 'PUT',
           data: { 
             email: this.value,
             id: id,
-            authenticity_token: authenticity_token
+            authenticity_token: authenticity_token,
+            type: "email"
           },
           dataType: 'json'
         }).always(function(response){
@@ -169,12 +101,13 @@ $(document).on("turbolinks:load ready",function(){
       $(this).find("#user_current_password").blur(function(){
         if(this.value !== ""){
           $.ajax({
-            url: '/validate_password',
+            url: '/validate',
             type: 'PUT',
             data: { 
               password: this.value,
               id: id,
-              authenticity_token: authenticity_token
+              authenticity_token: authenticity_token,
+              type: "password"
             },
             dataType: 'json'
           }).always(function(response){
@@ -249,7 +182,6 @@ $(document).on("turbolinks:load ready",function(){
       
       if(this.value === ""){
         confirmPasswordHelp.html("");
-        window.password_confirm_ok = false;
       }else if($(this.parentElement.parentElement).find('#user_password').val() !== ""){
         if($(this.parentElement.parentElement).find('#user_password').val() === this.value){
           window.password_confirm_ok = true;
@@ -261,7 +193,6 @@ $(document).on("turbolinks:load ready",function(){
       }else{
         window.password_confirm_ok = true;
       }
-  
       if(window.email_ok && window.password_ok && window.password_confirm_ok){
         submit.prop('disabled', false);
       }else{
@@ -269,20 +200,29 @@ $(document).on("turbolinks:load ready",function(){
       }
     })
 
-    $(this).find(".edit_user").bind('ajax:complete', function(response) {
-      if(response.originalEvent.detail[0].status === 200){
-        fields.prop('disabled',true);
-        window.submit_success = true;
-        profileFormAlert.html("<div class='alert alert-info fade show' role='alert'>Update successful.</div>")
-        submit.prop('disabled', true);
+    $(this).find('.new_user,.edit_user').bind('ajax:complete', function(response) {
+      let formType = ""
+      if(this.className === "new_user"){
+        formType = "Create";
       }else{
-        profileFormAlert.html("<div class='alert alert-danger fade show' role='alert'>Update error.</div>")
+        formType = "Update"
+      }
+
+      if(response.originalEvent.detail[0].status === 200){ 
+        fields.prop('disabled',true);
+        submit.remove();
+        window.submit_success = true;
+        profileFormAlert.html("<div class='alert alert-info fade show' role='alert'>"+formType+" successful.</div>")
+      }else{
+        profileFormAlert.html("<div class='alert alert-danger fade show' role='alert'>"+formType+" error.</div>")
       }
     });
+
   });
 
-  $("#editUser,#editProfile").on('hide.bs.modal',function(){
-    let fields = $(this).find(".edit_user").find("input")
+
+  $("#editUser,#editProfile,#addUser").on('hide.bs.modal',function(){
+    let fields = $(this).find("form").find("input")
     fields.prop('disabled',false);
     $(this).find("#profile_form_alert").val("");
     if(window.submit_success){

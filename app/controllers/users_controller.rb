@@ -67,20 +67,20 @@ class UsersController < ApplicationController
     end
   end
 
-  #PUT /validate_email
-  def validate_email
+  #PUT /validate
+  def validate
     respond_to do |format|
-      format.json { render json: { exists: User.where(email: params[:email]).where.not(id: params[:id]).exists? }, status: 200 }
+      case params[:type]
+      when "email"    
+        format.json { render json: { exists: User.where(email: params[:email]).where.not(id: params[:id]).exists? }, status: 200 }
+      when "password"
+        format.json { render json: { validate: @user.valid_password?(params[:password]) }, status: 200 }
+      else
+        format.json { render json: { message: "Bad Request" }, status: 400 }
+      end
     end
-  end
 
-  #PUT /validate_password
-  def validate_password
-    respond_to do |format|
-      format.json { render json: { validate: @user.valid_password?(params[:password]) }, status: 200 }
-    end
   end
-
 
   private
     # Use callbacks to share common setup or constraints between actions.
