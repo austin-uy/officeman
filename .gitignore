@@ -33,3 +33,4 @@
 .DS_Store
 
 /public/system/users/pictures
+/config/local_env.yml
