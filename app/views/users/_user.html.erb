@@ -51,14 +51,3 @@
     </div>
   </div>
 <% end %>
-
-<% if users.last_page? %>
-  <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addUser">
-    <div class="card-body" id="card-add">
-      <p>
-        +<br>
-        <%= t('.add_user') %>
-      </p>
-    </div>
-  </a>
-<% end %>

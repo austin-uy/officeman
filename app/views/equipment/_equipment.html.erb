@@ -60,14 +60,3 @@
     <% end %>
   <% end %>
 <% end %>
-
-<% if policy(:application).show? && ( equipments.empty? || equipments.last_page? ) #admin%>
-  <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addEquipment">
-    <div class="card-body" id="card-add">
-      <p>
-        +<br>
-        <%= t('.add_equipment') %>
-      </p>
-    </div>
-  </a>
-<% end %>
