@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
   before_action :authenticate_admin, only: [:index, :create, :show, :destroy]
-  before_action :set_user, only: [:show, :edit, :update, :destroy, :validate]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
@@ -74,7 +74,7 @@ class UsersController < ApplicationController
       when "email"    
         format.json { render json: { exists: User.where(email: params[:email]).where.not(id: params[:id]).exists? }, status: 200 }
       when "password"
-        format.json { render json: { validate: @user.valid_password?(params[:password]) }, status: 200 }
+        format.json { render json: { validate: User.find(params[:id]).valid_password?(params[:password]) }, status: 200 }
       else
         format.json { render json: { message: "Bad Request" }, status: 400 }
       end
