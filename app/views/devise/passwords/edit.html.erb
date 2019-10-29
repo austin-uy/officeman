@@ -1,25 +1,29 @@
-<h2>Change your password</h2>
+<%= render "devise/shared/error_messages", resource: resource %>
+<div class="center-box">
+  <h2 id="center-h2">Reset Password</h2>
+  
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.hidden_field :reset_password_token %>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
+    <div class="form-group w-25 mx-auto">
+      <%= f.label :password, "New Password" %><br />
+      <%= f.password_field :password, autofocus: true, class:"form-control", aria: { "describedby" => "minPasswordHelp"}, minlength: @minimum_password_length, required: true %>
+      <% if @minimum_password_length %>
+        <small id="minPasswordHelp" class="form-text text-muted">(<%= @minimum_password_length %> characters minimum)</small>
+      <% end %>
+    </div>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
-    <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <div class="form-group w-25 mx-auto">
+      <%= f.label :password_confirmation, "Confirm New Password" %><br />
+      <%= f.password_field :password_confirmation, class:"form-control", minlength: @minimum_password_length, required: true %>
+    </div>
+
+    <div class="actions">
+      <%= f.submit "Change Password", class:"btn btn-primary w-25" %>
+    </div>
+  <% end %>
+
+  <div class="login-items">
+    <%= render "devise/shared/links" %>
   </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Change my password" %>
-  </div>
-<% end %>
-
-<%= render "devise/shared/links" %>
+</div>
