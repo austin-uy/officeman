@@ -84,19 +84,14 @@ class QuestionForm extends React.Component {
               <small id="questionHelp" class="form-text text-muted">Please enter a question with no consecutive white spaces.</small>
             </div>
 
-            <div className="form-group" id="checkbox-group">
-              <input name="show_in_list" type="checkbox" className="form-check-input" id="show-in-list" checked={this.state.show_in_list} value={this.state.show_in_list} onChange={(e)=>{this.setState({show_in_list: e.target.checked})}}/>
+            <div className="form-check">
               <label className="form-check-label" htmlFor="show-in-list">Show in list?</label>
+              <input name="show_in_list" type="checkbox" className="form-check-input" id="show-in-list" checked={this.state.show_in_list} value={this.state.show_in_list} onChange={(e)=>{this.setState({show_in_list: e.target.checked})}}/>
             </div>
 
             <div className="form-group">
               <label htmlFor="answer-type">Answer Type</label>
-              <select name="answer_type" className="form-control" id="answer-type" onChange={(e)=>{ this.setState({selected: e.target.value}) }}>
-                {
-                this.state.selected === "" ?
-                <option selected> Choose... </option> :
-                null
-                }
+              <select name="answer_type" className="selectpicker form-control" title="Choose..." id="answer-type" onChange={(e)=>{ this.setState({selected: e.target.value}) }}>
                 {
                   Object.entries(this.state.types).map((val)=>{
                     return(

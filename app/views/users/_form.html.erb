@@ -25,7 +25,7 @@
     <% if policy(:application).show? && !edit_flag %>
       <div class="form-group">
         <%= f.label :role %>: 
-        <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+        <%= f.select(:role, User.roles.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "selectpicker form-control", required: true }) %>
       </div>
       <div class="form-group">
         <%= f.label :password %>: 

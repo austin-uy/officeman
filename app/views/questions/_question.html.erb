@@ -15,7 +15,7 @@
               <% when 'numerical' %>
                 <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
               <% when 'choice' %>
-                <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+                <%= f.select(:answer, question.choices.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "selectpicker form-control", required: true }) %>
               <% end %>
               
               <%= f.text_field :question_id, type:"hidden", value: question.id %>

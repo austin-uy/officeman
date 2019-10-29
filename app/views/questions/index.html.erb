@@ -1,6 +1,6 @@
 <% if policy(:application).show? %>
-  <div>
-    <button type="button" class="btn btn-outline-primary btn-lg" id="question-add-button" data-toggle="modal" data-target="#addQuestion"><%= t('.add_question')%></button> 
+  <div class="button-container">
+    <button type="button" class="btn btn-outline-primary btn-lg w-25 mx-auto" data-toggle="modal" data-target="#addQuestion"><%= t('.add_question')%></button> 
   </div>
   <div class="questions-admin-div">
     <%= render partial: "admin", locals: { questions: questions(current_user.id, answered = nil) }%>
