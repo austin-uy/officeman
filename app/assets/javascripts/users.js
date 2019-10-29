@@ -154,6 +154,7 @@ $(document).on("turbolinks:load ready",function(){
         passwordConfirmField.prop('disabled', true);
         passwordConfirmField.val("");
         confirmPasswordHelp.html("");
+        window.password_confirm_ok = true;
       }else if($(this.parentElement.parentElement).find('#user_password_confirmation').val() !== ""){
         if($(this.parentElement.parentElement).find('#user_password_confirmation').val() === this.value){
           window.password_confirm_ok = true;
@@ -165,7 +166,8 @@ $(document).on("turbolinks:load ready",function(){
         }
       }else{
         passwordConfirmField.prop('disabled', false);
-        window.password_confirm_ok = true;
+        confirmPasswordHelp.html("Password Confirmation is required.");
+        window.password_confirm_ok = false;
       }
   
       if(window.email_ok && window.password_ok && window.password_confirm_ok){
@@ -181,6 +183,33 @@ $(document).on("turbolinks:load ready",function(){
 
     $(this).find("#user_password_confirmation").blur(function(){
       
+      if(this.value === ""){
+        if($(this.parentElement.parentElement).find('#user_password').val() !== ""){
+          confirmPasswordHelp.html("Password Confirmation is required.");
+          window.password_confirm_ok = false;
+        }else{
+          confirmPasswordHelp.html("");
+          window.password_confirm_ok = true;
+        }
+      }else if($(this.parentElement.parentElement).find('#user_password').val() !== ""){
+        if($(this.parentElement.parentElement).find('#user_password').val() === this.value){
+          window.password_confirm_ok = true;
+        }
+        else{
+          confirmPasswordHelp.html("Password and Password confirmation doesn't match.");
+          window.password_confirm_ok = false;
+        }
+      }else{
+        window.password_confirm_ok = true;
+      }
+      if(window.email_ok && window.password_ok && window.password_confirm_ok){
+        submit.prop('disabled', false);
+      }else{
+        submit.prop('disabled', true);
+      }
+    })
+
+    $(this).find("#user_password_confirmation").bind("enterKey",function(e){
       if(this.value === ""){
         confirmPasswordHelp.html("");
       }else if($(this.parentElement.parentElement).find('#user_password').val() !== ""){
@@ -199,7 +228,7 @@ $(document).on("turbolinks:load ready",function(){
       }else{
         submit.prop('disabled', true);
       }
-    })
+    });
 
     $(this).find('.new_user,.edit_user').bind('ajax:complete', function(response) {
       let formType = ""
@@ -221,6 +250,16 @@ $(document).on("turbolinks:load ready",function(){
       }
     });
 
+    $(this).find('.new_user,.edit_user').on('keypress', e => {
+      if (e.keyCode == 13) {
+        if(window.email_ok && window.password_ok && window.password_confirm_ok){
+          return true;
+        }else{
+          return false;
+        }
+      }
+    });
+
   });
 
 
@@ -234,10 +273,4 @@ $(document).on("turbolinks:load ready",function(){
     }
   });
   
-  $('form').on('keypress', e => {
-    if (e.keyCode == 13) {
-        return false;
-    }
-  });
-
 })
