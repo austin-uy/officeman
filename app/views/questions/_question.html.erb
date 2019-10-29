@@ -11,7 +11,7 @@
             <div class="form-group col-md-6">
               <% case question.answer_type %>
               <% when 'text' %>
-                <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true %>
+                <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true, maxlength: 50 %>
               <% when 'numerical' %>
                 <%= f.text_field :answer, type:"number", class:"form-control", required: true %>
               <% when 'choice' %>

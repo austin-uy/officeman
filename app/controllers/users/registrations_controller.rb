@@ -13,7 +13,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # POST /resource
   def create
-    super
+    @user = User.new(user_params)
+
+    respond_to do |format|
+      if @user.save
+        format.json { render json: { message: "OK" } , status: :ok }
+      else
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   # GET /resource/edit
@@ -54,8 +62,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # The path used after sign up.
   def after_sign_up_path_for(resource)
-    flash[:notice] = 'User added.'
-    users_path
+    "#"
   end
 
   # The path used after sign up for inactive accounts.
@@ -66,4 +73,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def sign_up(resource_name, resource)
     true
   end
+  private
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def user_params
+    params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation)
+  end
+
 end

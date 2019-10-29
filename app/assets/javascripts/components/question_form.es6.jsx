@@ -2,11 +2,9 @@ let initialState = {
   id: Number,
   question: "",
   show_in_list: false,
-  types: [],
   selected: "",
   choices: [],
   editMode: false,
-  auth_token: ""
 }
 
 class QuestionForm extends React.Component {
@@ -124,6 +122,7 @@ class QuestionForm extends React.Component {
           <div className="modal-footer">
             <div className="actions">
               <button type="button" className="btn btn-secondary" data-dismiss="modal" onClick={()=>{this.clear()}}>Close</button>
+              &nbsp;&nbsp;
               <button type="submit" className="btn btn-primary">Submit</button>
             </div>
           </div> 

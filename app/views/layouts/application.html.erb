@@ -55,8 +55,7 @@
                       <small class="text-muted"><%= current_user.role %></small>
                     </div>
                   </div>
-                  <%= link_to  t('.edit_profile'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editProfile" }%>
-                  <%= link_to  t('.change_password'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editPassword" }%>
+                  <%= link_to  t('.edit_profile'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editProfile"}%>
                   <% if policy(:application).show? %>
                     <%= link_to t('.dashboard'), admin_root_path, class: "dropdown-item" %>
                   <% end %>
@@ -90,7 +89,7 @@
       <%= yield %>
     </main>
     <% if user_signed_in? %> 
-      <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileTitle" aria-hidden="true">
+      <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileTitle" aria-hidden="true" data-backdrop="static">
         <div class="modal-dialog modal-dialog" role="document">
           <div class="modal-content" id="edit-modal-content">
             <div class="modal-header">
@@ -98,19 +97,7 @@
                 <%= t('.edit_profile')%>
               </h5>
             </div>
-            <%= render partial: 'users/form', locals: { user: current_user, edit_profile_flag: true} %>
-          </div>
-        </div>
-      </div>
-      <div class="modal fade" id="editPassword" tabindex="-1" role="dialog" aria-labelledby="editPasswordTitle" aria-hidden="true">
-        <div class="modal-dialog modal-dialog" role="document">
-          <div class="modal-content" id="edit-modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
-                <%= t('.change_password')%>
-              </h5>
-            </div>
-            <%= render partial: 'users/edit-password', locals: { user: current_user} %>
+            <%= render partial: 'users/form', locals: { user: current_user, edit_flag: true} %>
           </div>
         </div>
       </div>

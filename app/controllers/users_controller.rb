@@ -31,9 +31,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to users_url, notice: 'User added.' }
+        format.json { render json: { message: "OK" } , status: :ok }
       else
-        format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -42,15 +41,17 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+
+    if params[:user][:password].blank?
+      params[:user].delete :password
+      params[:user].delete :password_confirmation
+    end
+
     respond_to do |format|
       if @user.update(user_params)
-        if current_user.admin?
-          format.html { redirect_to users_url, notice: 'User edited.' }
-        else
-          format.html { redirect_to home_url, notice: 'User edited.' }
-        end
+        bypass_sign_in(@user) if  params[:user][:edit_profile].present? && params[:user][:password].present?
+        format.json { render json: { message: "OK" } , status: :ok }
       else
-        format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -66,15 +67,19 @@ class UsersController < ApplicationController
     end
   end
 
-  # PATCH /users/update_password
-  def update_password
-    @user = current_user
-    if @user.update_with_password(user_params)
-      bypass_sign_in(@user)
-      redirect_to home_path, notice: "Password updated."
-    else
-      redirect_to home_path, notice: "Current password doesn't match our records."
+  #PUT /validate
+  def validate
+    respond_to do |format|
+      case params[:type]
+      when "email"    
+        format.json { render json: { exists: User.where(email: params[:email]).where.not(id: params[:id]).exists? }, status: 200 }
+      when "password"
+        format.json { render json: { validate: User.find(params[:id]).valid_password?(params[:password]) }, status: 200 }
+      else
+        format.json { render json: { message: "Bad Request" }, status: 400 }
+      end
     end
+
   end
 
   private
@@ -87,7 +92,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation, :current_password)
+      params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation)
     end
 
     def authenticate_admin

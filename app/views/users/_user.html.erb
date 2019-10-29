@@ -1,67 +1,64 @@
-
-  <% users.each do |user| %>
-    
-      <div class="card text-white bg-info m-4" id="card">
-        <div class="card-header">
-          <%= image_tag user.picture.url(:small), class: "card-image" %>
-          <% if user.name.length > 18 %>
-            <a data-toggle="tooltip" data-placement="top" title='<%= user.name %>' >
-              <%= user.name[0,16]+"..." %>
+<% users.each do |user| %>
+  <div class="card text-white bg-info m-4" id="card">
+    <div class="card-header">
+      <%= image_tag user.picture.url(:small), class: "card-image" %>
+      <% if user.name.length > 18 %>
+        <a data-toggle="tooltip" data-placement="top" title='<%= user.name %>' >
+          <%= user.name[0,16]+"..." %>
+        </a>
+      <% else %>
+        <%= user.name %>
+      <% end %>
+      <% if user.id != current_user.id %>
+        <div class="btn-group dropright" id="options">
+          <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
+            :
+          </button>
+          <div class="dropdown-menu" >
+            <% if user.user? %>
+              <%= link_to t('.show_answers') , summary_path(user_id: user.id), :class => "dropdown-item"%>
+              <div class="dropdown-divider"></div>
+            <% end %>
+            <%= link_to t('edit') , edit_user_path(user.id), :class => "dropdown-item", remote: true %>
+            <%= link_to t('remove') , user_path(user.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this user?"}, remote: true %>
+          </div>
+        </div>
+      <% end %>
+    </div> 
+    <div class="card-body">
+      <h4>
+        <%= t('.role') %> : 
+        <span class="badge badge-pill badge-dark">
+          &nbsp;
+          <%= user.role.titleize%>
+          &nbsp;
+        </span>
+      </h4>
+      <h4>
+        Email : 
+        <span class="badge badge-pill badge-dark">
+          &nbsp;
+          <% if user.email.length > 20 %>
+            <a data-toggle="tooltip" data-placement="top" title='<%= user.email %>' >
+              <%= user.email[0,18]+"..." %>
             </a>
           <% else %>
-            <%= user.name %>
+            <%= user.email %>
           <% end %>
-          <% if user.id != current_user.id %>
-            <div class="btn-group dropright" id="options">
-              <button type="button"  class="btn btn-outline-info btn-sm" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:white;">
-                :
-              </button>
-              <div class="dropdown-menu" >
-                <% if user.user? %>
-                  <%= link_to t('.show_answers') , summary_path(user_id: user.id), :class => "dropdown-item"%>
-                  <div class="dropdown-divider"></div>
-                <% end %>
-                <%= link_to t('edit') , edit_user_path(user.id), :class => "dropdown-item", remote: true %>
-                <%= link_to t('remove') , user_path(user.id), :method => :delete, :class => "dropdown-item", :data => {:confirm => "Remove this user?"}, remote: true %>
-              </div>
-            </div>
-          <% end %>
-        </div> 
-        <div class="card-body">
-          <h4>
-            <%= t('.role') %> : 
-            <span class="badge badge-pill badge-dark">
-              &nbsp;
-              <%= user.role.titleize%>
-              &nbsp;
-            </span>
-          </h4>
-          <h4>
-            Email : 
-            <span class="badge badge-pill badge-dark">
-              &nbsp;
-              <% if user.email.length > 20 %>
-                <a data-toggle="tooltip" data-placement="top" title='<%= user.email %>' >
-                  <%= user.email[0,18]+"..." %>
-                </a>
-              <% else %>
-                <%= user.email %>
-              <% end %>
-              &nbsp;
-            </span>
-          </h4>
-        </div>
-      </div>
-    
+          &nbsp;
+        </span>
+      </h4>
+    </div>
+  </div>
 <% end %>
 
 <% if users.last_page? %>
-<a href="#1?" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addUser">
-  <div class="card-body" id="card-add">
-    <p>
-      +<br>
-      <%= t('.add_user') %>
-    </p>
-  </div>
-</a>
+  <a href="#" class="card text-white bg-info m-4" id="card" data-toggle="modal" data-target="#addUser">
+    <div class="card-body" id="card-add">
+      <p>
+        +<br>
+        <%= t('.add_user') %>
+      </p>
+    </div>
+  </a>
 <% end %>

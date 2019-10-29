@@ -6,7 +6,7 @@
   <%= paginate get_users(), :remote => true %>
 </div>
 
-<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserTitle" aria-hidden="true">
+<div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserTitle" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -14,12 +14,12 @@
           <%= t('.add_user')%>
         </h5>
       </div>
-        <%= render partial: 'form', locals: {user: User.new, edit_profile_flag: false} %>
+        <%= render partial: 'form', locals: {user: User.new, edit_flag: false} %>
     </div>
   </div>
 </div>
 
-<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserTitle" aria-hidden="true">
+<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserTitle" aria-hidden="true" data-backdrop="static">
   <div class="modal-dialog modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
