@@ -5,7 +5,7 @@
     <div class="form-group">
       <% case get_question(answer.question_id).answer_type %>
       <% when 'text' %>
-        <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true, maxlength: 40 %>
+        <%= f.text_field :answer, type:"text", class:"form-control", placeholder: "Enter Answer", required: true, maxlength: 50 %>
       <% when 'numerical' %>
         <%= f.number_field :answer, type:"number", class:"form-control", required: true%>
       <% when 'choice' %>

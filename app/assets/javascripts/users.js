@@ -233,4 +233,10 @@ $(document).on("turbolinks:load ready",function(){
     }
   });
   
+  $('form').on('keypress', e => {
+    if (e.keyCode == 13) {
+        return false;
+    }
+  });
+
 })
