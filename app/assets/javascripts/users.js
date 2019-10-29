@@ -240,6 +240,7 @@ $(document).on("turbolinks:load ready",function(){
 
       if(response.originalEvent.detail[0].status === 200){ 
         fields.prop('disabled',true);
+        $(this).find(".selectpicker").prop('disabled',true);
         setTimeout(() => {
           submit.prop('disabled',true);
         }, 0);
@@ -266,6 +267,7 @@ $(document).on("turbolinks:load ready",function(){
   $("#editUser,#editProfile,#addUser").on('hide.bs.modal',function(){
     let fields = $(this).find("form").find("input")
     fields.prop('disabled',false);
+    $(this).find(".selectpicker").prop('disabled',false);
     $(this).find("#profile_form_alert").val("");
     if(window.submit_success){
       window.submit_success = false;
