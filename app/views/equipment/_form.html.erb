@@ -6,15 +6,15 @@
     </div>
     <div class="form-group">
       <%= f.label :equipment_type %>: 
-      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "selectpicker form-control", required: true }) %>
     </div>
     <div class="form-group">
       <%= f.label :status %>: 
-      <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "form-control", required: true }) %>
+      <%= f.select(:status, Equipment.statuses.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "selectpicker form-control", required: true }) %>
     </div>
     <div class="form-group">
       <label for="user">Assigned User</label>: 
-      <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, { include_blank: 'Choose...' } , { class: "form-control", id:"user", required: true } ) %>
+      <%= f.select(:user_id, User.select(:id, :name).where.not(role: 1).map {|user|  [user.name,user.id] }, { include_blank: 'Choose...' } , { class: "selectpicker form-control", "data-dropup-auto" => false, "data-live-search" => true, id:"user", required: true } ) %>
     </div>
 </div>
 <div class="modal-footer">

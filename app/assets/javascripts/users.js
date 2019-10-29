@@ -18,6 +18,7 @@ $(document).ready(function(){
 
 $(document).on("turbolinks:load ready",function(){
   $(".alert").fadeOut(4000);
+  $('.selectpicker').selectpicker();
 
   $('[data-toggle="tooltip"]').tooltip()
 
