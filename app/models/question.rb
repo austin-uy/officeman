@@ -1,5 +1,5 @@
 class Question < ApplicationRecord
-  enum answer_type: [:text, :numerical, :choice]
+  enum answer_type: %i[text numerical choice]
   serialize :choices, Array
   has_many :answers, dependent: :destroy
   validates :question, presence: true
@@ -7,6 +7,6 @@ class Question < ApplicationRecord
   validates :choices, presence: true, if: :test
 
   def test
-    self.choice?
+    choice?
   end
 end

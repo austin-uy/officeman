@@ -3,11 +3,11 @@
 </div>
 
 <div class="main-container">
-  <%= render 'user', users: get_users() %>
+  <%= render 'user', users: getter_users() %>
 </div>
 
 <div class="paginator">
-  <%= paginate get_users(), :remote => true %>
+  <%= paginate getter_users(), :remote => true %>
 </div>
 
 <div class="modal fade" id="addUser" tabindex="-1" role="dialog" aria-labelledby="addUserTitle" aria-hidden="true" data-backdrop="static">

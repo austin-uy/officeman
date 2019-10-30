@@ -1,6 +1,6 @@
 class EquipmentController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_equipment, only: [:show, :edit, :update, :destroy]
+  before_action :set_equipment, only: %i[show edit update destroy]
 
   # GET /equipment
   # GET /equipment.json
@@ -11,21 +11,22 @@ class EquipmentController < ApplicationController
   # GET /equipment/1
   # GET /equipment/1.json
   def show
-    redirect_to equipment_index_url, notice: "Access denied."
+    redirect_to equipment_index_url, notice: 'Access denied.'
   end
 
   # GET /equipment/new
   def new
     if policy(:application).show?
-      redirect_to equipment_index_url(open: true, page: helpers.get_equipment().total_pages)
+      redirect_to equipment_index_url(
+        open: true, page: helpers.getter_equipment.total_pages
+      )
     else
-      redirect_to equipment_index_url, notice: "Access denied."
+      redirect_to equipment_index_url, notice: 'Access denied.'
     end
   end
 
   # GET /equipment/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /equipment
   # POST /equipment.json
@@ -34,10 +35,16 @@ class EquipmentController < ApplicationController
 
     respond_to do |format|
       if @equipment.save
-        format.html { redirect_to equipment_index_url, notice: 'Equipment added.' }
+        format.html {
+          redirect_to equipment_index_url,
+            notice: 'Equipment added.'
+        }
       else
         format.html { render :new }
-        format.json { render json: @equipment.errors, status: :unprocessable_entity }
+        format.json {
+          render json: @equipment.errors,
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -47,10 +54,16 @@ class EquipmentController < ApplicationController
   def update
     respond_to do |format|
       if @equipment.update(equipment_params)
-        format.html { redirect_to equipment_index_url, notice: 'Equipment edited.' }
+        format.html {
+          redirect_to equipment_index_url,
+            notice: 'Equipment edited.'
+        }
       else
         format.html { render :edit }
-        format.json { render json: @equipment.errors, status: :unprocessable_entity }
+        format.json {
+          render json: @equipment.errors,
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -60,21 +73,26 @@ class EquipmentController < ApplicationController
   def destroy
     @equipment.destroy
     respond_to do |format|
-      format.html { redirect_to equipment_index_url, notice: 'Equipment deleted.' }
+      format.html {
+        redirect_to equipment_index_url,
+          notice: 'Equipment deleted.'
+      }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_equipment
-      @equipment = Equipment.find(params[:id])
-      rescue ActiveRecord::RecordNotFound => e
-        redirect_to equipment_index_url, notice: "Record not found."
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def equipment_params
-      params.require(:equipment).permit(:name, :equipment_type, :status, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_equipment
+    @equipment = Equipment.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to equipment_index_url, notice: 'Record not found.'
+  end
+
+  # Never trust parameters from the scary internet, only allow the white
+  # list through.
+  def equipment_params
+    params.require(:equipment).permit(:name, :equipment_type, :status, :user_id)
+  end
 end

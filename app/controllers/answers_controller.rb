@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: [:show, :edit, :update, :destroy]
+  before_action :set_answer, only: %i[show edit update destroy]
 
   # GET /answers
   # GET /answers.json
@@ -21,9 +21,9 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
-    if(current_user.id.eql? @answer.user_id)
+    if(current_user.id.eql?(@answer.user_id))
       respond_to do |format|
-        format.js { render action: '../questions/edit_answer'}
+        format.js { render action: '../questions/edit_answer' }
       end
     else
       respond_to do |format|
@@ -39,10 +39,16 @@ class AnswersController < ApplicationController
 
     respond_to do |format|
       if @answer.save
-        format.html { redirect_to questions_url, notice: 'Answer submit successful.' }
+        format.html {
+          redirect_to questions_url,
+            notice: 'Answer submit successful.'
+        }
       else
         format.html { render :new }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
+        format.json {
+          render json: @answer.errors,
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -54,8 +60,10 @@ class AnswersController < ApplicationController
       if @answer.update(answer_params)
         format.html { redirect_to questions_url, notice: 'Answer edited.' }
       else
-        format.html { render :edit }
-        format.json { render json: @answer.errors, status: :unprocessable_entity }
+        format.json {
+          render json: @answer.errors,
+          status: :unprocessable_entity
+        }
       end
     end
   end
@@ -70,21 +78,23 @@ class AnswersController < ApplicationController
     end
   end
 
-  #GET /summary
+  # GET /summary
   def summary
     @answers = Answer.where(user_id: params[:user_id])
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_answer
-      @answer = Answer.find(params[:id])
-      rescue ActiveRecord::RecordNotFound => e
-        redirect_to questions_url, notice: "Record not found."
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def answer_params
-      params.require(:answer).permit(:answer, :question_id, :user_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_answer
+    @answer = Answer.find(params[:id])
+    rescue ActiveRecord::RecordNotFound => e
+      redirect_to questions_url, notice: 'Record not found.'
+  end
+
+  # Never trust parameters from the scary internet,
+  # only allow the white list through.
+  def answer_params
+    params.require(:answer).permit(:answer, :question_id, :user_id)
+  end
 end

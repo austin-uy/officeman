@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :answer do
-    answer { "lorem ipsum" }
+    answer { 'lorem ipsum' }
     question_id { nil }
     user_id { nil }
   end

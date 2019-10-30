@@ -2,10 +2,10 @@
   <% if policy(:application).show?%>
     <h2><%= t('.shown_in_list_questions' )%></h2>
     <div class="container">
-      <%= render partial: "show-in-list" , locals: { questions: get_show_in_list_questions()}%>
+      <%= render partial: "show-in-list" , locals: { questions: getter_show_in_list_questions()}%>
     </div>
     <div class="index-paginator">
-      <%= paginate get_show_in_list_questions(), :remote => true %>
+      <%= paginate getter_show_in_list_questions(), :remote => true %>
     </div>
   <% else %>
     <div id="user-index">

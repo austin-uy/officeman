@@ -6,9 +6,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/sign_up
   def new
-    if !user_signed_in?
-      redirect_to new_user_session_path, notice: "Please consult your respective admin for account creation."
-    end
+    redirect_to new_user_session_path unless user_signed_in?
   end
 
   # POST /resource
@@ -17,7 +15,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
     respond_to do |format|
       if @user.save
-        format.json { render json: { message: "OK" } , status: :ok }
+        format.json { render json: { message: 'OK' }, status: :ok }
       else
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
@@ -52,7 +50,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:name, :role, :picture])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[name role picture])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
@@ -61,8 +59,8 @@ class Users::RegistrationsController < Devise::RegistrationsController
   # end
 
   # The path used after sign up.
-  def after_sign_up_path_for(resource)
-    "#"
+  def after_sign_up_path_for(_resource)
+    '#'
   end
 
   # The path used after sign up for inactive accounts.
@@ -70,13 +68,17 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super(resource)
   # end
 
-  def sign_up(resource_name, resource)
+  def sign_up(_resource_name, _resource)
     true
   end
-  private
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def user_params
-    params.require(:user).permit(:name, :role, :picture, :email, :password, :password_confirmation)
-  end
 
+  private
+
+  # Never trust parameters from the scary internet, only allow the white list
+  # through.
+  def user_params
+    params.require(:user).permit(
+      :name, :role, :picture, :email, :password, :password_confirmation
+    )
+  end
 end

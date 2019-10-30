@@ -4,6 +4,6 @@ module AnswersHelper
   end
 
   def possesive(name)
-    name + ('s' == name[-1,1] ? "' " : "'s ")
+    name + (name[-1, 1] == 's' ? "' " : "'s ")
   end
 end

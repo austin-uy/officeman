@@ -3,7 +3,7 @@ FactoryBot.define do
   statuses = Equipment.statuses.keys
 
   factory :equipment do
-    name { "Thing" }
+    name { 'Thing' }
     equipment_type { equipment_types.sample }
     status { statuses.sample }
     user_id { nil }
