@@ -7,7 +7,8 @@ class ChoiceComponent extends React.Component {
   }
   
   addChoice(){
-    if(this.state.choice === ""){
+    if(this.state.choice.trim(" ") === ""){
+      this.setState({choice: ""})
       alert("Please fill in a choice.");
     }else{  
       this.props.state.choices.push(this.state.choice)
