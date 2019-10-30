@@ -64,6 +64,8 @@ class QuestionForm extends React.Component {
         selected: this.props.question.answer_type,
         choices: this.props.question.choices,
         editMode: true
+      },()=>{
+        $('.selectpicker').selectpicker('val', this.state.selected);
       })
     }
   }
