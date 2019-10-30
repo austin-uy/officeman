@@ -8,25 +8,40 @@
   <div class="tab-content" id="nav-tabContent">
 <% end %>
 <% if policy(:application).show? %>
-  <div class="button-container">
-    <button type="button" class="btn btn-outline-primary btn-lg w-25 mx-auto" data-toggle="modal" data-target="#addEquipment"><%= t('.add_equipment')%></button> 
-  </div>
   <div class="tab-pane fade show active" id="nav-equipments" role="tabpanel" aria-labelledby="nav-equipments-tab">
+    <div class="button-container">
+      <button type="button" class="btn btn-outline-primary btn-lg w-25 mx-auto" data-toggle="modal" data-target="#addEquipment"><%= t('.add_equipment')%></button> 
+    </div>
 <% else %>
     <div class="content">
 <% end %>
       <div class="main-container">
         <%= render partial: "equipment", locals: { equipments: getter_equipment() } %>
       </div>
-
+    <% if getter_equipment().length > 0 %>
       <div class="paginator">
         <%= paginate getter_equipment(), :remote => true %>
       </div>
+    <% else %>
+      <h3 class="text-muted"> 
+        <p class="text-center">
+          <%= t('empty') %>.
+        </p>
+      </h3>
+    <% end %>
     </div>
 
 <% if policy(:application).show? %>
     <div class="tab-pane fade" id="nav-report" role="tabpanel" aria-labelledby="nav-report-tab">
-      <%= render  "report" %>
+      <% if get_equipment_status_report('bar').empty? %>
+        <h3 class="text-muted"> 
+          <p class="text-center">
+            <%= t('empty') %>.
+          </p>
+        </h3>
+      <% else %>
+        <%= render  "report" %>
+      <% end %>
     </div>
   </div>
 <% end %>
