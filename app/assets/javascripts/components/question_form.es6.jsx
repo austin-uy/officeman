@@ -83,7 +83,7 @@ class QuestionForm extends React.Component {
             <div className="form-group">
               <label htmlFor="question">Question</label>
               <input name="question" id="question" type="text" aria-describedby="questionHelp" className="form-control" value={this.state.question} onChange={(e)=>{this.setState({question: e.target.value})}} maxLength={155} pattern="([^\s]+([' ']{1})?)+" required/>
-              <small id="questionHelp" class="form-text text-muted">Please enter a question with no consecutive white spaces.</small>
+              <small id="questionHelp" className="form-text text-muted">Please enter a question with no consecutive white spaces.</small>
             </div>
 
             <div className="form-check">
