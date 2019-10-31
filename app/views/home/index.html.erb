@@ -4,9 +4,17 @@
     <div class="container">
       <%= render partial: "show-in-list" , locals: { questions: getter_show_in_list_questions()}%>
     </div>
-    <div class="index-paginator">
-      <%= paginate getter_show_in_list_questions(), :remote => true %>
-    </div>
+    <% if getter_show_in_list_questions().length > 0 %>
+      <div class="index-paginator">
+        <%= paginate getter_show_in_list_questions(), :remote => true %>
+      </div>
+    <% else %>
+      <h3 class="text-muted"> 
+        <p class="text-center">
+          <%= t('empty') %>.
+        </p>
+      </h3>
+    <% end %>
   <% else %>
     <div id="user-index">
       <%= image_tag current_user.picture.url(:medium) %>
