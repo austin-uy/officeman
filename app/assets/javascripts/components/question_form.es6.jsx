@@ -47,6 +47,13 @@ class QuestionForm extends React.Component {
           name: 'id',
           value: this.state.id
         }).appendTo('form');
+
+      if(!this.state.show_in_list)
+        $('<input>').attr({
+          type: 'hidden',
+          name: 'show_in_list',
+          value: this.state.show_in_list
+        }).appendTo('form');
     }
   }
 
