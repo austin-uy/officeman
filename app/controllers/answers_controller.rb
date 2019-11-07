@@ -1,22 +1,17 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_answer, only: %i[show edit update destroy]
+  before_action :set_answer, only: %i[edit update destroy]
 
-  # GET /answers
-  # GET /answers.json
+  # GET /summary
   def index
-    redirect_to questions_url, notice: 'Access denied.'
-  end
-
-  # GET /answers/1
-  # GET /answers/1.json
-  def show
-    redirect_to questions_url, notice: 'Access denied.'
-  end
-
-  # GET /answers/new
-  def new
-    redirect_to questions_url, notice: 'Access denied.'
+    @answers = Answer.where(user_id: params[:user_id])
+    respond_to do |format|
+      if @answers.empty?
+        format.html { redirect_to users_url, notice: 'Record not found.' }
+      else
+        format.html { render 'summary' }
+      end
+    end
   end
 
   # GET /answers/1/edit
@@ -78,18 +73,13 @@ class AnswersController < ApplicationController
     end
   end
 
-  # GET /summary
-  def summary
-    @answers = Answer.where(user_id: params[:user_id])
-  end
-
   private
 
   # Use callbacks to share common setup or constraints between actions.
   def set_answer
     @answer = Answer.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      redirect_to questions_url, notice: 'Record not found.'
+  rescue ActiveRecord::RecordNotFound => e
+    redirect_to questions_url, notice: 'Record not found.'
   end
 
   # Never trust parameters from the scary internet,

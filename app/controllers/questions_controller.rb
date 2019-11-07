@@ -1,17 +1,11 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_question, only: %i[show edit create update destroy]
+  before_action :set_question, only: %i[edit create update destroy]
 
   # GET /questions
   # GET /questions.json
   def index
     @questions = Question.all
-  end
-
-  # GET /questions/1
-  # GET /questions/1.json
-  def show
-    redirect_to questions_url, notice: 'Access denied.'
   end
 
   # GET /questions/new
@@ -83,8 +77,8 @@ class QuestionsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_question
     @question = Question.find(params[:id]) if params[:id]
-    rescue ActiveRecord::RecordNotFound
-      redirect_to questions_url, notice: 'Record not found.'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to questions_url, notice: 'Record not found.'
   end
 
   # Never trust parameters from the scary internet,

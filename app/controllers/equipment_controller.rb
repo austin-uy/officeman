@@ -1,17 +1,11 @@
 class EquipmentController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_equipment, only: %i[show edit update destroy]
+  before_action :set_equipment, only: %i[edit update destroy]
 
   # GET /equipment
   # GET /equipment.json
   def index
     @equipment = Equipment.all
-  end
-
-  # GET /equipment/1
-  # GET /equipment/1.json
-  def show
-    redirect_to equipment_index_url, notice: 'Access denied.'
   end
 
   # GET /equipment/new
@@ -86,8 +80,8 @@ class EquipmentController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_equipment
     @equipment = Equipment.find(params[:id])
-    rescue ActiveRecord::RecordNotFound => e
-      redirect_to equipment_index_url, notice: 'Record not found.'
+  rescue ActiveRecord::RecordNotFound => e
+    redirect_to equipment_index_url, notice: 'Record not found.'
   end
 
   # Never trust parameters from the scary internet, only allow the white
