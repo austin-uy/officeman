@@ -20,7 +20,12 @@ class EquipmentController < ApplicationController
   end
 
   # GET /equipment/1/edit
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html { redirect_to equipment_index_url }
+      format.js
+    end
+  end
 
   # POST /equipment
   # POST /equipment.json

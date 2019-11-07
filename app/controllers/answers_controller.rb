@@ -16,14 +16,11 @@ class AnswersController < ApplicationController
 
   # GET /answers/1/edit
   def edit
-    if(current_user.id.eql?(@answer.user_id))
-      respond_to do |format|
+    respond_to do |format|
+      if(current_user.id.eql?(@answer.user_id))
         format.js { render action: '../questions/edit_answer' }
       end
-    else
-      respond_to do |format|
-        format.html { redirect_to questions_url, notice: 'Access denied.' }
-      end
+      format.html { redirect_to questions_url}
     end
   end
 

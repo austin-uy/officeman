@@ -18,7 +18,12 @@ class QuestionsController < ApplicationController
   end
 
   # GET /questions/1/edit
-  def edit; end
+  def edit
+    respond_to do |format|
+      format.html { redirect_to questions_url }
+      format.js
+    end
+  end
 
   # POST /questions
   # POST /questions.json
