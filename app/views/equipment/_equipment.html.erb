@@ -1,7 +1,7 @@
 <% cache equipments do%>
   <% equipments.each do |equipment| %>
     <% cache equipment do%>
-    <div class="card text-white bg-info m-4" id="card">
+    <div class="card text-white bg-info m-4" id="equipment-card">
       <div class="card-header">
         <% if equipment.name.length > 26 %>
           <a data-toggle="tooltip" data-placement="top" title='<%= equipment.name %>' >
@@ -52,6 +52,14 @@
           <span class="badge badge-pill badge-dark">
             &nbsp;
             <%= equipment.status.titleize %>
+            &nbsp;
+          </span>
+        </h4>
+        <h4>
+          <%= t('.serial_number') %> : 
+          <span class="badge badge-pill badge-dark">
+            &nbsp;
+            <%= equipment.serial_number %>
             &nbsp;
           </span>
         </h4>
