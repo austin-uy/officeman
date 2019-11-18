@@ -1,8 +1,12 @@
 <% cache equipments do%>
   <% equipments.each do |equipment| %>
     <% cache equipment do%>
+  <% if equipment.equipment_type.eql? "license"%>
     <div class="card text-white bg-info m-4" id="equipment-card">
-      <div class="card-header">
+  <% else %>
+    <div class="card text-white bg-info m-4" id="user-card">
+  <% end %>
+    <div class="card-header">
         <% if equipment.name.length > 26 %>
           <a data-toggle="tooltip" data-placement="top" title='<%= equipment.name %>' >
             <%= equipment.name[0,24]+"..." %>
