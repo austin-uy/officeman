@@ -276,8 +276,10 @@ $(document).on("turbolinks:load ready",function(){
 
   $("#editEquipment,#addEquipment").on('show.bs.modal',function(){
     let serial = $(this).find('#serial');
-    serial.hide();
-    serial.find('.form-control').prop('required', false);
+    if($(this).find('.selectpicker.form-control.type').val() !== 'license'){
+      serial.hide();
+      serial.find('.form-control').prop('required', false);
+    }
 
     $('.selectpicker.form-control.type').change(function(){
       let value = $(this).val();
