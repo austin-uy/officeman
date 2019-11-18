@@ -273,5 +273,23 @@ $(document).on("turbolinks:load ready",function(){
       location.reload();
     }
   });
+
+  $("#editEquipment,#addEquipment").on('show.bs.modal',function(){
+    let serial = $(this).find('#serial');
+    serial.hide();
+    serial.find('.form-control').prop('required', false);
+
+    $('.selectpicker.form-control.type').change(function(){
+      let value = $(this).val();
+      if(value === "license"){
+        serial.show();
+        serial.find('.form-control').prop('required', true);
+      }else{
+        serial.hide();
+        serial.find('.form-control').val('');
+        serial.find('.form-control').prop('required', false);
+      }
+    })
+  })
   
 })

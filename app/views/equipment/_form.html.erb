@@ -3,15 +3,15 @@
     <div class="form-group">
       <%= f.label :name %>: 
       <%= f.text_field :name, type:"text", class:"form-control", id: "name", required: true, maxlength: 50 %>
-    </div>
+    </div> 
     <div class="form-group">
+      <%= f.label :equipment_type %>: 
+      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "selectpicker form-control type", required: true }) %>
+    </div>
+    <div class="form-group" id="serial">
       <%= f.label :serial_number %>: 
       <%= f.text_field :serial_number, type:"text", class:"form-control", raria: { "describedby" => "serialHelp" }, pattern: "(([0-9]{3}[-]){2}[0-9]{3})", required: true, maxlength: 11 %>
       <small id="serialHelp" >Please follow the format XXX-XXX-XXX.</small>
-    </div>
-    <div class="form-group">
-      <%= f.label :equipment_type %>: 
-      <%= f.select(:equipment_type, Equipment.equipment_types.map {|key, value|  [key.titleize,key] }, { include_blank: 'Choose...' }, { class: "selectpicker form-control", required: true }) %>
     </div>
     <div class="form-group">
       <%= f.label :status %>: 

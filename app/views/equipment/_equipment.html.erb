@@ -55,14 +55,16 @@
             &nbsp;
           </span>
         </h4>
-        <h4>
-          <%= t('.serial_number') %> : 
-          <span class="badge badge-pill badge-dark">
-            &nbsp;
-            <%= equipment.serial_number %>
-            &nbsp;
-          </span>
-        </h4>
+        <% if equipment.equipment_type.eql? "license"%>
+          <h4>
+            <%= t('.serial_number') %> : 
+            <span class="badge badge-pill badge-dark">
+              &nbsp;
+              <%= equipment.serial_number %>
+              &nbsp;
+            </span>
+          </h4>
+        <% end %>
       </div>
     </div>
     <% end %>

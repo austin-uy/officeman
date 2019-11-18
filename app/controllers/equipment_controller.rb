@@ -1,6 +1,7 @@
 class EquipmentController < ApplicationController
   before_action :authenticate_user!
   before_action :set_equipment, only: %i[edit update destroy]
+  before_action :license_check, only: %i[create update]
 
   # GET /equipment
   # GET /equipment.json
@@ -31,19 +32,18 @@ class EquipmentController < ApplicationController
   # POST /equipment.json
   def create
     @equipment = Equipment.new(equipment_params)
-
     respond_to do |format|
       if @equipment.save
-        format.html {
+        format.html do
           redirect_to equipment_index_url,
             notice: 'Equipment added.'
-        }
+        end
       else
         format.html { render :new }
-        format.json {
+        format.json do
           render json: @equipment.errors,
           status: :unprocessable_entity
-        }
+        end
       end
     end
   end
@@ -53,16 +53,16 @@ class EquipmentController < ApplicationController
   def update
     respond_to do |format|
       if @equipment.update(equipment_params)
-        format.html {
+        format.html do
           redirect_to equipment_index_url,
             notice: 'Equipment edited.'
-        }
+        end
       else
         format.html { render :edit }
-        format.json {
+        format.json do
           render json: @equipment.errors,
           status: :unprocessable_entity
-        }
+        end
       end
     end
   end
@@ -72,10 +72,10 @@ class EquipmentController < ApplicationController
   def destroy
     @equipment.destroy
     respond_to do |format|
-      format.html {
+      format.html do
         redirect_to equipment_index_url,
           notice: 'Equipment deleted.'
-      }
+      end
       format.json { head :no_content }
     end
   end
@@ -92,6 +92,12 @@ class EquipmentController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white
   # list through.
   def equipment_params
-    params.require(:equipment).permit(:name, :equipment_type, :status, :user_id, :serial_number)
+    params.require(:equipment).permit(
+      :name, :equipment_type, :status, :user_id, :serial_number)
+  end
+
+  def license_check
+    params[:equipment].delete :serial_number unless
+      params[:equipment][:equipment_type].eql?('license')
   end
 end

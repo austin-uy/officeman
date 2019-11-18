@@ -63,28 +63,19 @@ Equipment.create([
     name: 'Chair',
     equipment_type: 2,
     status: 1,
-    user_id: 2,
-    serial_number: Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s
+    user_id: 2
   },
   {
     name: 'Chair',
     equipment_type: 2,
     status: 1,
-    user_id: 3,
-    serial_number: Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s
+    user_id: 3
   },
   {
     name: 'Desk',
     equipment_type: 2,
     status: 1,
-    user_id: 2,
-    serial_number: Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s
+    user_id: 2
   },
   {
     name: 'Notepad',
@@ -99,10 +90,7 @@ Equipment.create([
     name: 'Mouse',
     equipment_type: 0,
     status: 2,
-    user_id: 2,
-    serial_number: Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s
+    user_id: 2
   }
 ])
 
@@ -132,15 +120,25 @@ Equipment.create([
 end
 
 150.times do
-  Equipment.create(
-    name: Faker::Appliance.equipment,
-    equipment_type: rand(0..3),
-    status: rand(0..2),
-    user_id: rand(2..10),
-    serial_number: Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s + '-' +
-      Faker::Number.number(digits: 3).to_s
-  )
+  eq_type = rand(0..3)
+  if eq_type == 1
+    Equipment.create(
+      name: Faker::Appliance.equipment,
+      equipment_type: eq_type,
+      status: rand(0..2),
+      user_id: rand(2..10),
+      serial_number: Faker::Number.number(digits: 3).to_s + '-' +
+        Faker::Number.number(digits: 3).to_s + '-' +
+        Faker::Number.number(digits: 3).to_s
+    )
+  else
+    Equipment.create(
+      name: Faker::Appliance.equipment,
+      equipment_type: eq_type,
+      status: rand(0..2),
+      user_id: rand(2..10)
+    )
+  end
 end
 
 (2..10).each do |user|
