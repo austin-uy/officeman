@@ -128,8 +128,8 @@ end
   if eq_type[0].eql?('license')
     Equipment.create(
       name: Faker::Appliance.equipment,
-      equipment_type: eq_type[1],
-      status: Equipment.statuses.entries.sample[1],
+      equipment_type: :license,
+      status: Equipment.statuses.values.sample,
       user_id: User.where.not(role: :admin).sample.id,
       serial_number: Faker::Number.number(digits: 3).to_s + '-' +
         Faker::Number.number(digits: 3).to_s + '-' +
@@ -139,7 +139,7 @@ end
     Equipment.create(
       name: Faker::Appliance.equipment,
       equipment_type: eq_type[1],
-      status: Equipment.statuses.entries.sample[1],
+      status: Equipment.statuses.values.sample,
       user_id: User.where.not(role: :admin).sample.id
     )
   end
