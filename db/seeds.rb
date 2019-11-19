@@ -17,21 +17,21 @@ User.create([
     email: 'admin@localhost',
     password: 'password',
     password_confirmation: 'password',
-    role: 1
+    role: :admin
   },
   {
     name: 'Adam',
     email: 'adam@localhost',
     password: 'password',
     password_confirmation: 'password',
-    role: 0
+    role: :user
   },
   {
     name: 'User',
     email: 'user@localhost',
     password: 'useruser',
     password_confirmation: 'useruser',
-    role: 0
+    role: :user
   }
 ])
 # Question answer_type: [:text, :numerical, :choice]
@@ -39,58 +39,61 @@ Question.delete_all
 Question.create([
   {
     question: 'What is your name?',
-    answer_type: 0,
+    answer_type: :text,
     show_in_list: false
   },
   {
     question: 'How old are you?',
-    answer_type: 1,
+    answer_type: :numerical,
     show_in_list: false
   },
   {
     question: 'Where do you live?',
-    answer_type: 0,
+    answer_type: :text,
     show_in_list: true }
 ])
 
 Answer.delete_all
 
-# Equipment type: [:hardware, :software, :peripheral]
+@adam = User.find_by(email: 'adam@localhost')
+@user = User.find_by(email: 'user@localhost')
+
+# Equipment type: [:hardware :license :'online account' :peripheral]
 # Equipment status: [:deployed, :stored, :defective]
 Equipment.delete_all
 Equipment.create([
   {
     name: 'Chair',
-    equipment_type: 2,
-    status: 1,
-    user_id: 2
+    equipment_type: :hardware,
+    status: :stored,
+    user_id: @user.id
   },
   {
     name: 'Chair',
-    equipment_type: 2,
-    status: 1,
-    user_id: 3
+    equipment_type: :hardware,
+    status: :stored,
+    user_id: @adam.id
   },
   {
     name: 'Desk',
-    equipment_type: 2,
-    status: 1,
-    user_id: 2
+    equipment_type: :hardware,
+    status: :stored,
+    user_id: @user.id
   },
   {
     name: 'Notepad',
-    equipment_type: 1,
-    status: 1,
-    user_id: 2,
+    equipment_type: :license,
+    status: :deployed,
+    user_id: @user.id,
     serial_number: Faker::Number.number(digits: 3).to_s + '-' +
       Faker::Number.number(digits: 3).to_s + '-' +
       Faker::Number.number(digits: 3).to_s
   },
   {
     name: 'Mouse',
-    equipment_type: 0,
-    status: 2,
-    user_id: 2
+    equipment_type: :peripheral,
+    status: :defective,
+    user_id: @adam.id
   }
 ])
 
@@ -100,33 +103,34 @@ Equipment.create([
     email: Faker::Internet.email,
     password: 'password',
     password_confirmation: 'password',
-    role: 0
+    role: :user
   )
-  answer_type = rand(0..2)
-  if answer_type == 2
+
+  answer_type = Question.answer_types.entries.sample
+  if answer_type[0].eql?('choice')
     Question.create(
       question: Faker::Lorem.question(word_count: 3),
-      answer_type: answer_type,
+      answer_type: answer_type[1],
       show_in_list: Faker::Boolean.boolean(true_ratio: 0.7),
       choices: Faker::Lorem.words(number: 3)
     )
   else
     Question.create(
       question: Faker::Lorem.question(word_count: 3),
-      answer_type: answer_type,
+      answer_type: answer_type[1],
       show_in_list: Faker::Boolean.boolean(true_ratio: 0.7)
     )
   end
 end
 
 150.times do
-  eq_type = rand(0..3)
-  if eq_type == 1
+  eq_type = Equipment.equipment_types.entries.sample
+  if eq_type[0].eql?('license')
     Equipment.create(
       name: Faker::Appliance.equipment,
-      equipment_type: eq_type,
-      status: rand(0..2),
-      user_id: rand(2..10),
+      equipment_type: eq_type[1],
+      status: Equipment.statuses.entries.sample[1],
+      user_id: User.where.not(role: :admin).sample.id,
       serial_number: Faker::Number.number(digits: 3).to_s + '-' +
         Faker::Number.number(digits: 3).to_s + '-' +
         Faker::Number.number(digits: 3).to_s
@@ -134,9 +138,9 @@ end
   else
     Equipment.create(
       name: Faker::Appliance.equipment,
-      equipment_type: eq_type,
-      status: rand(0..2),
-      user_id: rand(2..10)
+      equipment_type: eq_type[1],
+      status: Equipment.statuses.entries.sample[1],
+      user_id: User.where.not(role: :admin).sample.id
     )
   end
 end
