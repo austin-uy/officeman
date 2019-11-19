@@ -1,5 +1,5 @@
 <% users.each do |user| %>
-  <div class="card text-white bg-info m-4" id="card">
+  <div class="card text-white bg-info m-4" id="user-card">
     <div class="card-header">
       <%= image_tag user.picture.url(:small), class: "card-image" %>
       <% if user.name.length > 18 %>

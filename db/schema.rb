@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_25_002345) do
+ActiveRecord::Schema.define(version: 2019_11_18_005004) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "answer", default: "", null: false
@@ -24,11 +24,12 @@ ActiveRecord::Schema.define(version: 2019_09_25_002345) do
 
   create_table "equipment", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name", default: "", null: false
-    t.integer "equipment_type", null: false
-    t.integer "status", null: false
+    t.integer "equipment_type"
+    t.integer "status"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "serial_number"
     t.index ["user_id"], name: "index_equipment_on_user_id"
   end
 
@@ -42,8 +43,8 @@ ActiveRecord::Schema.define(version: 2019_09_25_002345) do
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", default: "", null: false
-    t.integer "role", null: false
+    t.string "name", null: false
+    t.integer "role"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "email", default: "", null: false
