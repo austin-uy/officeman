@@ -145,27 +145,26 @@ end
   end
 end
 
-(2..10).each do |user|
-  (1..10).each do |question|
-    found = Question.find(question)
-    case found.answer_type
+User.where.not(role: :admin).each do |user|
+  Question.all.each do |question|
+    case question.answer_type
     when 'text'
       Answer.create(
         answer: Faker::Lorem.word,
-        question_id: question,
-        user_id: user
+        question_id: question.id,
+        user_id: user.id
       )
     when 'numerical'
       Answer.create(
         answer: Faker::Number.within(range: 1..50),
-        question_id: question,
-        user_id: user
+        question_id: question.id,
+        user_id: user.id
       )
     when 'choice'
       Answer.create(
-        answer: found.choices.sample,
-        question_id: question,
-        user_id: user
+        answer: question.choices.sample,
+        question_id: question.id,
+        user_id: user.id
       )
     end
   end
