@@ -29,6 +29,7 @@
 .profile-header{
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
 
 .profile-texts{
@@ -36,5 +37,9 @@
 }
 
 .profile-location{
-  margin-top: 2rem;
+  
+}
+
+.profile-picture{
+  align-self: center;
 }
