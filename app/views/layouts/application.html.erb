@@ -44,22 +44,7 @@
                   <% end%>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <div class="dropdown-header" style="display:flex;">
-                    <%= image_tag current_user.picture.url(:small) %>
-                    <div id="dropdown-header-name">
-                      <h6>
-                        <% if current_user.name.length > 17 %>
-                          <a data-toggle="tooltip" data-placement="right" title='<%= current_user.name %>' >
-                            <%= current_user.name[0,15]+"..." %>
-                          </a>
-                        <% else %>
-                          <%= current_user.name %>
-                        <% end%>
-                      </h6>
-                      <small class="text-muted"><%= current_user.role %></small>
-                    </div>
-                  </div>
-                  <%= link_to  t('.edit_profile'),  "#", { class: "dropdown-item", "data-toggle" => "modal", "data-target" => "#editProfile"}%>
+                  <%= link_to t('.profile'), profile_path, class: "dropdown-item" %>
                   <% if policy(:application).show? %>
                     <%= link_to t('.dashboard'), admin_root_path, class: "dropdown-item" %>
                   <% end %>
@@ -92,19 +77,5 @@
       <% end %>
       <%= yield %>
     </main>
-    <% if user_signed_in? %> 
-      <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileTitle" aria-hidden="true" data-backdrop="static">
-        <div class="modal-dialog modal-dialog" role="document">
-          <div class="modal-content" id="edit-modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLongTitle">
-                <%= t('.edit_profile')%>
-              </h5>
-            </div>
-            <%= render partial: 'users/form', locals: { user: current_user, edit_flag: true} %>
-          </div>
-        </div>
-      </div>
-    <% end %>
   </body>
 </html>

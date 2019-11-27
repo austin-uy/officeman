@@ -20,5 +20,6 @@ Rails.application.routes.draw do
 
   get 'summary', as: 'summary', controller: :answers, action: :index
   put 'validate', as: 'validate', controller: :users
+  get 'profile', as: 'profile', controller: :users
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

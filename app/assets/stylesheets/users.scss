@@ -19,3 +19,22 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.profile{
+  display: flex;
+  margin: 5rem;
+  flex-direction: column;
+}
+
+.profile-header{
+  display: flex;
+  flex-direction: row;
+}
+
+.profile-texts{
+  margin-left: 2rem;
+}
+
+.profile-location{
+  margin-top: 2rem;
+}

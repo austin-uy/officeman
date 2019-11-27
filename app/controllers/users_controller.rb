@@ -99,6 +99,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /profile
+  def profile
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

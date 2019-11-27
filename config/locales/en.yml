@@ -36,7 +36,7 @@ en:
       user: "User"
       question: "Question" 
       equipment: "Equipment"
-      edit_profile: "Edit Profile"
+      profile: "Profile"
       change_password: "Change Password"
       dashboard: "Dashboard"
       logout: "Logout"
@@ -55,6 +55,7 @@ en:
       show_answers: "Show Answers"
       add_user: "Add User"
       edit_user: "Edit User"
+      edit_profile: "Edit Profile"
   questions:
     index:
       answered: "Answered"

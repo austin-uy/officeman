@@ -1,3 +1,33 @@
-<h1><%= t('.edit_profile') %></h1>
+<div class="profile" >
+  <div class="profile-header">
+    <%= image_tag current_user.picture.url(:medium) %>
+    <div class="profile-texts">
+      <h2>
+        <%= current_user.name %>
+      </h2>
+      <h3><%= current_user.role.titleize %> account</h3>
+      <h3 class="text-muted">Member since <%= current_user.created_at.localtime.to_s[0,10] %></h3>
+    </div>
+  </div>
+  <div class="profile-location">
+    <h2>Location: </h2>
+  </div>
+</div>
 
-<%= render 'form', user: current_user %>
+
+<%= link_to  t('.edit_profile'),  "#", { class: "btn btn-primary", "data-toggle" => "modal", "data-target" => "#editProfile"}%>
+
+<% if user_signed_in? %> 
+  <div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="editProfileTitle" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-dialog" role="document">
+      <div class="modal-content" id="edit-modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">
+            <%= t('.edit_profile')%>
+          </h5>
+        </div>
+        <%= render partial: 'form', locals: { user: current_user, edit_flag: true} %>
+      </div>
+    </div>
+  </div>
+<% end %>
