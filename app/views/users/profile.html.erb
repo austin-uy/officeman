@@ -18,6 +18,32 @@
       </h4>
     </div>
   </div>
+
+  <div style="width: 640px; height: 480px" id="mapContainer"></div>
+  <script type="text/javascript" charset="utf-8">
+    
+    var platform = new H.service.Platform({
+    'apikey': "<%= ENV["API_KEY"]%>"
+    });
+
+    var maptypes = platform.createDefaultLayers();
+
+    var map = new H.Map(
+    document.getElementById('mapContainer'),
+    maptypes.vector.normal.map,
+    {
+      center: { lng: <%= current_user.longitude.to_s %>, lat: <%=current_user.latitude.to_s%> },
+      zoom: 15,
+      pixelRatio: window.devicePixelRatio || 1
+    });
+
+    window.addEventListener('resize', () => map.getViewPort().resize());
+    
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+    var ui = H.ui.UI.createDefault(map, maptypes);
+  </script>
+
 </div>
 
 <% if user_signed_in? %> 
