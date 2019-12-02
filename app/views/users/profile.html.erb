@@ -22,6 +22,18 @@
   <div style="width: 640px; height: 480px" id="mapContainer"></div>
   <script type="text/javascript" charset="utf-8">
     
+    function setUpClickListener(map) {
+      map.addEventListener('tap', function (evt) {
+        var coord = map.screenToGeo(evt.currentPointer.viewportX,
+                evt.currentPointer.viewportY);
+        console.log('Clicked at ' + coord.lat.toFixed(4) +
+            ', ' + coord.lng.toFixed(4));
+        var marker = new H.map.Marker(new H.geo.Point(coord.lat, coord.lng));
+        map.removeObjects(map.getObjects());
+        map.addObject(marker);
+      });
+    }
+
     var platform = new H.service.Platform({
     'apikey': "<%= ENV["API_KEY"]%>"
     });
@@ -42,6 +54,8 @@
     var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
 
     var ui = H.ui.UI.createDefault(map, maptypes);
+
+    setUpClickListener(map); 
   </script>
 
 </div>
