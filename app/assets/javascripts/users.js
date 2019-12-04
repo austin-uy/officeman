@@ -262,12 +262,48 @@ $(document).on("turbolinks:load ready",function(){
 
   });
 
+  $("#editUser,#editProfile,#addUser").on('show.bs.modal',function(){
+    function setUpClickListener(map) {
+      map.addEventListener('tap', function (evt) {
+        var coord = map.screenToGeo(evt.currentPointer.viewportX,
+                evt.currentPointer.viewportY);
+        var marker = new H.map.Marker(new H.geo.Point(coord.lat, coord.lng));
+        map.removeObjects(map.getObjects());
+        map.addObject(marker);
+      });
+    }
+    
+    var platform = new H.service.Platform({
+      'apikey': "cAZr6qT0OYygEfBpHwz5Vzba8yjAwHMOaE6F90aahbM"
+      });
+
+    var maptypes = platform.createDefaultLayers();
+
+    var map = new H.Map(
+    $(this).find('#mapContainer')[0],
+    maptypes.vector.normal.map,
+    {
+      center: { lng: $(this).find('#mapContainer').attr('long'), lat: $(this).find('#mapContainer').attr('lat') },
+      zoom: 15,
+      pixelRatio: window.devicePixelRatio || 1
+    });
+
+    window.addEventListener('resize', () => map.getViewPort().resize());
+    
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+    var ui = H.ui.UI.createDefault(map, maptypes);
+
+    setUpClickListener(map); 
+  })
+
 
   $("#editUser,#editProfile,#addUser").on('hide.bs.modal',function(){
     let fields = $(this).find("form").find("input")
     fields.prop('disabled',false);
     $(this).find(".selectpicker").prop('disabled',false);
     $(this).find("#profile_form_alert").val("");
+    $(this).find('#mapContainer').empty();
     if(window.submit_success){
       window.submit_success = false;
       location.reload();
