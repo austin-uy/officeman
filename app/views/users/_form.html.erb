@@ -51,7 +51,11 @@
     </div>
     <div class="form-group">
       <label for="mapContainer">Location:</label>
-      <div style="width: 400px; height: 360px" id="mapContainer" long=<%= user.longitude %> lat=<%= user.latitude %>></div>
+      <% if policy(:application).show? && !edit_flag %>
+        <div style="width: 460px; height: 360px" id="mapContainer" long="121.02" lat="14.5575"></div>
+      <% else %> 
+        <div style="width: 460px; height: 360px" id="mapContainer" long=<%= user.longitude %> lat=<%= user.latitude %>></div>
+      <% end %>
       <%= f.hidden_field :longitude %>
       <%= f.hidden_field :latitude %>
     </div>

@@ -262,24 +262,25 @@ $(document).on("turbolinks:load ready",function(){
 
   });
 
-  function setUpClickListener(map) {
-    console.log("CALLED")
+  function setUpClickListener(map,lat,long) {
     map.addEventListener('tap', function (evt) {
       var coord = map.screenToGeo(evt.currentPointer.viewportX,
               evt.currentPointer.viewportY);
       var marker = new H.map.Marker(new H.geo.Point(coord.lat, coord.lng));
+      lat.val(coord.lat);
+      long.val(coord.lng);
       map.removeObjects(map.getObjects());
       map.addObject(marker);
     });
   }
 
-  $("#editUser,#editProfile").on('shown.bs.modal',function(){    
+  $("#editUser,#editProfile,#addUser").on('shown.bs.modal',function(){    
     var platform = new H.service.Platform({
       'apikey': "cAZr6qT0OYygEfBpHwz5Vzba8yjAwHMOaE6F90aahbM"
       });
 
     var maptypes = platform.createDefaultLayers();
-
+    
     var map = new H.Map(
     $(this).find('#mapContainer')[0],
     maptypes.vector.normal.map,
@@ -298,7 +299,15 @@ $(document).on("turbolinks:load ready",function(){
 
     var ui = H.ui.UI.createDefault(map, maptypes);
 
-    setUpClickListener(map); 
+    var marker = new H.map.Marker(new H.geo.Point(parseFloat($(this).find('#mapContainer').attr('lat')), parseFloat($(this).find('#mapContainer').attr('long'))));
+    var lat = $(this).find('#user_latitude');
+    var long = $(this).find('#user_longitude');
+    
+    map.addObject(marker);
+    lat.val(parseFloat($(this).find('#mapContainer').attr('lat')))
+    long.find('#user_longitude').val(parseFloat($(this).find('#mapContainer').attr('long')))
+
+    setUpClickListener(map,lat,long); 
   })
 
 

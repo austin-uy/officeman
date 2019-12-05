@@ -118,7 +118,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :name, :role, :picture,
       :email, :password,
-      :password_confirmation)
+      :password_confirmation,
+      :longitude, :latitude)
   end
 
   def authenticate_admin

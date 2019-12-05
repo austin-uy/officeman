@@ -14,7 +14,8 @@
       <%= image_tag  "https://image.maps.api.here.com/mia/1.6/mapview?app_id=#{ENV["APP_ID"]}&app_code=#{ENV["APP_CODE"]}&ctr=#{current_user.latitude},#{current_user.longitude}&poi=#{current_user.latitude},#{current_user.longitude}&z=15&poithm=1&w=360&h=280
       ", alt: "Map" %> 
       <h4 class="text-muted">
-        <%= current_user.latitude.to_s+", "+current_user.longitude.to_s %>
+        <%= current_user.latitude.round(4).abs.to_s+"° "%><%= current_user.latitude > 0 ? 'N': 'S'%>
+        <%=", "+current_user.longitude.round(4).abs.to_s+"° " %><%= current_user.longitude > 0 ? 'E': 'W'%>
       </h4>
     </div>
   </div>
