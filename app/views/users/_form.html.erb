@@ -1,5 +1,6 @@
 <%= form_for(user, html: { multipart: true }, remote: true) do |f| %>
 <div id="profile_form_alert"></div>
+<div id="api_key" data=<%=ENV["API_KEY"]%>></div>
 <div class="modal-body"> 
     <%= f.hidden_field :id, value: user.id.nil? ? 0 : user.id %>
     <%= f.hidden_field :authenticity_token, value: form_authenticity_token, id: "user_authenticity_token" %>

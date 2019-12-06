@@ -276,7 +276,7 @@ $(document).on("turbolinks:load ready",function(){
 
   $("#editUser,#editProfile,#addUser").on('shown.bs.modal',function(){    
     var platform = new H.service.Platform({
-      'apikey': "cAZr6qT0OYygEfBpHwz5Vzba8yjAwHMOaE6F90aahbM"
+      'apikey': $(this).find('#api_key').attr('data')
       });
 
     var maptypes = platform.createDefaultLayers();
