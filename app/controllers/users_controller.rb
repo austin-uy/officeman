@@ -99,6 +99,10 @@ class UsersController < ApplicationController
     end
   end
 
+  # GET /profile
+  def profile
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.
@@ -114,7 +118,8 @@ class UsersController < ApplicationController
     params.require(:user).permit(
       :name, :role, :picture,
       :email, :password,
-      :password_confirmation)
+      :password_confirmation,
+      :longitude, :latitude)
   end
 
   def authenticate_admin

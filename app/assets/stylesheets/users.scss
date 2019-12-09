@@ -19,3 +19,27 @@
   margin-top: 1rem;
   margin-bottom: 1rem;
 }
+
+.profile{
+  display: flex;
+  margin: 5rem;
+  flex-direction: column;
+}
+
+.profile-header{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.profile-texts{
+  margin-left: 2rem;
+}
+
+.profile-location{
+  
+}
+
+.profile-picture{
+  align-self: center;
+}

@@ -262,12 +262,61 @@ $(document).on("turbolinks:load ready",function(){
 
   });
 
+  function setUpClickListener(map,lat,long) {
+    map.addEventListener('tap', function (evt) {
+      var coord = map.screenToGeo(evt.currentPointer.viewportX,
+              evt.currentPointer.viewportY);
+      var marker = new H.map.Marker(new H.geo.Point(coord.lat, coord.lng));
+      lat.val(coord.lat);
+      long.val(coord.lng);
+      map.removeObjects(map.getObjects());
+      map.addObject(marker);
+    });
+  }
+
+  $("#editUser,#editProfile,#addUser").on('shown.bs.modal',function(){    
+    var platform = new H.service.Platform({
+      'apikey': $(this).find('#api_key').attr('data')
+      });
+
+    var maptypes = platform.createDefaultLayers();
+    
+    var map = new H.Map(
+    $(this).find('#mapContainer')[0],
+    maptypes.vector.normal.map,
+    {
+      center: { 
+        lng: parseFloat($(this).find('#mapContainer').attr('long')), 
+        lat: parseFloat($(this).find('#mapContainer').attr('lat'))
+      },
+      zoom: 15,
+      pixelRatio: window.devicePixelRatio || 1
+    });
+    
+    window.addEventListener('resize', () => map.getViewPort().resize());
+    
+    var behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map));
+
+    var ui = H.ui.UI.createDefault(map, maptypes);
+
+    var marker = new H.map.Marker(new H.geo.Point(parseFloat($(this).find('#mapContainer').attr('lat')), parseFloat($(this).find('#mapContainer').attr('long'))));
+    var lat = $(this).find('#user_latitude');
+    var long = $(this).find('#user_longitude');
+    
+    map.addObject(marker);
+    lat.val(parseFloat($(this).find('#mapContainer').attr('lat')))
+    long.find('#user_longitude').val(parseFloat($(this).find('#mapContainer').attr('long')))
+
+    setUpClickListener(map,lat,long); 
+  })
+
 
   $("#editUser,#editProfile,#addUser").on('hide.bs.modal',function(){
     let fields = $(this).find("form").find("input")
     fields.prop('disabled',false);
     $(this).find(".selectpicker").prop('disabled',false);
     $(this).find("#profile_form_alert").val("");
+    $(this).find('#mapContainer').empty();
     if(window.submit_success){
       window.submit_success = false;
       location.reload();
